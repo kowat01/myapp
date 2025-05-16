@@ -1,107 +1,126 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="header">
 
-    <!-- ✅ 상단 고정 헤더 -->
-    <header class="bg-black text-white fixed-top w-100 shadow" style="z-index: 1030;">
-        <!-- 로그인 영역 -->
-        <div class="container-fluid pt-2 px-4">
-            <div class="row">
-                <div class="col text-end fs-6">
-                    <span th:if="${session.userInfo != null}">
-                        <span th:text="${session.userInfo.userName}"></span> 님 환영합니다.
-                        <a href="javascript:void(0)" onclick="logout()" class="text-white text-decoration-none ms-2">로그아웃</a>
-                    </span>
-                    <span th:if="${session.userInfo == null}">
-                        <a href="/login/form" class="text-white text-decoration-none">로그인</a>
-                    </span>
-                </div>
+    <aside class="sidebar">
+        <div class="text-center mb-4">
+            <a href="/home">
+                <img src="/images/logo.png" alt="로고" style="width: 100px;">
+            </a>
+            <div class="login-status mt-2 small">
+                <span th:if="${session.userInfo != null}">
+                    <span th:text="${session.userInfo.userName}"></span> 님<br>
+                    <a href="javascript:void(0)" onclick="logout()" class="text-white text-decoration-none">로그아웃</a>
+                </span>
+                <span th:if="${session.userInfo == null}">
+                    <a href="/login/form" class="text-white text-decoration-none me-2">로그인</a>
+                    <a href="/join/form" class="text-white text-decoration-none">회원가입</a>
+                </span>
             </div>
         </div>
 
-        <!-- 네비게이션 바 -->
-        <div class="container-fluid py-3 px-4">
-            <div class="row align-items-center">
-                <!-- 로고 -->
-                <div class="col-auto">
-                    <a class="navbar-brand" href="/home">
-                        <img src="/images/logo.png" alt="로고" style="height: 60px;">
-                    </a>
-                </div>
+        <ul class="nav flex-column small">
+            <li class="nav-item">
+                <a href="javascript:void(0)" class="nav-link" onclick="toggleDropdown('introMenu')">소개</a>
+                <ul id="introMenu" class="dropdown-inner">
+                    <li><a href="#">워해머란?</a></li>
+                    <li><a href="#">게임 종류</a></li>
+                    <li><a href="#">준비물</a></li>
+                </ul>
+            </li>
 
-                <!-- 메뉴 -->
-                <div class="col d-flex justify-content-end gap-4 fs-5 align-items-center" id="menuList">
+            <li class="nav-item">
+                <a href="javascript:void(0)" class="nav-link" onclick="toggleDropdown('loreMenu')">세계관 설정</a>
+                <ul id="loreMenu" class="dropdown-inner">
+                    <li><a href="#">배경</a></li>
+                    <li><a href="#">종족</a></li>
+                </ul>
+            </li>
 
-                    <a href="/home" id="home" class="nav-link text-white text-decoration-none">Home</a>
-                    <a href="#" id="intro" class="nav-link text-white text-decoration-none">미니어처 보드게임이란?</a>
+            <li class="nav-item">
+                <a href="javascript:void(0)" class="nav-link" onclick="toggleDropdown('shopMenu')">구매 사이트</a>
+                <ul id="shopMenu" class="dropdown-inner">
+                    <li><a href="#">공식몰</a></li>
+                    <li><a href="#">중고 거래</a></li>
+                </ul>
+            </li>
+        </ul>
+    </aside>
 
-                    <!-- ✅ 드롭다운 메뉴 -->
-                    <div class="dropdown">
-                        <a class="nav-link dropdown-toggle text-white text-decoration-none"
-                           href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            세계관 정리
-                        </a>
-                        <ul class="dropdown-menu bg-dark border-0 shadow">
-                            <li><a class="dropdown-item text-white" href="#">제국</a></li>
-                            <li><a class="dropdown-item text-white" href="#">카오스</a></li>
-                            <li><a class="dropdown-item text-white" href="#">외계 종족</a></li>
-                        </ul>
-                    </div>
-
-                    <a href="#" id="shop" class="nav-link text-white text-decoration-none">구매 사이트</a>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- ✅ 네비바 고정 높이만큼 여백 -->
     <style>
-        body {
-            padding-top: 120px;
+        html, body {
+            margin: 0;
+            padding: 0;
+            background-color: black;
         }
 
-        /* Hover 색상 강조 */
-        .nav-link:hover {
-            color: #ffcc00 !important;
-            text-decoration: underline;
-        }
-
-        .dropdown-menu {
-            background-color: #222;
-        }
-
-        .dropdown-item {
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 180px;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(6px);
+            padding: 20px 10px;
+            font-size: 14px;
             color: white;
+            z-index: 1000;
         }
 
-        .dropdown-item:hover {
-            background-color: #444;
-            color: #ffcc00;
+        .nav-link,
+        .dropdown-inner li a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 6px 10px;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-link:hover,
+        .nav-link:focus,
+        .nav-link:active {
+            color: #aa8866 !important; /* 진중한 브론즈 */
+        }
+
+        .dropdown-inner {
+            list-style: none;
+            margin: 0 0 8px 0;
+            padding-left: 0;
+            display: none;
+        }
+
+        .dropdown-inner li a {
+            font-size: 13px;
+            padding-left: 24px;
+        }
+
+        .dropdown-inner li a:hover,
+        .dropdown-inner li a:focus,
+        .dropdown-inner li a:active {
+            color: #8888aa !important; /* 어두운 보라 - 신비하고 고요한 느낌 */
+        }
+
+        body > main,
+        body > .content {
+            margin-left: 180px;
+            padding: 20px;
         }
     </style>
 
-    <!-- ✅ 활성 메뉴 표시 스크립트 -->
     <script>
         function logout() {
             location.href = "/logout";
         }
 
-        function setActiveMenu() {
-            const menuIds = ['home', 'intro', 'lore', 'shop'];
-            const requestPath = location.pathname;
-
-            for (let id of menuIds) {
-                if (requestPath.includes(id)) {
-                    $('#menuList').find('a').removeClass('active');
-                    $('#' + id).addClass('active');
-                    break;
-                }
+        function toggleDropdown(id) {
+            const el = document.getElementById(id);
+            if (el) {
+                el.style.display = (el.style.display === 'block') ? 'none' : 'block';
             }
         }
-
-        $(document).ready(function () {
-            setActiveMenu();
-        });
     </script>
+
 </div>
 </html>
