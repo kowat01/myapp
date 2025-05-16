@@ -13,7 +13,6 @@ public class HomeController {
 @RequestMapping(value="/home", method = RequestMethod.GET)
     public ModelAndView home() {
         ModelAndView view = new ModelAndView();
-        view.addObject("msg", "안녕2");
         view.setViewName("views/home");
 
         return view;
