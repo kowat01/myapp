@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>회원가입</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background: url('/images/loginmain.png') no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Georgia', serif;
+            color: white;
+        }
+
+        .join-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .join-box {
+            width: 550px;
+            height: 700px;
+            background: url('/images/loginbackgorund.jpg') no-repeat center center;
+            background-size: 100% 100%;
+            border-radius: 10px;
+            box-shadow: 0 0 15px #00000080;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 0 35px;
+        }
+
+        .form-wrap {
+            width: 300px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-control,
+        .form-select {
+            height: 36px;
+            font-size: 14px;
+            background-color: rgba(255, 255, 255, 0.95);
+            color: #2c1e08;
+        }
+
+        .form-control::placeholder {
+            color: #7b6e5c;
+        }
+
+        .email-group {
+            display: flex;
+            gap: 5px;
+        }
+
+        .btn-image {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            border: none;
+            background: none;
+            padding: 0;
+            cursor: pointer;
+        }
+
+        .btn-image img {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .btn-image span {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -45%);
+            font-size: 13px;
+            font-weight: bold;
+            color: white;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+        .id-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 8px;
+        }
+
+        .id-row input {
+            flex: 1;
+        }
+
+        .id-row button {
+            white-space: nowrap;
+            padding: 0 12px;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+
+<main class="join-container">
+    <div class="join-box">
+        <form id="joinForm" class="d-flex justify-content-center align-items-center flex-column" style="height: 100%;">
+            <div class="form-wrap">
+                <!-- 아이디 입력 -->
+                <div class="form-group id-row">
+                    <input type="text" class="form-control" id="userId" name="userId" placeholder="아이디 입력">
+                    <button type="button" class="btn btn-success" onclick="checkDuplicateId()">ID확인</button>
+                </div>
+
+                <!-- 이름 입력 -->
+                <div class="form-group">
+                    <input type="text" class="form-control" id="userName" name="userName" placeholder="이름 입력">
+                </div>
+
+                <!-- 비밀번호 입력 -->
+                <div class="form-group">
+                    <input type="password" class="form-control" id="passwd" name="passwd" placeholder="비밀번호 입력">
+                </div>
+
+                <!-- 이메일 입력 -->
+                <div class="form-group email-group">
+                    <input type="text" class="form-control" id="mailId" name="mailId" placeholder="이메일" style="width: 120px;">
+                    <span>@</span>
+                    <input type="text" class="form-control" id="mailAgency" name="mailAgency" style="width: 110px;" readonly>
+                    <select class="form-select" id="agencySelect" style="width: 90px;" onchange="changeAgency(this.value)">
+                        <option value="none">선택</option>
+                        <option value="naver.com">naver.com</option>
+                        <option value="daum.net">daum.net</option>
+                        <option value="gmail.com">gmail.com</option>
+                        <option value="nate.com">nate.com</option>
+                        <option value="yahoo.com">yahoo.com</option>
+                        <option value="self">직접입력</option>
+                    </select>
+                </div>
+
+                <!-- 버튼 영역 -->
+                <div class="text-center d-flex justify-content-center gap-4 mt-4">
+                    <button type="button" class="btn-image" onclick="register()">
+                        <img src="/images/loginbtn.png" alt="회원가입">
+                        <span>회원가입</span>
+                    </button>
+                    <button type="button" class="btn-image" onclick="location.href='/home'">
+                        <img src="/images/loginbtn.png" alt="취소">
+                        <span>취소</span>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</main>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<script th:src="@{/webjars/jquery/3.7.1/dist/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"></script>
+<script>
+    function changeAgency(value) {
+        const mailAgency = $('#mailAgency');
+        mailAgency.prop('readonly', true).val('');
+        if (value === 'self') {
+            mailAgency.prop('readonly', false);
+        } else if (value !== 'none') {
+            mailAgency.val(value);
+        }
+    }
+
+    function checkDuplicateId() {
+        const userId = $('#userId').val().trim();
+        if (!userId) {
+            alert('아이디를 입력하세요.');
+            return;
+        }
+
+        fetch(`/api/user/check-id?userId=${userId}`)
+            .then(res => res.json())
+            .then(data => {
+                if (data.exists) alert('이미 사용 중인 ID입니다.');
+                else alert('사용 가능한 ID입니다.');
+            })
+            .catch(err => {
+                alert('중복 확인 중 오류 발생');
+                console.error(err);
+            });
+    }
+
+    function register() {
+        const userId = $('#userId').val().trim();
+        const userName = $('#userName').val().trim(); // 이름 입력값
+        const passwd = $('#passwd').val().trim();
+        const mailId = $('#mailId').val().trim();
+        const mailAgency = $('#mailAgency').val().trim();
+
+        if (!userId || !userName || !passwd || !mailId || !mailAgency) {
+            alert('아이디, 이름, 비밀번호, 이메일을 모두 입력해주세요.');
+            return;
+        }
+
+        const email = `${mailId}@${mailAgency}`;
+        const frmData = { userId, userName, passwd, email };
+
+        $.ajax({
+            url: '/api/user/',
+            type: 'post',
+            contentType: 'application/json',
+            dataType: 'json',
+            data: JSON.stringify(frmData)
+        }).done((res) => {
+            if (res.resultCode === 200) {
+                alert('회원가입 완료');
+                location.href = '/home';
+            } else {
+                alert('회원가입 실패');
+            }
+        }).fail((xhr, status, error) => {
+            alert('회원가입 중 오류 발생');
+            console.error(error);
+        });
+    }
+</script>
+</body>
+</html>

@@ -1,9 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE configuration   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"  "https://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-     <settings>
-         <setting name="mapUnderscoreToCamelCase" value="true"/>
-     </settings>
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+
+    <typeAliases>
+        <typeAlias type="java.util.Map" alias="map"/>
 
 
+        <typeAlias type="kr.it.academy.myapp.login.vo.LoginUser$LoginRequest" alias="LoginRequest"/>
+        <typeAlias type="kr.it.academy.myapp.login.vo.LoginUser$UserInfo" alias="user"/>
+        <typeAlias type="kr.it.academy.myapp.login.vo.LoginUser$UserAuth" alias="auth"/>
+
+
+        <typeAlias type="kr.it.academy.myapp.user.vo.User$Request" alias="userRequest"/>
+        <typeAlias type="kr.it.academy.myapp.user.vo.User$Response" alias="userResponse"/>
+        <typeAlias type="kr.it.academy.myapp.user.vo.User$UserAuth" alias="userAuth"/>
+        <typeAlias type="kr.it.academy.myapp.user.vo.User$UserAuthMapping" alias="userAuthMapping"/>
+
+
+    </typeAliases>
 </configuration>

@@ -14,44 +14,41 @@
                 </span>
                 <span th:if="${session.userInfo == null}">
                     <a href="/login/form" class="text-white text-decoration-none me-2">로그인</a>
-                    <a href="/join/form" class="text-white text-decoration-none">회원가입</a>
+                    <a href="/user/terms" class="text-white text-decoration-none">회원가입</a>
                 </span>
             </div>
         </div>
 
         <ul class="nav flex-column small">
-            <li class="nav-item">
-                <a href="javascript:void(0)" class="nav-link" onclick="toggleDropdown('introMenu')">소개</a>
-                <ul id="introMenu" class="dropdown-inner">
-                    <li><a href="#">워해머란?</a></li>
-                    <li><a href="#">게임 종류</a></li>
-                    <li><a href="#">준비물</a></li>
-                </ul>
-            </li>
+            <li class="menu-title">소개</li>
+            <li><a href="#" class="nav-link">워해머란?</a></li>
+            <li><a href="#" class="nav-link">게임 종류</a></li>
+            <li><a href="#" class="nav-link">준비물</a></li>
 
-            <li class="nav-item">
-                <a href="javascript:void(0)" class="nav-link" onclick="toggleDropdown('loreMenu')">세계관 설정</a>
-                <ul id="loreMenu" class="dropdown-inner">
-                    <li><a href="#">배경</a></li>
-                    <li><a href="#">종족</a></li>
-                </ul>
-            </li>
+            <li class="menu-title">세계관 설정</li>
+            <li><a href="#" class="nav-link">배경</a></li>
+            <li><a href="#" class="nav-link">진영</a></li>
 
-            <li class="nav-item">
-                <a href="javascript:void(0)" class="nav-link" onclick="toggleDropdown('shopMenu')">구매 사이트</a>
-                <ul id="shopMenu" class="dropdown-inner">
-                    <li><a href="#">공식몰</a></li>
-                    <li><a href="#">중고 거래</a></li>
-                </ul>
-            </li>
+            <li class="menu-title">자료실</li>
+            <li><a href="#" class="nav-link">룰 번역본</a></li>
+            <li><a href="#" class="nav-link">도색 가이드</a></li>
+            <li><a href="#" class="nav-link">PC 워해머 게임 한글 패치</a></li>
+
+            <li class="menu-title">구매 사이트</li>
+            <li><a href="#" class="nav-link">공식몰</a></li>
+            <li><a href="#" class="nav-link">중고몰</a></li>
         </ul>
     </aside>
+
+    <!-- ✅ Cinzel 폰트 추가 -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&display=swap" rel="stylesheet">
 
     <style>
         html, body {
             margin: 0;
             padding: 0;
             background-color: black;
+            font-family: 'Cinzel', serif; /* ✅ 폰트 변경 */
         }
 
         .sidebar {
@@ -63,43 +60,37 @@
             background-color: rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(6px);
             padding: 20px 10px;
-            font-size: 14px;
+            font-size: 15px;
             color: white;
             z-index: 1000;
+            overflow-y: auto;
         }
 
-        .nav-link,
-        .dropdown-inner li a {
+        .menu-title {
+            padding: 10px 10px 6px 10px;
+            margin-top: 16px;
+            margin-bottom: 8px;
+            font-weight: bold;
+            font-size: 15px; /* ✅ 크기 증가 */
+            color: #ffffff;
+            border-bottom: 1px solid #666;
+        }
+
+        .nav-link {
             color: white;
+            font-size: 15px; /* ✅ 크기 증가 */
             text-decoration: none;
             display: block;
-            padding: 6px 10px;
-            transition: color 0.3s ease;
+            padding: 6px 12px;
+            transition: color 0.3s ease, font-weight 0.3s ease;
             cursor: pointer;
         }
 
         .nav-link:hover,
         .nav-link:focus,
         .nav-link:active {
-            color: #aa8866 !important; /* 진중한 브론즈 */
-        }
-
-        .dropdown-inner {
-            list-style: none;
-            margin: 0 0 8px 0;
-            padding-left: 0;
-            display: none;
-        }
-
-        .dropdown-inner li a {
-            font-size: 13px;
-            padding-left: 24px;
-        }
-
-        .dropdown-inner li a:hover,
-        .dropdown-inner li a:focus,
-        .dropdown-inner li a:active {
-            color: #8888aa !important; /* 어두운 보라 - 신비하고 고요한 느낌 */
+            color: #d9b877;
+            font-weight: bold;
         }
 
         body > main,
@@ -111,14 +102,7 @@
 
     <script>
         function logout() {
-            location.href = "/logout";
-        }
-
-        function toggleDropdown(id) {
-            const el = document.getElementById(id);
-            if (el) {
-                el.style.display = (el.style.display === 'block') ? 'none' : 'block';
-            }
+            location.href = "/login/logout";
         }
     </script>
 
