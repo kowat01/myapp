@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>온라인 공식샵 목록</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: url('/images/shopback.jpg') no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Georgia', serif;
+            color: white;
+        }
+
+        .main-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: calc(100vh - 300px);
+            padding-top: 80px;
+        }
+
+        .site-box-wrapper {
+            background-color: rgba(0, 0, 0, 0.6);
+            border-radius: 16px;
+            padding: 50px 70px;
+            max-width: 1200px;
+            width: 90%;
+            box-shadow: 0 0 18px #00000099;
+            text-align: center;
+            backdrop-filter: blur(6px);
+            animation: fadeInUp 1.2s ease;
+        }
+
+        .site-title {
+            font-size: 30px;
+            font-weight: bold;
+            margin-bottom: 40px;
+        }
+
+        .site-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 30px;
+            justify-items: center;
+        }
+
+        .site-card {
+            background-color: rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            width: 160px;
+            height: 180px;
+            color: gold;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: zoomFadeIn 0.6s ease;
+        }
+
+        .site-card:hover {
+            transform: scale(1.07);
+            box-shadow: 0 0 18px #fff4ccaa;
+        }
+
+        .image-container {
+            width: 90px;
+            height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+        }
+
+        .image-container img {
+            max-width: 100px;
+            max-height: 100px;
+            object-fit: contain;
+        }
+
+        .image-container.hobbyace img {
+            max-width: 300px;
+            max-height: 300px;
+        }
+        .image-container.colorguys img {
+            max-width: 150px;
+            max-height: 200px;
+        }
+
+        .site-name {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        footer {
+            background-color: black;
+            padding: 40px;
+            color: white;
+            font-size: 13px;
+        }
+
+        footer a {
+            color: #f4d03f;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes zoomFadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- 사이드바 -->
+<div th:replace="~{fragments/header :: header}"></div>
+
+<!-- 메인 콘텐츠 -->
+<main class="main-container">
+    <div class="site-box-wrapper">
+        <h2 class="site-title">온라인 공식샵 목록</h2>
+        <div class="site-grid">
+            <a class="site-card" href="https://www.warhammer.com" target="_blank">
+                <div class="image-container"><img src="/images/icon.png" alt="WARHAMMER"></div>
+                <div class="site-name">게임워크샵 공식몰</div>
+            </a>
+            <a class="site-card" href="https://funforge.co.kr" target="_blank">
+                <div class="image-container"><img src="/images/funforge.jpg" alt="FUNFORGE"></div>
+                <div class="site-name">펀포지</div>
+            </a>
+            <a class="site-card" href="https://orctown-store.com/" target="_blank">
+                <div class="image-container"><img src="/images/orctown.jpg" alt="ORCTOWN"></div>
+                <div class="site-name">오크타운</div>
+            </a>
+            <a class="site-card" href="https://www.joyhobby.co.kr/" target="_blank">
+                <div class="image-container"><img src="/images/joyhobby.jpg" alt="JOYHOBBY"></div>
+                <div class="site-name">조이하비</div>
+            </a>
+            <a class="site-card" href="https://smartstore.naver.com/tiger_studio" target="_blank">
+                <div class="image-container"><img src="/images/tigerfactory.jpg" alt="TIGERFACTORY"></div>
+                <div class="site-name">타이거 팩토리</div>
+            </a>
+            <a class="site-card" href="https://smartstore.naver.com/colorguys" target="_blank">
+                <div class="image-container colorguys"><img src="/images/colorguys.jpg" alt="COLORGUYS"></div>
+                <div class="site-name">컬러 가이즈</div>
+            </a>
+            <a class="site-card" href="https://camelothobby.com/" target="_blank">
+                <div class="image-container"><img src="/images/camelothobby.png" alt="CAMELOTHOBBY"></div>
+                <div class="site-name">카멜롯 하비</div>
+            </a>
+            <a class="site-card" href="https://hobbycafeace.cafe24.com/" target="_blank">
+                <div class="image-container hobbyace"><img src="/images/hobbycafe.png" alt="HOBBYCAFEACE"></div>
+                <div class="site-name">하비카페 에이스</div>
+            </a>
+        </div>
+    </div>
+</main>
+
+<!-- 푸터 -->
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+</body>
+</html>
