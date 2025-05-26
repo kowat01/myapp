@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/main_layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Warhammer 40K 연대표</title>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            background-color: #0a0a0a;
+            color: #f0f0f0;
+        }
+
+        .timeline-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        h1.text-center {
+            font-size: 2.2rem;
+            text-align: center;
+            color: #cccccc;
+            text-shadow: 0 0 4px rgba(255, 255, 255, 0.1);
+            margin-bottom: 40px;
+        }
+
+        .timeline-era {
+            margin-bottom: 30px;
+            padding: 20px;
+            border-radius: 12px;
+            background-color: #1a1a1a;
+        }
+
+        .era-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .event-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .event-block {
+            background-color: #2a2a2a;
+            color: #f0f0f0;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 6px;
+            padding: 10px 15px;
+            font-size: 0.95rem;
+            line-height: 1.4;
+            flex: 1 1 280px;
+            box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+
+<th:block layout:fragment="content">
+    <div class="timeline-container">
+        <h1 class="text-center">WARHAMMER 40,000 연대표</h1>
+
+        <div class="timeline-era">
+            <div class="era-title">제1차 천상의 전쟁<br><small>(B.C 60,000,000 ~ ?)</small></div>
+        </div>
+
+        <div class="timeline-era">
+            <div class="era-title">테라의 시대<br><small>(000.M1? ~ M15?)</small></div>
+        </div>
+
+        <div class="timeline-era">
+            <div class="era-title">기술의 암흑기<br><small>(M15? ~ M25?)</small></div>
+        </div>
+
+        <div class="timeline-era">
+            <div class="era-title">사이버네틱 반란 / 유전자 전쟁<br><small>(M23? ~ M25?)</small></div>
+        </div>
+
+        <div class="timeline-era">
+            <div class="era-title">투쟁의 시대<br><small>(M25? ~ M30)</small></div>
+        </div>
+
+        <div class="timeline-era">
+            <div class="era-title">제2차 천상의 전쟁 / 엘다의 몰락<br><small>(M30? ~ M30?)</small></div>
+        </div>
+
+        <div class="timeline-era">
+            <div class="era-title">제국의 시대<br><small>(M30 ~ )</small></div>
+            <div class="event-row">
+                <div class="event-block">테라 통합 전쟁<br><small>(M29? ~ 798.M30)</small></div>
+                <div class="event-block">대성전<br><small>(798.M30 ~ 005.M31)</small></div>
+                <div class="event-block">호루스 헤러시<br><small>(005.M31 ~ 014.M31)</small></div>
+            </div>
+        </div>
+
+        <div class="timeline-era">
+            <div class="era-title">부활의 시대<br><small>(M31 ~ M32)</small></div>
+            <div class="event-row">
+                <div class="event-block">그레이트 스코어링<br><small>(014.M31 ~ ???.M31)</small></div>
+                <div class="event-block">세컨드 파운딩<br><small>(021.M31)</small></div>
+                <div class="event-block">제1차 블랙 크루세이드<br><small>(781.M31)</small></div>
+                <div class="event-block">괴수의 전쟁<br><small>(544.M32 ~ 546.M32)</small></div>
+                <div class="event-block">참수 사건<br><small>(546.M32)</small></div>
+            </div>
+        </div>
+
+        <div class="timeline-era">
+            <div class="era-title">단조의 시대<br><small>(M32 ~ M35)</small></div>
+            <div class="event-row">
+                <div class="event-block">제2차 블랙 크루세이드<br><small>(597.M32)</small></div>
+                <div class="event-block">제3차 블랙 크루세이드<br><small>(909.M32)</small></div>
+                <div class="event-block">제4차 블랙 크루세이드<br><small>(001.M34)</small></div>
+                <div class="event-block">노바 테라 공백기<br><small>(0xx.M35 ~ 975.M35)</small></div>
+            </div>
+        </div>
+
+        <div class="timeline-era">
+            <div class="era-title">배교의 시대<br><small>(M36)</small></div>
+            <div class="event-row">
+                <div class="event-block">밴다이어의 폭정 / 제2차 황궁 공방전</div>
+                <div class="event-block">불신의 역병</div>
+                <div class="event-block">제5차 블랙 크루세이드<br><small>(723.M36)</small></div>
+                <div class="event-block">제6차 블랙 크루세이드<br><small>(901.M36)</small></div>
+            </div>
+        </div>
+
+        <div class="timeline-era">
+            <div class="era-title">구원의 시대<br><small>(020.M37 ~ 034.M38)</small></div>
+            <div class="event-row">
+                <div class="event-block">베네딕트 성전</div>
+                <div class="event-block">대숙청<br><small>(020.M37)</small></div>
+                <div class="event-block">심해의 성전<br><small>(321.M37)</small></div>
+                <div class="event-block">제7차 블랙 크루세이드<br><small>(811.M37)</small></div>
+                <div class="event-block">제8차 블랙 크루세이드<br><small>(999.M37)</small></div>
+            </div>
+        </div>
+
+        <div class="timeline-era">
+            <div class="era-title">쇠퇴의 시대<br><small>(M39 ~ 744.M41)</small></div>
+            <div class="event-row">
+                <div class="event-block">제9차 블랙 크루세이드<br><small>(537.M38)</small></div>
+                <div class="event-block">제10차 블랙 크루세이드<br><small>(001.M39)</small></div>
+                <div class="event-block">참회의 성전<br><small>(131.M39)</small></div>
+                <div class="event-block">제11차 블랙 크루세이드<br><small>(301.M39)</small></div>
+                <div class="event-block">마카리안 성전<br><small>(392.M39 ~ 399.M39)</small></div>
+            </div>
+        </div>
+
+        <div class="timeline-era">
+            <div class="era-title">종말의 시대<br><small>(745.M41 ~ 999.M41)</small></div>
+            <div class="event-row">
+                <div class="event-block">제12차 블랙 크루세이드 / 고딕 전쟁<br><small>(143.M41 ~ 151.M41)</small></div>
+                <div class="event-block">다모클레스 성전<br><small>(742.M41 ~ 745.M41)</small></div>
+                <div class="event-block">타이라니드 침공 (1~3차)<br><small>(745~997.M41)</small></div>
+                <div class="event-block">네크론 첫 교전<br><small>(897.M41)</small></div>
+                <div class="event-block">바답 전쟁<br><small>(901~912.M41)</small></div>
+                <div class="event-block">제3차 아마겟돈 전쟁<br><small>(998.M41)</small></div>
+                <div class="event-block">펜리스 공성전 / 비엘 탄 붕괴<br><small>(999.M41)</small></div>
+                <div class="event-block">제13차 블랙 크루세이드 / 카디아 몰락<br><small>(999.M41)</small></div>
+                <div class="event-block">마크라그 침공 / 굴리먼 부활 / 인니드 탄생<br><small>(999.M41)</small></div>
+            </div>
+        </div>
+
+        <div class="timeline-era">
+            <div class="era-title">암흑 제국의 시대<br><small>(M42 ~ )</small></div>
+            <div class="event-row">
+                <div class="event-block">녹티스 에테르나 / 임페리움 니힐루스 형성<br><small>(000.M42~)</small></div>
+                <div class="event-block">인도미투스 성전<br><small>(099.M42 ~ 111.M42)</small></div>
+                <div class="event-block">사자의 문 전투 / 제3차 황궁 공방전<br><small>(0??.M42)</small></div>
+                <div class="event-block">프라이마크 라이온 엘’존슨 귀환</div>
+                <div class="event-block">제4차 타이라니드 전쟁<br><small>(M42 진행 중)</small></div>
+                <div class="event-block">역병 전쟁<br><small>(1?? ~ 2??.M42)</small></div>
+                <div class="event-block">비질루스 공방전 / 사이킥 각성 / 징조의 방주들</div>
+                <div class="event-block">육두정 반란 / 야수들의 전쟁 / 데바스테이션 오브 바알</div>
+
+                <img src="/images/galaxy.jpg" alt="M42 현재 은하 지도"
+                     style="max-width: 100%; border-radius: 10px; box-shadow: 0 0 12px rgba(0,0,0,0.5);">
+                <p style="font-size: 0.85rem; color: #999; margin-top: 5px;">
+                    ▲ M42 기준, 은하 지도 – 임페리움 성역과 니힐루스 구분
+                </p>
+            </div>
+        </div>
+    </div>
+</th:block>
+</html>

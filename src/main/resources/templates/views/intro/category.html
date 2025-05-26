@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/main_layout}">
+
+<!-- ✅ 스타일 정의 -->
+<th:block layout:fragment="css">
+    <style>
+        .category-content {
+            padding: 40px;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        .category-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: white;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .category-content h3 {
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .category-content p {
+            font-size: 16px;
+            line-height: 1.7;
+            color: #ddd;
+        }
+
+        .category-content img.standard {
+            width: 100%;
+            height: 450px;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+        }
+
+        .category-content img.main-image {
+            object-position: center 20%;
+        }
+
+        @media (max-width: 767px) {
+            .category-content {
+                padding: 20px;
+            }
+
+            .category-content img.standard {
+                height: auto;
+            }
+        }
+    </style>
+</th:block>
+
+<!-- ✅ 본문 내용 -->
+<div layout:fragment="content">
+    <div class="container category-content">
+
+        <!-- ✅ 중앙 정렬된 대제목 -->
+        <h1 class="category-title">게임 종류</h1>
+
+        <!-- 1. Warhammer 40,000 -->
+        <div class="row align-items-center mb-5">
+            <div class="col-md-6">
+                <img src="/images/maingame.jpg" alt="Warhammer 40K" class="standard main-image">
+            </div>
+            <div class="col-md-6 text-white">
+                <h3>Warhammer 40,000</h3>
+                <p>
+                    워해머 40,000은 지금으로부터 4만 년 뒤, 암흑과 전쟁이 지배하는 미래를 배경으로 한 테이블탑 전쟁 게임입니다.
+                    수많은 외계 종족과 인간 제국이 은하계의 지배권을 두고 끝없는 전쟁을 벌이며,
+                    플레이어는 자신이 선택한 진영의 아미를 구성해 전장의 지휘관이 됩니다.
+                    포인트 시스템과 다양한 미션을 통해 전술적이고 전략적인 대규모 전투를 즐길 수 있으며,
+                    정통 워해머의 세계관과 전투를 가장 충실하게 체험할 수 있는 기본 모드입니다.
+                </p>
+            </div>
+        </div>
+
+        <!-- 2. Kill Team -->
+        <div class="row align-items-center flex-md-row-reverse mb-5">
+            <div class="col-md-6">
+                <img src="/images/killteam.jpg" alt="Kill Team" class="standard">
+            </div>
+            <div class="col-md-6 text-white">
+                <h3>Kill Team</h3>
+                <p>
+                    킬 팀은 소수 정예 병력 간의 은밀하고 치열한 전투를 중심으로 한 소규모 특수 작전 게임입니다.
+                    각 병사는 독립적으로 행동하며, 은폐하고, 돌진하고, 사격하며
+                    복잡한 지형을 활용해 다양한 전술을 펼칩니다.
+                    빠른 템포의 교전, 한순간의 판단이 전황을 바꾸는 전략적 깊이,
+                    그리고 각 유닛이 주인공이 되는 영화 같은 전투를 경험해보세요.
+                    짧은 시간 안에 강렬한 전술 게임을 원한다면, 킬 팀이 가장 적합한 선택입니다.
+                </p>
+            </div>
+        </div>
+
+        <!-- 3. Combat Patrol -->
+        <div class="row align-items-center mb-5">
+            <div class="col-md-6">
+                <img src="/images/combatpatrol.jpg" alt="Combat Patrol" class="standard">
+            </div>
+            <div class="col-md-6 text-white">
+                <h3>Combat Patrol</h3>
+                <p>
+                    컴뱃 패트롤은 워해머에 처음 입문하는 플레이어를 위한 소규모 전투 형식입니다.
+                    모든 진영에 맞춰 설계된 균형 잡힌 세트를 사용하여,
+                    복잡한 포인트 계산 없이도 곧바로 아미를 꾸리고 전투를 시작할 수 있습니다.
+                    간단한 룰과 빠른 전개 속에서 워해머 특유의 전략과 전투의 재미를 쉽게 체험할 수 있으며,
+                    입문자뿐만 아니라 가볍게 한 판 즐기고 싶은 숙련자에게도 좋은 선택이 됩니다.
+                </p>
+            </div>
+        </div>
+
+        <!-- 4. Apocalypse -->
+        <div class="row align-items-center flex-md-row-reverse mb-5">
+            <div class="col-md-6">
+                <img src="/images/apocalypse.jpg" alt="Apocalypse" class="standard">
+            </div>
+            <div class="col-md-6 text-white">
+                <h3>Apocalypse</h3>
+                <p>
+                    아포칼립스는 수천 포인트 규모의 병력을 동원해 펼쳐지는,
+                    워해머 세계관에서 가장 거대한 전투를 그리는 초대형 전쟁 모드입니다.
+                    전차 군단이 진격하고, 슈퍼헤비급 병기들이 포격을 퍼붓는 가운데,
+                    워로드 타이탄과 같은 초거대 병기가 전장을 지배합니다.
+                    여러 플레이어가 한 팀을 이뤄 협력하며 수많은 유닛과 모델이 충돌하는 이 전장은
+                    말 그대로 테이블탑 보드게임의 궁극적인 모습이라 할 수 있습니다.
+                </p>
+            </div>
+        </div>
+
+        <!-- 5. Horus Heresy -->
+        <div class="row align-items-center mb-5">
+            <div class="col-md-6">
+                <img src="/images/aboutheresy.jpg" alt="Horus Heresy" class="standard">
+            </div>
+            <div class="col-md-6 text-white">
+                <h3>Horus Heresy</h3>
+                <p>
+                    호루스 헤러시는 워해머 40,000 세계관의 시점에서 1만 년 전,
+                    인류제국을 둘로 갈라놓은 역사적인 전쟁을 배경으로 한 게임입니다.
+                    황제의 총애를 받던 아들, 프라이마크 호루스의 반역으로 촉발된 형제간의 내전은
+                    제국 전역에 치명적인 상처를 남기고, 인류의 운명을 송두리째 흔들었습니다.
+                    전성기 인류제국의 찬란한 군세와 함께, 18개의 개성 넘치는 군단 중 하나를 선택하세요.
+                    황제에게 충성을 바친 9개의 충성파 군단, 혹은 호루스를 따르는 9개의 반역파 군단—
+                    당신의 선택이 제국의 미래를 결정하게 될 것입니다.
+                </p>
+            </div>
+        </div>
+
+        <div class="row align-items-center flex-md-row-reverse mb-5">
+            <div class="col-md-6">
+                <img src="/images/necromunda.jpg" alt="Necromunda" class="standard">
+            </div>
+            <div class="col-md-6 text-white">
+                <h3>Necromunda</h3>
+                <p>
+                    네크로문다는 워해머 40,000 세계관의 하이브 시티(초거대 도시)를 무대로,
+                    서로 다른 갱단들이 생존과 지배를 위해 벌이는 소규모 전투 게임입니다.
+                    각 갱단은 고유한 배경과 전술 스타일을 가지고 있으며,
+                    플레이어는 개별 병사의 장비와 스킬을 커스터마이즈하여 전투에 투입하게 됩니다.
+                    캠페인 모드에서는 갱단이 성장하며 새로운 무기와 능력을 획득하고,
+                    피해와 상처가 지속되는 등 진화하는 전장을 경험할 수 있습니다.
+                    도시의 어두운 구역에서 펼쳐지는 전략과 이야기 중심의 게임을 찾는다면,
+                    네크로문다는 최고의 선택이 될 것입니다.
+                </p>
+            </div>
+        </div>
+
+    </div>
+</div>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/main_layout}">
+
+<!-- ✅ 스타일 정의 -->
+<th:block layout:fragment="css">
+    <style>
+        .intro-content {
+            padding: 40px;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        .intro-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: white;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .intro-content h3 {
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .intro-content p {
+            font-size: 16px;
+            line-height: 1.7;
+            color: #ddd;
+        }
+
+        .intro-content img.standard {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+        }
+
+        .next-links ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .next-links li {
+            margin-bottom: 8px;
+        }
+
+        .next-links a {
+            color: #ffc107;
+            text-decoration: none;
+        }
+
+        .next-links a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 767px) {
+            .intro-content {
+                padding: 20px;
+            }
+
+            .intro-content img.standard {
+                height: auto;
+            }
+        }
+    </style>
+</th:block>
+
+<!-- ✅ 본문 -->
+<div layout:fragment="content">
+    <div class="container intro-content">
+
+        <!-- ✅ 중앙 정렬된 대제목 -->
+        <h1 class="intro-title">워해머란?</h1>
+
+        <!-- ✅ 1. Warhammer 40K 개요 -->
+        <div class="row align-items-center mb-5">
+            <div class="col-md-6">
+                <img src="/images/introabout.jpg" alt="Warhammer 40K" class="standard">
+            </div>
+            <div class="col-md-6 text-white">
+                <h3>Warhammer 40,000</h3>
+                <p>
+                    <strong>Warhammer 40,000</strong>은 영국의 유명 게임 퍼블리셔인 게임즈 워크숍에서 1987년부터 발매된 스페이스 오페라 미니어처 게임입니다.
+                    이 게임은 미니어처 모델을 조립하고 도색하여 유닛을 만들고, 그것들을 배치하여 정해진 룰에 따라 대전하는 전략형 테이블탑 게임입니다.
+                    각 세력의 유닛과 아미, 세계관 설정이 특징이며 4만년대의 암울한 미래를 배경으로 한 진영 간의 전쟁을 그립니다.
+                </p>
+            </div>
+        </div>
+
+        <!-- ✅ 2. 도색 소개 -->
+        <div class="row align-items-center flex-md-row-reverse mb-5">
+            <div class="col-md-6">
+                <img src="/images/intropaint.jpg" alt="미니어처 도색" class="standard">
+            </div>
+            <div class="col-md-6 text-white">
+                <h3>당신만의 군대를 도색해보세요!</h3>
+                <p>
+                    워해머에서는 오직 당신만의 군단을 만들 수 있습니다. 내가 생각한 색으로 창조하거나,
+                    공식 도색 가이드를 따라 원하는 부대를 구현해보세요. 창의적인 도색은 워해머의 또 다른 즐거움입니다!
+                </p>
+            </div>
+        </div>
+
+        <!-- ✅ 3. 병력 편성 소개 -->
+        <div class="row align-items-center mb-5">
+            <div class="col-md-6">
+                <img src="/images/introbuild.jpg" alt="아미 편성 예시" class="standard">
+            </div>
+            <div class="col-md-6 text-white">
+                <h3>당신만의 군대를 편성해보세요!</h3>
+                <p>
+                    워해머 40,000에서는 다양한 유닛과 세력 중에서 자신이 좋아하는 진영을 선택하고,
+                    그에 맞는 전략적인 병력 구성을 계획할 수 있습니다.
+                    보병, 차량, 워커, 엘리트 등 다양한 옵션을 조합하여 나만의 전투 스타일을 만들어보세요!
+                </p>
+            </div>
+        </div>
+
+        <!-- ✅ 초보자 배려 문구 -->
+        <div class="text-white mt-4 fst-italic" style="font-size: 15px;">
+            * 워해머가 처음이신가요? 걱정하지 마세요! 이 페이지부터 천천히 시작하시면 됩니다.
+        </div>
+
+        <!-- ✅ 다음 경로 안내 -->
+        <div class="next-links text-white mt-5">
+            <h5>처음이라면 다음도 함께 살펴보세요</h5>
+            <ul>
+                <li><a href="/intro/category">→ 워해머의 다양한 게임 종류</a></li>
+                <li><a href="/intro/need">→ 입문을 위한 준비물</a></li>
+                <li><a href="/lore/background">→ 배경 이야기로 세계관 이해하기</a></li>
+            </ul>
+        </div>
+
+    </div>
+</div>
+</html>

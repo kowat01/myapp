@@ -8,31 +8,43 @@
                 <img src="/images/logo.png" alt="로고" style="width: 100px;">
             </a>
             <div class="login-status mt-2 small">
-                <span th:if="${session.userInfo != null}">
-                    <span th:text="${session.userInfo.userName}"></span> 님<br>
-                    <a href="javascript:void(0)" onclick="logout()" class="text-white text-decoration-none">로그아웃</a>
-                </span>
+    <span th:if="${session.userInfo != null}">
+        <strong th:text="${session.userInfo.nickname} + ' 님'"></strong><br>
+
+        <div class="d-flex flex-column align-items-start mt-2 gap-1">
+            <a href="/user/mypage" class="text-white text-decoration-none">마이페이지</a>
+            <a href="/user/edit" class="text-white text-decoration-none">회원정보 수정</a>
+            <a href="javascript:void(0)" onclick="logout()" class="text-white text-decoration-none">로그아웃</a>
+        </div>
+    </span>
+
                 <span th:if="${session.userInfo == null}">
-                    <a href="/login/form" class="text-white text-decoration-none me-2">로그인</a>
-                    <a href="/user/terms" class="text-white text-decoration-none">회원가입</a>
-                </span>
+        <a href="/login/form" class="text-white text-decoration-none me-2">로그인</a>
+        <a href="/user/terms" class="text-white text-decoration-none">회원가입</a>
+    </span>
             </div>
         </div>
 
         <ul class="nav flex-column small">
             <li class="menu-title">소개</li>
-            <li><a href="#" class="nav-link">워해머란?</a></li>
-            <li><a href="#" class="nav-link">게임 종류</a></li>
-            <li><a href="#" class="nav-link">준비물</a></li>
+            <li><a href="/intro/about" class="nav-link">워해머란?</a></li>
+            <li><a href="/intro/category" class="nav-link">게임 종류</a></li>
+            <li><a href="/intro/need" class="nav-link">준비물</a></li>
 
             <li class="menu-title">세계관 설정</li>
-            <li><a href="#" class="nav-link">배경</a></li>
-            <li><a href="#" class="nav-link">진영</a></li>
+            <li><a href="/lore/universe" class="nav-link">연대표</a></li>
+            <li><a href="/lore/wiki" class="nav-link">세계관내 설정</a></li>
+            <li><a href="/lore/faction" class="nav-link">진영</a></li>
 
             <li class="menu-title">자료실</li>
             <li><a href="#" class="nav-link">룰 번역본</a></li>
             <li><a href="#" class="nav-link">도색 가이드</a></li>
             <li><a href="#" class="nav-link">PC 워해머 게임 한글 패치</a></li>
+
+            <li class="menu-title">게시판</li>
+            <li><a href="#" class="nav-link">자유 게시판</a></li>
+            <li><a href="#" class="nav-link">도색 게시판</a></li>
+            <li><a href="#" class="nav-link">건의 게시판</a></li>
 
             <li class="menu-title">구매 사이트</li>
             <li><a href="/shop/official" class="nav-link">공식몰</a></li>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/main_layout}">
+
+<!-- ✅ 스타일 정의 -->
+<th:block layout:fragment="css">
+    <style>
+        .need-content {
+            padding: 40px;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        .need-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: white;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .need-content h3 {
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .need-content p {
+            font-size: 16px;
+            line-height: 1.7;
+            color: #ddd;
+        }
+
+        .need-content img.standard {
+            width: 100%;
+            height: 600px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+        }
+
+        @media (max-width: 767px) {
+            .need-content {
+                padding: 20px;
+            }
+
+            .need-content img.standard {
+                height: auto;
+                object-fit: contain;
+            }
+        }
+    </style>
+</th:block>
+
+<!-- ✅ 본문 내용 -->
+<div layout:fragment="content">
+    <div class="container need-content">
+
+        <!-- ✅ 중앙 정렬된 대제목 -->
+        <h1 class="need-title">준비물</h1>
+
+        <!-- 1. 미니어처 모델 -->
+        <div class="row align-items-center mb-5">
+            <div class="col-md-6">
+                <img src="/images/model.jpg" alt="미니어처" class="standard">
+            </div>
+            <div class="col-md-6 text-white">
+                <h3>미니어처 모델</h3>
+                <p>
+                    자신이 선택한 진영의 미니어처를 조립하여 게임에서 사용할 병력을 구성합니다.
+                    입문자용 스타터 세트 또는 컴뱃 패트롤 박스가 추천되며, 전투에 배치할 유닛을 직접 선택할 수 있습니다.
+                </p>
+            </div>
+        </div>
+
+        <!-- 2. 룰북 -->
+        <div class="row align-items-center flex-md-row-reverse mb-5">
+            <div class="col-md-6">
+                <img src="/images/codex.jpg" alt="룰북" class="standard">
+            </div>
+            <div class="col-md-6 text-white">
+                <h3>코어 룰북 & 코드북</h3>
+                <p>
+                    워해머의 기본 규칙이 담긴 코어 룰북과, 각 진영별 특화 규칙이 담긴 코덱스가 필요합니다.
+                    전투 진행, 아미 편성, 유닛 스탯 등 게임 전반에 필수적인 정보가 포함되어 있습니다.
+                </p>
+            </div>
+        </div>
+
+        <!-- 3. 주사위 -->
+        <div class="row align-items-center mb-5">
+            <div class="col-md-6">
+                <img src="/images/dice.jpg" alt="주사위" class="standard">
+            </div>
+            <div class="col-md-6 text-white">
+                <h3>주사위</h3>
+                <p>
+                    대부분의 판정은 6면체 주사위(D6)로 이루어지며, 다수의 주사위가 필요합니다.
+                    일반 공격 외에도 특수 효과, 피해량 계산 등 다양한 상황에 주사위가 사용됩니다.
+                </p>
+            </div>
+        </div>
+
+        <!-- 4. 측정 도구 -->
+        <div class="row align-items-center flex-md-row-reverse mb-5">
+            <div class="col-md-6">
+                <img src="/images/tape.jpg" alt="측정도구" class="standard">
+            </div>
+            <div class="col-md-6 text-white">
+                <h3>측정 도구</h3>
+                <p>
+                    이동 거리, 사거리 등을 정확히 측정하기 위해 인치 단위의 줄자 또는 전용 워해머 측정 도구가 필요합니다.
+                    명확한 거리 계산은 공정한 게임의 핵심 요소입니다.
+                </p>
+            </div>
+        </div>
+
+        <!-- 5. 도색 도구 -->
+        <div class="row align-items-center mb-5">
+            <div class="col-md-6">
+                <img src="/images/paint.jpg" alt="도색도구" class="standard">
+            </div>
+            <div class="col-md-6 text-white">
+                <h3>도색 도구</h3>
+                <p>
+                    자신만의 아미를 꾸미기 위해 도색 도구가 필요합니다.
+                    아크릴 페인트, 프라이머, 붓, 워터컵, 팔레트 등을 사용하여 개성 있는 미니어처를 완성할 수 있습니다.
+                </p>
+            </div>
+        </div>
+
+    </div>
+</div>
+</html>

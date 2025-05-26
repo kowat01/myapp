@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="kr.it.academy.myapp.user.mapper.UserMapper">
 
     <resultMap id="userRespMap" type="userResponse">
@@ -15,21 +17,17 @@
         </collection>
     </resultMap>
 
-
-
     <insert id="addUser" parameterType="userRequest">
-        INSERT INTO user_info(user_id, user_name, passwd, email)
-        VALUES(#{userId}, #{userName}, #{passwd}, #{email});
+        INSERT INTO user_info(user_id, user_name, nickname, passwd, email)
+        VALUES(#{userId}, #{userName}, #{nickname}, #{passwd}, #{email});
     </insert>
 
-    <select id="getUserAuthList" resultType="userAuth">
-        select auth_id,
-        auth_name
-        from user_auth
-        where use_yn = 'Y'
-        and del_yn = 'N'
-    </select>
 
+    <select id="getUserAuthList" resultType="userAuth">
+        SELECT auth_id, auth_name
+        FROM user_auth
+        WHERE use_yn = 'Y' AND del_yn = 'N'
+    </select>
 
     <insert id="addUserAuthMapping" parameterType="userAuthMapping">
         INSERT INTO user_auth_mapping(user_id, auth_id)
@@ -40,5 +38,9 @@
         SELECT COUNT(*) FROM user_info WHERE user_id = #{userId}
     </select>
 
+    <!-- ✅ 이메일 중복 확인 쿼리 추가 -->
+    <select id="countEmail" parameterType="String" resultType="int">
+        SELECT COUNT(*) FROM user_info WHERE email = #{email}
+    </select>
 
 </mapper>

@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.it.academy.myapp.login.mapper.LoginMapper">
 
     <resultMap id="userMap" type="user">
         <id property="userId" column="user_id" />
         <result property="userName" column="user_name"/>
         <result property="passwd" column="passwd"/>
-        <!-- 권한 리스트-->
+        <result property="nickname" column="nickname"/> <!-- ✅ 추가 -->
+
+        <!-- 권한 리스트 -->
         <collection property="authList" ofType="auth">
             <id property="authId" column="auth_id"/>
             <result property="authName" column="auth_name"/>
@@ -17,10 +19,11 @@
         SELECT u.user_id,
         u.user_name,
         u.passwd,
+        u.nickname,         <!-- ✅ 추가 -->
         au.auth_id,
         au.auth_name
         FROM user_info u
-        JOIN  user_auth_mapping mp ON u.user_id = mp.user_id
+        JOIN user_auth_mapping mp ON u.user_id = mp.user_id
         JOIN user_auth au ON mp.auth_id = au.auth_id
         WHERE u.user_id = #{userId}
     </select>

@@ -24,16 +24,24 @@
 
         .join-box {
             width: 550px;
-            height: 700px;
+            height: 740px;
             background: url('/images/loginbackgorund.jpg') no-repeat center center;
             background-size: 100% 100%;
             border-radius: 10px;
             box-shadow: 0 0 15px #00000080;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
-            padding: 0 35px;
+            padding: 60px 35px 0 35px;
+        }
+
+        .join-title {
+            text-align: center;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: black;
+            margin-bottom: 30px;
+            margin-top: 30px;
         }
 
         .form-wrap {
@@ -59,6 +67,13 @@
         .email-group {
             display: flex;
             gap: 5px;
+            align-items: center;
+        }
+
+        .email-at {
+            color: black;
+            font-weight: bold;
+            padding: 0 3px;
         }
 
         .btn-image {
@@ -110,6 +125,7 @@
 
 <main class="join-container">
     <div class="join-box">
+        <h2 class="join-title">회원가입</h2>
         <form id="joinForm" class="d-flex justify-content-center align-items-center flex-column" style="height: 100%;">
             <div class="form-wrap">
                 <!-- 아이디 입력 -->
@@ -123,6 +139,12 @@
                     <input type="text" class="form-control" id="userName" name="userName" placeholder="이름 입력">
                 </div>
 
+                <!-- 닉네임 입력 -->
+                <div class="form-group id-row">
+                    <input type="text" class="form-control" id="nickname" name="nickname" placeholder="닉네임 입력">
+                    <button type="button" class="btn btn-warning" onclick="checkDuplicateNickname()">닉네임 확인</button>
+                </div>
+
                 <!-- 비밀번호 입력 -->
                 <div class="form-group">
                     <input type="password" class="form-control" id="passwd" name="passwd" placeholder="비밀번호 입력">
@@ -131,7 +153,7 @@
                 <!-- 이메일 입력 -->
                 <div class="form-group email-group">
                     <input type="text" class="form-control" id="mailId" name="mailId" placeholder="이메일" style="width: 120px;">
-                    <span>@</span>
+                    <span class="email-at">@</span>
                     <input type="text" class="form-control" id="mailAgency" name="mailAgency" style="width: 110px;" readonly>
                     <select class="form-select" id="agencySelect" style="width: 90px;" onchange="changeAgency(this.value)">
                         <option value="none">선택</option>
@@ -189,25 +211,45 @@
                 else alert('사용 가능한 ID입니다.');
             })
             .catch(err => {
-                alert('중복 확인 중 오류 발생');
+                alert('ID 중복 확인 중 오류 발생');
+                console.error(err);
+            });
+    }
+
+    function checkDuplicateNickname() {
+        const nickname = $('#nickname').val().trim();
+        if (!nickname) {
+            alert('닉네임을 입력하세요.');
+            return;
+        }
+
+        fetch(`/api/user/check-nickname?nickname=${nickname}`)
+            .then(res => res.json())
+            .then(data => {
+                if (data.exists) alert('이미 사용 중인 닉네임입니다.');
+                else alert('사용 가능한 닉네임입니다.');
+            })
+            .catch(err => {
+                alert('닉네임 중복 확인 중 오류 발생');
                 console.error(err);
             });
     }
 
     function register() {
         const userId = $('#userId').val().trim();
-        const userName = $('#userName').val().trim(); // 이름 입력값
+        const userName = $('#userName').val().trim();
+        const nickname = $('#nickname').val().trim();
         const passwd = $('#passwd').val().trim();
         const mailId = $('#mailId').val().trim();
         const mailAgency = $('#mailAgency').val().trim();
 
-        if (!userId || !userName || !passwd || !mailId || !mailAgency) {
-            alert('아이디, 이름, 비밀번호, 이메일을 모두 입력해주세요.');
+        if (!userId || !userName || !nickname || !passwd || !mailId || !mailAgency) {
+            alert('아이디, 이름, 닉네임, 비밀번호, 이메일을 모두 입력해주세요.');
             return;
         }
 
         const email = `${mailId}@${mailAgency}`;
-        const frmData = { userId, userName, passwd, email };
+        const frmData = { userId, userName, nickname, passwd, email };
 
         $.ajax({
             url: '/api/user/',
@@ -219,6 +261,10 @@
             if (res.resultCode === 200) {
                 alert('회원가입 완료');
                 location.href = '/home';
+            } else if (res.resultCode === 409) {
+                alert('이미 사용 중인 ID입니다.');
+            } else if (res.resultCode === 410) {
+                alert('이미 사용 중인 이메일입니다.');
             } else {
                 alert('회원가입 실패');
             }

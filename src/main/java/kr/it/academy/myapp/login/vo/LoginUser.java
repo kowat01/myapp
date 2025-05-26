@@ -24,6 +24,7 @@ public class LoginUser {
     public static class UserInfo{
         private String userId;
         private String userName;
+        private String nickname;
         private String passwd;
         private List<UserAuth> authList;
         private boolean isAuth;

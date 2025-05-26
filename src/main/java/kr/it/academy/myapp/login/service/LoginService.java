@@ -36,6 +36,7 @@ public class LoginService {
                 .builder()
                 .userId(user.getUserId())
                 .userName(user.getUserName())
+                .nickname(user.getNickname())
                 .authList(user.getAuthList())
                 .isAuth(isAuth)
                 .build();

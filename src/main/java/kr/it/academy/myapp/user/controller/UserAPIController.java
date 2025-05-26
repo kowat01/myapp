@@ -22,10 +22,24 @@ public class UserAPIController {
         Map<String, Object> resultMap = new HashMap<>();
 
         try {
+            // ✅ ID 중복 확인
+            if (userService.isUserIdExists(userRequest.getUserId())) {
+                resultMap.put("resultCode", 409);
+                resultMap.put("message", "이미 사용 중인 ID입니다.");
+                return new ResponseEntity<>(resultMap, HttpStatus.OK);
+            }
+
+            // ✅ 이메일 중복 확인
+            if (userService.isEmailExists(userRequest.getEmail())) {
+                resultMap.put("resultCode", 410);
+                resultMap.put("message", "이미 사용 중인 이메일입니다.");
+                return new ResponseEntity<>(resultMap, HttpStatus.OK);
+            }
 
             resultMap = userService.addUser(userRequest);
         } catch (Exception e) {
             resultMap.put("resultCode", 500);
+            resultMap.put("message", "회원가입 처리 중 오류 발생");
             e.printStackTrace();
         }
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
@@ -44,5 +58,17 @@ public class UserAPIController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    // ✅ 이메일 중복 확인 API
+    @GetMapping("/check-email")
+    public ResponseEntity<Map<String, Object>> checkDuplicateEmail(@RequestParam String email) {
+        Map<String, Object> result = new HashMap<>();
+        try {
+            boolean exists = userService.isEmailExists(email);
+            result.put("exists", exists);
+        } catch (Exception e) {
+            result.put("exists", true); // 에러 발생 시 사용 불가 처리
+            e.printStackTrace();
+        }
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
-
+}

@@ -25,35 +25,33 @@ public class UserService {
     public Map<String, Object> addUser(User.Request userRequest) throws Exception {
         Map<String, Object> result = new HashMap<>();
 
-        // ✅ 권한 누락 시 기본값(BASIC) 자동 부여
+        // 권한 누락 시 기본값(BASIC) 자동 부여
         if (userRequest.getUserAuth() == null || userRequest.getUserAuth().isBlank()) {
             userRequest.setUserAuth("BASIC");
         }
 
-
         String encodePasswd = passwordEncoder.encode(userRequest.getPasswd());
 
-        //암호와 된 패스워드로 변경
+        // 암호화된 패스워드로 변경
         userRequest.setPasswd(encodePasswd);
         int resultCode = userMapper.addUser(userRequest);
 
-        if(resultCode < 1) {
+        if (resultCode < 1) {
             throw new Exception("회원가입 실패");
         }
-        // 권한 맵핑 등록
-        User.UserAuthMapping userAuthMapping =
-                User.UserAuthMapping
-                        .builder()
-                        .authId(userRequest.getUserAuth())
-                        .userId(userRequest.getUserId())
-                        .build();
+
+        // 권한 매핑 등록
+        User.UserAuthMapping userAuthMapping = User.UserAuthMapping.builder()
+                .authId(userRequest.getUserAuth())
+                .userId(userRequest.getUserId())
+                .build();
 
         userMapper.addUserAuthMapping(userAuthMapping);
 
         result.put("resultCode", 200);
         return result;
-
     }
+
     public List<User.UserAuth> getUserAuthList() throws Exception {
         return userMapper.getUserAuthList();
     }
@@ -62,5 +60,10 @@ public class UserService {
         return userMapper.countUserId(userId) > 0;
     }
 
+    // ✅ 이메일 중복 확인 추가
+    public boolean isEmailExists(String email) throws Exception {
+        return userMapper.countEmail(email) > 0;
     }
+}
+
 
