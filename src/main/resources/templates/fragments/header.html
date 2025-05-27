@@ -8,20 +8,18 @@
                 <img src="/images/logo.png" alt="로고" style="width: 100px;">
             </a>
             <div class="login-status mt-2 small">
-    <span th:if="${session.userInfo != null}">
-        <strong th:text="${session.userInfo.nickname} + ' 님'"></strong><br>
-
-        <div class="d-flex flex-column align-items-start mt-2 gap-1">
-            <a href="/user/mypage" class="text-white text-decoration-none">마이페이지</a>
-            <a href="/user/edit" class="text-white text-decoration-none">회원정보 수정</a>
-            <a href="javascript:void(0)" onclick="logout()" class="text-white text-decoration-none">로그아웃</a>
-        </div>
-    </span>
-
+                <span th:if="${session.userInfo != null}">
+                    <strong th:text="${session.userInfo.nickname + ' 님'}"></strong><br>
+                    <div class="d-flex flex-column align-items-start mt-2 gap-1">
+                        <a href="/user/mypage" class="text-white text-decoration-none">마이페이지</a>
+                        <a href="/user/edit" class="text-white text-decoration-none">회원정보 수정</a>
+                        <a href="javascript:void(0)" onclick="logout()" class="text-white text-decoration-none">로그아웃</a>
+                    </div>
+                </span>
                 <span th:if="${session.userInfo == null}">
-        <a href="/login/form" class="text-white text-decoration-none me-2">로그인</a>
-        <a href="/user/terms" class="text-white text-decoration-none">회원가입</a>
-    </span>
+                    <a href="/login/form" class="text-white text-decoration-none me-2">로그인</a>
+                    <a href="/user/terms" class="text-white text-decoration-none">회원가입</a>
+                </span>
             </div>
         </div>
 
@@ -37,14 +35,40 @@
             <li><a href="/lore/faction" class="nav-link">진영</a></li>
 
             <li class="menu-title">자료실</li>
-            <li><a href="#" class="nav-link">룰 번역본</a></li>
-            <li><a href="#" class="nav-link">도색 가이드</a></li>
-            <li><a href="#" class="nav-link">PC 워해머 게임 한글 패치</a></li>
+            <li th:if="${session.userInfo != null}">
+                <a href="#" class="nav-link">룰 번역본</a>
+            </li>
+            <li th:if="${session.userInfo != null}">
+                <a href="#" class="nav-link">도색 가이드</a>
+            </li>
+
+            <li th:unless="${session.userInfo != null}">
+                <a href="javascript:void(0)" onclick="requireLogin()" class="nav-link">룰 번역본</a>
+            </li>
+            <li th:unless="${session.userInfo != null}">
+                <a href="javascript:void(0)" onclick="requireLogin()" class="nav-link">도색 가이드</a>
+            </li>
 
             <li class="menu-title">게시판</li>
-            <li><a href="#" class="nav-link">자유 게시판</a></li>
-            <li><a href="#" class="nav-link">도색 게시판</a></li>
-            <li><a href="#" class="nav-link">건의 게시판</a></li>
+            <li th:if="${session.userInfo != null}">
+                <a href="/board/list?boardType=free" class="nav-link">자유 게시판</a>
+            </li>
+            <li th:if="${session.userInfo != null}">
+                <a href="/board/list?boardType=paint" class="nav-link">도색 게시판</a>
+            </li>
+            <li th:if="${session.userInfo != null}">
+                <a href="/board/list?boardType=suggest" class="nav-link">건의 게시판</a>
+            </li>
+
+            <li th:unless="${session.userInfo != null}">
+                <a href="javascript:void(0)" onclick="requireLogin()" class="nav-link">자유 게시판</a>
+            </li>
+            <li th:unless="${session.userInfo != null}">
+                <a href="javascript:void(0)" onclick="requireLogin()" class="nav-link">도색 게시판</a>
+            </li>
+            <li th:unless="${session.userInfo != null}">
+                <a href="javascript:void(0)" onclick="requireLogin()" class="nav-link">건의 게시판</a>
+            </li>
 
             <li class="menu-title">구매 사이트</li>
             <li><a href="/shop/official" class="nav-link">공식몰</a></li>
@@ -60,7 +84,7 @@
             margin: 0;
             padding: 0;
             background-color: black;
-            font-family: 'Cinzel', serif; /* ✅ 폰트 변경 */
+            font-family: 'Cinzel', serif;
         }
 
         .sidebar {
@@ -83,14 +107,14 @@
             margin-top: 16px;
             margin-bottom: 8px;
             font-weight: bold;
-            font-size: 15px; /* ✅ 크기 증가 */
+            font-size: 15px;
             color: #ffffff;
             border-bottom: 1px solid #666;
         }
 
         .nav-link {
             color: white;
-            font-size: 15px; /* ✅ 크기 증가 */
+            font-size: 15px;
             text-decoration: none;
             display: block;
             padding: 6px 12px;
@@ -115,6 +139,11 @@
     <script>
         function logout() {
             location.href = "/login/logout";
+        }
+
+        function requireLogin() {
+            alert("로그인 후 이용하실 수 있습니다.");
+            location.href = "/login/form";
         }
     </script>
 

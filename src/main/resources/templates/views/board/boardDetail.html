@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/main_layout}">
+
+<th:block layout:fragment="css">
+    <style>
+        .contents { max-width: 1000px; margin: 50px auto; color: white; font-size: 14px; }
+        .board-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #444; padding-bottom: 10px; }
+        .board-title { font-size: 24px; font-weight: bold; }
+        .board-meta { color: #ccc; font-size: 13px; margin: 10px 0; }
+        .file-list a { color: #4dd0e1; text-decoration: underline; }
+        .board-content { margin-top: 20px; line-height: 1.6; }
+        .board-content img { max-width: 100%; margin: 10px 0; border: 1px solid #333; }
+        .top-actions { text-align: right; }
+        .top-actions button { margin-left: 10px; }
+        .comment-box { margin-top: 40px; }
+        .comment-input { width: 100%; padding: 10px; background: #222; color: #fff; border: 1px solid #555; margin-bottom: 10px; }
+        .comment-list { margin-top: 20px; }
+        .comment { border-top: 1px solid #444; padding: 10px 0; position: relative; }
+        .comment .comment-actions { position: absolute; right: 0; top: 10px; }
+        .recent-posts { margin-top: 60px; }
+        .recent-posts h5 { color: #ffc107; margin-bottom: 15px; }
+        .recent-posts ul { list-style: none; padding: 0; }
+        .recent-posts li { padding: 5px 0; border-bottom: 1px solid #333; }
+        .recent-posts li a { color: #00bfff; text-decoration: none; }
+        .edit-area textarea { width: 100%; padding: 5px; background: #111; border: 1px solid #444; color: white; margin-bottom: 5px; }
+    </style>
+</th:block>
+
+<div layout:fragment="content">
+    <section class="contents">
+        <input type="hidden" id="seq" th:value="${board.seq}">
+        <input type="hidden" id="currentPage" th:value="${currentPage}">
+        <input type="hidden" id="boardType" th:value="${boardType}">
+        <input type="hidden" id="loginUser" th:value="${session.userInfo?.userId}">
+        <input type="hidden" id="isAuth" th:value="${session.userInfo?.auth}">
+
+        <div class="board-header">
+            <div class="board-title" th:text="${board.title}">제목</div>
+            <div class="top-actions" th:if="${(session.userInfo.userId eq board.writer) or session.userInfo.isAuth}">
+                <button class="btn btn-sm btn-primary" onclick="updateBoard()">수정</button>
+                <button class="btn btn-sm btn-danger" onclick="deleteBoard()">삭제</button>
+            </div>
+        </div>
+
+        <div class="board-meta">
+            작성자: <span th:text="${board.nickname}">닉네임</span> |
+            조회수: <span th:text="${board.readCount}">0</span> |
+            작성일: <span th:text="${#temporals.format(board.createDate, 'yyyy-MM-dd HH:mm')}"></span>
+        </div>
+
+        <div th:if="${!#lists.isEmpty(board.files)}" class="file-list">
+            첨부파일:
+            <ul>
+                <li th:each="item : ${board.files}">
+                    <a href="javascript:void(0)" th:onclick="|downFile(${item.seq})|" th:text="${item.fileName}"></a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="board-content" th:utext="${board.contents}">본문 내용</div>
+
+        <!-- 댓글 -->
+        <div class="comment-box">
+            <textarea id="commentContent" class="comment-input" placeholder="댓글을 입력하세요..."></textarea>
+            <button class="btn btn-sm btn-light" onclick="submitComment()">등록</button>
+            <div class="comment-list" id="commentList"></div>
+        </div>
+
+        <!-- 최근 게시물 -->
+        <div class="recent-posts">
+            <h5>최근 게시글</h5>
+            <ul>
+                <li><a href="#">마지막 테스트</a></li>
+                <li><a href="#">글 작성합니다</a></li>
+                <li><a href="#">워해머 질문</a></li>
+                <li><a href="#">도색 공유</a></li>
+                <li><a href="#">신규 룰북 공개</a></li>
+            </ul>
+        </div>
+    </section>
+
+    <script th:inline="javascript">
+        const updateBoard = () => {
+            const seq = $('#seq').val();
+            const boardType = $('#boardType').val();
+            const currentPage = $('#currentPage').val();
+            location.href = `/board/update/view?boardType=${boardType}&currentPage=${currentPage}&seq=${seq}`;
+        };
+
+        const deleteBoard = () => {
+            if (confirm("정말 삭제하시겠습니까?")) {
+                const seq = $('#seq').val();
+                const boardType = $('#boardType').val();
+                const currentPage = $('#currentPage').val();
+                $.ajax({
+                    url: `/board/delete?seq=${seq}`,
+                    type: 'delete',
+                    dataType: 'json'
+                }).done((res) => {
+                    if (res.resultCode === 200) {
+                        alert('삭제 완료');
+                        location.href = `/board/list?boardType=${boardType}&currentPage=${currentPage}`;
+                    } else {
+                        alert(res.resultMsg);
+                    }
+                });
+            }
+        };
+
+        const downFile = (fileId) => {
+            location.href = `/api/board/down?fileId=${fileId}`;
+        };
+
+        const submitComment = () => {
+            const content = $('#commentContent').val().trim();
+            const boardSeq = $('#seq').val();
+            if (!content) return alert('댓글을 입력해주세요.');
+            $.ajax({
+                url: '/api/comments/add',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ contents: content, boardSeq: boardSeq })
+            }).done(() => {
+                $('#commentContent').val('');
+                loadComments();
+            });
+        };
+
+        const loadComments = () => {
+            const seq = $('#seq').val();
+            const loginUser = $('#loginUser').val();
+            const isAdmin = $('#isAuth').val() === 'true';
+
+            $.get(`/api/comments/${seq}`, res => {
+                let html = '';
+                res.forEach(comment => {
+                    html += `<div class="comment" data-id="${comment.seq}">
+                        <strong>${comment.nickname}</strong>:
+                        <span class="comment-content">${comment.contents}</span>
+                        <div class="edit-area d-none">
+                            <textarea class="edit-input">${comment.contents}</textarea>
+                            <button onclick="saveEdit(${comment.seq})">저장</button>
+                            <button onclick="cancelEdit(${comment.seq})">취소</button>
+                        </div>
+                        <div class="comment-actions">`;
+
+                    if (comment.writerId === loginUser || isAdmin) {
+                        html += `
+                            <button onclick="showEdit(${comment.seq})">수정</button>
+                            <button onclick="deleteComment(${comment.seq})">삭제</button>`;
+                    }
+                    html += `<button onclick="replyComment(${comment.seq})">답글</button>
+                        </div>
+                    </div>`;
+                });
+                $('#commentList').html(html);
+            });
+        };
+
+        const showEdit = (id) => {
+            const commentDiv = $(`.comment[data-id='${id}']`);
+            commentDiv.find('.comment-content').hide();
+            commentDiv.find('.edit-area').removeClass('d-none');
+        };
+
+        const cancelEdit = (id) => {
+            const commentDiv = $(`.comment[data-id='${id}']`);
+            commentDiv.find('.edit-area').addClass('d-none');
+            commentDiv.find('.comment-content').show();
+        };
+
+        const saveEdit = (id) => {
+            const commentDiv = $(`.comment[data-id='${id}']`);
+            const newContent = commentDiv.find('.edit-input').val();
+            $.ajax({
+                url: `/api/comments/update/${id}`,
+                type: 'put',
+                contentType: 'application/json',
+                data: JSON.stringify({ contents: newContent })
+            }).done(() => {
+                loadComments();
+            });
+        };
+
+        const deleteComment = (id) => {
+            if (!confirm("댓글을 삭제하시겠습니까?")) return;
+            $.ajax({
+                url: `/api/comments/${id}`,
+                type: 'delete'
+            }).done(() => {
+                loadComments();
+            });
+        };
+
+        const replyComment = (id) => {
+            alert("답글 기능은 나중에 구현됩니다.");
+        };
+
+        $(document).ready(() => {
+            loadComments();
+        });
+    </script>
+</div>
+</html>

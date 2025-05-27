@@ -1,24 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE configuration   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+
 <configuration>
     <settings>
+        <!-- 언더스코어 자동 변환 -->
         <setting name="mapUnderscoreToCamelCase" value="true"/>
     </settings>
 
     <typeAliases>
+
+        <!-- 공통 -->
         <typeAlias type="java.util.Map" alias="map"/>
 
-
+        <!-- 로그인 관련 -->
         <typeAlias type="kr.it.academy.myapp.login.vo.LoginUser$LoginRequest" alias="LoginRequest"/>
         <typeAlias type="kr.it.academy.myapp.login.vo.LoginUser$UserInfo" alias="user"/>
         <typeAlias type="kr.it.academy.myapp.login.vo.LoginUser$UserAuth" alias="auth"/>
 
-
+        <!-- 사용자 관련 -->
         <typeAlias type="kr.it.academy.myapp.user.vo.User$Request" alias="userRequest"/>
         <typeAlias type="kr.it.academy.myapp.user.vo.User$Response" alias="userResponse"/>
         <typeAlias type="kr.it.academy.myapp.user.vo.User$UserAuth" alias="userAuth"/>
         <typeAlias type="kr.it.academy.myapp.user.vo.User$UserAuthMapping" alias="userAuthMapping"/>
 
+        <!-- ✅ 게시판 관련 alias 추가 -->
+        <typeAlias type="kr.it.academy.myapp.board.vo.BoardData$Request" alias="boardRequest"/>
+        <typeAlias type="kr.it.academy.myapp.board.vo.BoardData$Response" alias="boardResponse"/>
+        <typeAlias type="kr.it.academy.myapp.board.vo.BoardData$Detail" alias="boardDetail"/>
+        <typeAlias type="kr.it.academy.myapp.board.vo.BoardData$BoardFiles" alias="boardFile"/>
 
     </typeAliases>
 </configuration>

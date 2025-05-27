@@ -118,10 +118,10 @@
 <main class="login-container">
     <div class="login-box">
         <div class="login-title">로그인</div>
-        <form id="loginForm" onsubmit="return submitLogin(event);">
+        <form action="/login/proc" method="post" onsubmit="return submitLogin();">
             <div class="login-form">
-                <input type="text" name="userId" class="login-input" placeholder="아이디">
-                <input type="password" name="passwd" class="login-input" placeholder="비밀번호">
+                <input type="text" id="username" name="username" class="login-input" placeholder="아이디">
+                <input type="password" id="password" name="password" class="login-input" placeholder="비밀번호">
                 <div class="login-buttons">
                     <button type="submit" class="btn-image">
                         <img src="/images/loginbtn.png" alt="로그인">
@@ -144,11 +144,9 @@
 
 <script>
     function submitLogin(event) {
-        event.preventDefault();
 
-        const form = document.getElementById("loginForm");
-        const userId = form.querySelector('[name="userId"]');
-        const passwd = form.querySelector('[name="passwd"]');
+        const userId = document.querySelector('#username');
+        const passwd = document.querySelector('#password');
 
         if (userId.value.trim().length === 0) {
             userId.focus();
@@ -162,33 +160,37 @@
             return false;
         }
 
-        const formData = new URLSearchParams();
-        formData.append("userId", userId.value);
-        formData.append("passwd", passwd.value);
+        console.log('aaa')
 
-        fetch("/api/login", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded"
-            },
-            body: formData
-        })
-            .then(res =>  res.text())
-            .then(data => {
-                data = JSON.parse(data);
-                if (data.resultCode === 200) {
-                    location.href = data.redirectUrl || "/home";
-                } else {
-                    alert(data.message || "로그인 실패");
-                }}
-            )
+        return true;
 
-            .catch(err => {
-                console.error(err);
-                alert("서버 오류 발생");
-            });
-
-        return false;
+        // const formData = new URLSearchParams();
+        // formData.append("userId", userId.value);
+        // formData.append("passwd", passwd.value);
+        //
+        // fetch("/api/login", {
+        //     method: "POST",
+        //     headers: {
+        //         "Content-Type": "application/x-www-form-urlencoded"
+        //     },
+        //     body: formData
+        // })
+        //     .then(res =>  res.text())
+        //     .then(data => {
+        //         data = JSON.parse(data);
+        //         if (data.resultCode === 200) {
+        //             location.href = data.redirectUrl || "/home";
+        //         } else {
+        //             alert(data.message || "로그인 실패");
+        //         }}
+        //     )
+        //
+        //     .catch(err => {
+        //         console.error(err);
+        //         alert("서버 오류 발생");
+        //     });
+        //
+        // return false;
     }
 </script>
 

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/main_layout}">
+
+<th:block layout:fragment="css">
+    <style>
+        .board-container {
+            max-width: 1000px;
+            margin: 40px auto;
+            color: #e0e0e0;
+            font-size: 14px;
+        }
+
+        .board-name {
+            text-align: center;
+            font-size: 28px;
+            font-weight: bold;
+            color: #ffc107;
+            margin-bottom: 30px;
+        }
+
+        .b-search {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .left {
+            flex: 3;
+        }
+
+        .right {
+            flex: 1;
+            text-align: right;
+        }
+
+        .sch-select, .sch-input {
+            height: 34px;
+            border-radius: 10px;
+            border: 1px solid #666;
+            background: #1c1c1c;
+            color: #eee;
+        }
+
+        .sch-select {
+            width: 120px;
+        }
+
+        .sch-input {
+            width: 250px;
+        }
+
+        .btn {
+            font-size: 14px;
+            padding: 6px 12px;
+        }
+
+        .board-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #0f0f0f;
+            border-top: 2px solid #666;
+        }
+
+        .board-table th, .board-table td {
+            padding: 10px;
+            border-bottom: 1px solid #333;
+            text-align: center;
+        }
+
+        .board-table thead {
+            background-color: #1c1c1c;
+            color: #ffc107;
+        }
+
+        .board-table td.title {
+            text-align: left;
+        }
+
+        .board-table td.title a {
+            color: #00bfff;
+            text-decoration: none;
+        }
+
+        .board-table td.title a:hover {
+            text-decoration: underline;
+            color: #66ccff;
+        }
+
+        .board-table td.nickname {
+            color: #ccc;
+            font-style: italic;
+        }
+
+        .board-table td.date {
+            font-family: monospace;
+            font-size: 12px;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            margin-top: 20px;
+            padding: 0;
+        }
+
+        .pagination li {
+            margin: 0 4px;
+        }
+
+        .pagination a,
+        .pagination span {
+            display: inline-block;
+            padding: 6px 10px;
+            background-color: #2a2a2a;
+            color: #eee;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .pagination a:hover {
+            background-color: #444;
+        }
+
+        .pagination a.active {
+            background-color: #ffc107;
+            color: black;
+            font-weight: bold;
+        }
+    </style>
+</th:block>
+
+<div layout:fragment="content">
+    <main class="board-container">
+
+        <!-- ✅ 게시판 이름 출력 (수정됨) -->
+        <div th:switch="${boardType}" class="board-name">
+            <span th:case="'free'">자유 게시판</span>
+            <span th:case="'paint'">도색 게시판</span>
+            <span th:case="'suggest'">건의 게시판</span>
+            <span th:case="*">게시판</span>
+        </div>
+
+        <div class="b-search">
+            <div class="left">
+                <select class="sch-select" id="searchType" name="searchType">
+                    <option th:selected="${searchType == 'all'}" value="all">전체</option>
+                    <option th:selected="${searchType == 'title'}" value="title">제목</option>
+                    <option th:selected="${searchType == 'writer'}" value="writer">작성자</option>
+                </select>
+                <input type="text" class="sch-input" id="searchText" name="searchText" th:value="${searchText}" />
+                <button type="button" class="btn btn-warning" onclick="searchBoard();">검색</button>
+            </div>
+            <div class="right" th:if="${session.userInfo != null}">
+                <button type="button" class="btn btn-success" onclick="writeBoard();">글 등록</button>
+            </div>
+        </div>
+
+        <input type="hidden" id="currentPage" th:value="${data.currentPage}" />
+
+        <table class="board-table">
+            <thead>
+            <tr>
+                <th>번호</th>
+                <th>제목</th>
+                <th>작성자</th>
+                <th>조회</th>
+                <th>작성일</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item : ${data.list}">
+                <td th:text="${item.seq}">1</td>
+                <td class="title">
+                    <a href="javascript:void(0);" th:onclick="|showDetail(${item.seq})|"
+                       th:text="${item.title}">제목</a>
+                </td>
+                <td th:text="${item.nickname}" class="nickname">닉네임</td>
+                <td th:text="${item.readCount}">0</td>
+                <td th:text="${#temporals.format(item.updateDate, 'yyyy-MM-dd HH:mm')}" class="date">
+                    2025-05-26 15:00
+                </td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(data.list)}">
+                <td colspan="5" class="text-center">등록된 게시글이 없습니다.</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="page-nav" th:utext="${data.pageHtml}"></div>
+    </main>
+
+    <script th:inline="javascript">
+        const searchParam = {
+            searchType: '[[${searchType}]]',
+            searchText: '[[${searchText}]]'
+        };
+
+        function movePage(pageNum) {
+            if (searchParam.searchText && searchParam.searchText.trim().length > 0) {
+                location.href = `/board/search?searchType=${searchParam.searchType}&searchText=${searchParam.searchText}&currentPage=${pageNum}`;
+            } else {
+                location.href = `/board/list?boardType=[[${boardType}]]&currentPage=${pageNum}`;
+            }
+        }
+
+        function writeBoard() {
+            const pageNum = document.getElementById("currentPage").value;
+            location.href = `/board/form/view?boardType=[[${boardType}]]&currentPage=${pageNum}`;
+        }
+
+        function showDetail(seq) {
+            const pageNum = document.getElementById("currentPage").value;
+            location.href = `/board/detail/view?boardType=[[${boardType}]]&currentPage=${pageNum}&seq=${seq}`;
+        }
+
+        function searchBoard() {
+            searchParam.searchType = document.getElementById("searchType").value;
+            searchParam.searchText = document.getElementById("searchText").value;
+            location.href = `/board/search?searchType=${searchParam.searchType}&searchText=${searchParam.searchText}`;
+        }
+
+        $(document).ready(() => {
+            if (!searchParam.searchType) searchParam.searchType = "title";
+        });
+    </script>
+</div>
+
+</html>

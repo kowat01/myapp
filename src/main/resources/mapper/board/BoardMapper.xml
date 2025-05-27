@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.it.academy.myapp.board.mapper.BoardMapper">
+
+    <!-- ✅ 게시글 상세 ResultMap -->
+    <resultMap id="boardDetailMap" type="boardDetail">
+        <id property="seq" column="seq" />
+        <result property="title" column="title"/>
+        <result property="contents" column="contents"/>
+        <result property="writer" column="writer"/>
+        <result property="readCount" column="read_count"/>
+        <result property="createDate" column="create_date"/>
+        <result property="boardType" column="board_type"/>
+        <collection property="files" ofType="boardFile">
+            <id property="seq" column="file_id" />
+            <result property="boardSeq" column="board_seq"/>
+            <result property="fileName" column="file_name"/>
+            <result property="storedFileName" column="stored_file_name"/>
+            <result property="filePath" column="file_path"/>
+        </collection>
+    </resultMap>
+
+    <!-- ✅ 게시글 수 -->
+    <select id="getBoardTotal" resultType="int" parameterType="map">
+        SELECT COUNT(*) AS cnt
+        FROM board
+        WHERE board_type = #{boardType}
+    </select>
+
+    <!-- ✅ 게시글 리스트 -->
+    <select id="getBoardList" parameterType="map" resultType="boardResponse">
+        SELECT seq,
+        title,
+        writer,
+        read_count,
+        board_type,
+        IFNULL(update_date, create_date) AS create_date
+        FROM board
+        WHERE board_type = #{boardType}
+        ORDER BY seq DESC
+        LIMIT #{offSet}, #{count}
+    </select>
+
+    <!-- ✅ 게시글 상세 -->
+    <select id="getBoardDetail" parameterType="map" resultMap="boardDetailMap">
+        SELECT b.seq,
+        b.title,
+        b.writer,
+        b.read_count,
+        b.contents,
+        b.board_type,
+        bf.seq AS file_id,
+        bf.file_name,
+        bf.stored_file_name,
+        bf.file_path,
+        IFNULL(b.update_date, b.create_date) AS create_date
+        FROM board b
+        LEFT JOIN board_files bf ON b.seq = bf.board_seq
+        WHERE b.seq = #{seq}
+    </select>
+
+    <!-- ✅ 파일 1개 조회 -->
+    <select id="getBoardFile" parameterType="map" resultType="boardFile">
+        SELECT * FROM board_files WHERE seq = #{seq}
+    </select>
+
+    <!-- ✅ 게시글 등록 -->
+    <insert id="addBoard" parameterType="boardRequest" useGeneratedKeys="true" keyProperty="seq">
+        INSERT INTO board (title, writer, contents, board_type)
+        VALUES (#{title}, #{writer}, #{contents}, #{boardType})
+    </insert>
+
+    <!-- ✅ 파일 등록 -->
+    <insert id="addFile" parameterType="boardFile">
+        INSERT INTO board_files (board_seq, file_name, stored_file_name, file_path)
+        VALUES (#{boardSeq}, #{fileName}, #{storedFileName}, #{filePath})
+    </insert>
+
+    <!-- ✅ 게시글 수정 (board_type 포함) -->
+    <update id="updateBoard" parameterType="boardRequest">
+        UPDATE board
+        <set>
+            <if test="title != null and title != ''">
+                title = #{title},
+            </if>
+            <if test="contents != null and contents != ''">
+                contents = #{contents},
+            </if>
+            <if test="boardType != null and boardType != ''">
+                board_type = #{boardType},
+            </if>
+            update_date = NOW()
+        </set>
+        WHERE seq = #{seq}
+    </update>
+
+    <!-- ✅ 게시글 삭제 -->
+    <delete id="deleteBoard" parameterType="map">
+        DELETE FROM board WHERE seq = #{seq}
+    </delete>
+
+    <!-- ✅ 파일 삭제 -->
+    <delete id="deleteFile" parameterType="map">
+        DELETE FROM board_files WHERE seq = #{seq}
+    </delete>
+
+    <!-- ✅ 조회수 증가 -->
+    <update id="updateReadCount" parameterType="map">
+        UPDATE board
+        SET read_count = read_count + 1
+        WHERE seq = #{seq}
+    </update>
+
+</mapper>
