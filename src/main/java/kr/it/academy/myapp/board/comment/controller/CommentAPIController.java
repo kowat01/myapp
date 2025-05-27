@@ -17,14 +17,14 @@ public class CommentAPIController {
 
     private final CommentService commentService;
 
-    // ✅ 댓글 목록 조회
+    // 댓글 목록 조회
     @GetMapping("/{boardSeq}")
     public ResponseEntity<List<CommentDTO>> getComments(@PathVariable Integer boardSeq) {
         List<CommentDTO> comments = commentService.getCommentsByBoardSeq(boardSeq);
         return ResponseEntity.ok(comments);
     }
 
-    // ✅ 댓글 등록
+    // 댓글 등록
     @PostMapping("/add")
     public ResponseEntity<CommentDTO> addComment(@RequestBody CommentDTO dto,
                                                  @AuthenticationPrincipal SecureUser user) {
@@ -32,15 +32,19 @@ public class CommentAPIController {
         return ResponseEntity.ok(saved);
     }
 
-    // ✅ 댓글 삭제
+    // 댓글 삭제 (논리 삭제)
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteComment(@PathVariable Integer id,
                                               @AuthenticationPrincipal SecureUser user) {
         boolean deleted = commentService.deleteComment(id, user);
-        return deleted ? ResponseEntity.ok().build() : ResponseEntity.status(403).build();
+        if (deleted) {
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.status(403).build();
+        }
     }
 
-    // ✅ 댓글 수정
+    // 댓글 수정
     @PutMapping("/update/{id}")
     public ResponseEntity<CommentDTO> updateComment(@PathVariable Integer id,
                                                     @RequestBody CommentDTO dto,

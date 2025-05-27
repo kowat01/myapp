@@ -64,6 +64,10 @@ public class UserService {
     public boolean isEmailExists(String email) throws Exception {
         return userMapper.countEmail(email) > 0;
     }
+
+    public boolean isNicknameExists(String nickname) throws Exception {
+        return userMapper.countNickname(nickname) > 0;
+    }
 }
 
 

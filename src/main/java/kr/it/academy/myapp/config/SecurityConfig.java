@@ -41,26 +41,29 @@ public class SecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> request
+
                         // ✅ 로그인 없이 접근 가능한 경로들
                         .requestMatchers(
                                 "/", "/home", "/about", "/need", "/category", "/universe", "/timeline",
                                 "/factions", "/official", "/used",
-                                "/login/**", "/signup", "/terms", "/user/join",
+                                "/login/**", "/signup", "/terms",
+                                "/user/terms", "/user/join", "/user/register",     // 회원가입 관련 페이지
                                 "/uploads/**", "/css/**", "/js/**", "/images/**",
                                 "/webjars/**", "/dist/**", "/plugins/**"
                         ).permitAll()
 
-                        // ✅ 회원가입 POST 요청 허용
-                        .requestMatchers(HttpMethod.POST, "/api/user").permitAll()
+                        // ✅ 회원가입 및 중복확인 관련 API는 반드시 위쪽에 위치해야 한다!
+                        .requestMatchers("/api/user/check-id", "/api/user/check-nickname").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/user/").permitAll()
 
                         // ✅ 로그인 필요한 경로들
                         .requestMatchers("/board/**").authenticated()
-                        .requestMatchers("/resources/**").authenticated()  // 자료실 경로 실제에 맞게 수정
+                        .requestMatchers("/resources/**").authenticated()
 
-                        // ✅ 관리자 전용
+                        // ✅ 관리자 전용 API는 마지막에 위치
                         .requestMatchers("/user/**", "/api/user/**").hasRole("ADMIN")
 
-                        // ✅ 그 외 경로는 로그인 없이 접근 허용
+                        // ✅ 기타 요청은 허용
                         .anyRequest().permitAll()
                 )
                 .formLogin(f -> f

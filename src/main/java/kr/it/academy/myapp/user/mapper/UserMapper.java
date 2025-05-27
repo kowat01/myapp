@@ -22,4 +22,6 @@ public interface UserMapper {
 
     // ✅ 이메일 중복 확인
     int countEmail(String email);
+
+    int countNickname(String nickname);
 }

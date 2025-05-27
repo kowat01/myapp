@@ -21,7 +21,8 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public List<CommentDTO> getCommentsByBoardSeq(Integer boardSeq) {
-        return commentRepository.findByBoardSeqOrderBySeqAsc(boardSeq).stream()
+        // 삭제된 댓글도 모두 가져와서 프론트에서 처리함
+        return commentRepository.findByBoardSeqOrderByParentIdAscSeqAsc(boardSeq).stream()
                 .map(entity -> {
                     String nickname = userRepository.findNicknameByUserId(entity.getWriterId());
                     return CommentDTO.of(entity, nickname);
@@ -35,8 +36,10 @@ public class CommentServiceImpl implements CommentService {
         entity.setBoardSeq(dto.getBoardSeq());
         entity.setContents(dto.getContents());
         entity.setWriterId(user.getUserId());
+        entity.setParentId(dto.getParentId());
         entity.setCreateDate(LocalDateTime.now());
         entity.setUpdateDate(LocalDateTime.now());
+        entity.setDeleted(false);
 
         CommentEntity saved = commentRepository.save(entity);
         String nickname = userRepository.findNicknameByUserId(user.getUserId());
@@ -49,17 +52,20 @@ public class CommentServiceImpl implements CommentService {
         return commentRepository.findById(id)
                 .filter(comment -> user.isAuth() || comment.getWriterId().equals(user.getUserId()))
                 .map(comment -> {
-                    commentRepository.delete(comment);
+                    comment.setDeleted(true);
+                    comment.setContents("-삭제된 댓글입니다-");
+                    comment.setUpdateDate(LocalDateTime.now());
+                    commentRepository.save(comment);
                     return true;
                 })
                 .orElse(false);
     }
 
-    // ✅ 댓글 수정 기능 추가
     @Override
     public CommentDTO updateComment(Integer id, CommentDTO dto, SecureUser user) {
         return commentRepository.findById(id)
                 .filter(comment -> user.isAuth() || comment.getWriterId().equals(user.getUserId()))
+                .filter(comment -> !comment.isDeleted())
                 .map(comment -> {
                     comment.setContents(dto.getContents());
                     comment.setUpdateDate(LocalDateTime.now());

@@ -36,6 +36,12 @@ public class UserAPIController {
                 return new ResponseEntity<>(resultMap, HttpStatus.OK);
             }
 
+            if (userService.isNicknameExists(userRequest.getNickname())) {
+                resultMap.put("resultCode", 411);
+                resultMap.put("message", "이미 사용 중인 닉네임입니다.");
+                return new ResponseEntity<>(resultMap, HttpStatus.OK);
+            }
+
             resultMap = userService.addUser(userRequest);
         } catch (Exception e) {
             resultMap.put("resultCode", 500);
@@ -67,6 +73,18 @@ public class UserAPIController {
             result.put("exists", exists);
         } catch (Exception e) {
             result.put("exists", true); // 에러 발생 시 사용 불가 처리
+            e.printStackTrace();
+        }
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+    @GetMapping("/check-nickname")
+    public ResponseEntity<Map<String, Object>> checkDuplicateNickname(@RequestParam String nickname) {
+        Map<String, Object> result = new HashMap<>();
+        try {
+            boolean exists = userService.isNicknameExists(nickname);
+            result.put("exists", exists);
+        } catch (Exception e) {
+            result.put("exists", true); // 오류 발생 시 중복 있다고 처리
             e.printStackTrace();
         }
         return new ResponseEntity<>(result, HttpStatus.OK);

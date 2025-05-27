@@ -14,9 +14,11 @@ public class CommentDTO {
     private Integer seq;
     private Integer boardSeq;
     private String writerId;
-    private String nickname; // ✅ 닉네임 별도 주입
+    private String nickname;
     private String contents;
     private LocalDateTime createDate;
+    private Integer parentId;
+    private boolean deleted;
 
     public static CommentDTO of(CommentEntity entity, String nickname) {
         return CommentDTO.builder()
@@ -26,6 +28,8 @@ public class CommentDTO {
                 .nickname(nickname)
                 .contents(entity.getContents())
                 .createDate(entity.getCreateDate())
+                .parentId(entity.getParentId())
+                .deleted(entity.isDeleted())
                 .build();
     }
 }

@@ -3,7 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/main_layout}">
 
-<th:block layout:fragment="css">
+<head>
     <style>
         .contents { max-width: 1000px; margin: 50px auto; color: white; font-size: 14px; }
         .board-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #444; padding-bottom: 10px; }
@@ -14,19 +14,77 @@
         .board-content img { max-width: 100%; margin: 10px 0; border: 1px solid #333; }
         .top-actions { text-align: right; }
         .top-actions button { margin-left: 10px; }
-        .comment-box { margin-top: 40px; }
-        .comment-input { width: 100%; padding: 10px; background: #222; color: #fff; border: 1px solid #555; margin-bottom: 10px; }
+        .comment-count {
+            font-size: 14px;
+            color: #ccc;
+            margin: 20px 0 10px 0;
+            font-weight: bold;
+            user-select: none;
+        }
+        .comment-box { margin-top: 10px; }
+        .comment-input { width: 100%; padding: 10px; background: #222; color: #fff; border: 1px solid #555; margin-bottom: 10px; min-height: 80px; max-height: 250px; overflow-y: auto; resize: vertical; }
         .comment-list { margin-top: 20px; }
-        .comment { border-top: 1px solid #444; padding: 10px 0; position: relative; }
-        .comment .comment-actions { position: absolute; right: 0; top: 10px; }
+        .comment {
+            background: #222;
+            color: #eee;
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-bottom: 10px;
+            font-size: 14px;
+            position: relative;
+        }
+        .comment .author {
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+        .comment .content {
+            white-space: pre-wrap;
+            margin-bottom: 8px;
+        }
+        .comment .actions {
+            margin-top: 8px;
+        }
+        .comment .actions button {
+            margin-right: 6px;
+            font-size: 12px;
+            padding: 2px 6px;
+            cursor: pointer;
+            background: #555;
+            color: #ddd;
+            border: none;
+            border-radius: 4px;
+        }
+        .comment.reply-level-1 { margin-left: 20px; background: #2c2c2c; }
+        .comment.reply-level-2 { margin-left: 40px; background: #383838; }
+        .comment.reply-level-3 { margin-left: 60px; background: #444; }
+        /* 필요하면 더 깊은 레벨 추가 가능 */
+
+        .edit-area textarea {
+            width: 100%;
+            padding: 5px;
+            background: #111;
+            border: 1px solid #444;
+            color: white;
+            margin-bottom: 5px;
+            resize: vertical;
+        }
+        .reply-form textarea {
+            width: 100%;
+            padding: 5px;
+            background: #111;
+            border: 1px solid #444;
+            color: white;
+            margin-top: 10px;
+            resize: vertical;
+        }
+
         .recent-posts { margin-top: 60px; }
         .recent-posts h5 { color: #ffc107; margin-bottom: 15px; }
         .recent-posts ul { list-style: none; padding: 0; }
         .recent-posts li { padding: 5px 0; border-bottom: 1px solid #333; }
         .recent-posts li a { color: #00bfff; text-decoration: none; }
-        .edit-area textarea { width: 100%; padding: 5px; background: #111; border: 1px solid #444; color: white; margin-bottom: 5px; }
     </style>
-</th:block>
+</head>
 
 <div layout:fragment="content">
     <section class="contents">
@@ -61,7 +119,10 @@
 
         <div class="board-content" th:utext="${board.contents}">본문 내용</div>
 
-        <!-- 댓글 -->
+        <!-- 전체 댓글 수 -->
+        <div id="commentCount" class="comment-count">전체 댓글: 0개</div>
+
+        <!-- 댓글 입력 -->
         <div class="comment-box">
             <textarea id="commentContent" class="comment-input" placeholder="댓글을 입력하세요..."></textarea>
             <button class="btn btn-sm btn-light" onclick="submitComment()">등록</button>
@@ -82,6 +143,10 @@
     </section>
 
     <script th:inline="javascript">
+        let editingCommentId = null;
+        const loginUser = $('#loginUser').val();
+        const isAdmin = $('#isAuth').val() === 'true';
+
         const updateBoard = () => {
             const seq = $('#seq').val();
             const boardType = $('#boardType').val();
@@ -113,6 +178,119 @@
             location.href = `/api/board/down?fileId=${fileId}`;
         };
 
+        // 댓글 재귀 렌더링 함수
+        function renderComments(comments, parentId = null, level = 0) {
+            let html = '';
+            comments.filter(c => c.parentId === parentId).forEach(comment => {
+                const replyClass = level > 0 ? `reply-level-${level}` : '';
+                const isDeleted = comment.deleted === true; // 삭제 상태 체크
+
+                html += `
+                    <div class="comment ${replyClass}" data-id="${comment.seq}">
+                        <div class="author">${comment.nickname}:</div>
+                        <div class="content">${isDeleted ? '-삭제된 댓글입니다-' : comment.contents}</div>
+                        <div class="actions">`;
+
+                if (!isDeleted && (comment.writerId === loginUser || isAdmin)) {
+                    html += `
+                        <button onclick="showEdit(${comment.seq})">수정</button>
+                        <button onclick="deleteComment(${comment.seq})">삭제</button>`;
+                }
+
+                if (!isDeleted) {
+                    html += `<button onclick="replyComment(${comment.seq})">답글</button>`;
+                }
+
+                html += `
+                        </div>
+                    </div>
+                `;
+
+                // 재귀 호출로 자식 댓글 출력
+                html += renderComments(comments, comment.seq, level + 1);
+            });
+            return html;
+        }
+
+        // 댓글 목록 불러오기
+        const loadComments = () => {
+            const seq = $('#seq').val();
+
+            $.get(`/api/comments/${seq}`, res => {
+                const html = renderComments(res);
+                $('#commentList').html(html);
+
+                // 전체 댓글 수 표시
+                $('#commentCount').text(`전체 댓글: ${res.length}개`);
+            });
+        };
+
+        // 수정 모드 표시
+        const showEdit = (id) => {
+            editingCommentId = id;
+            loadComments();
+        };
+
+        // 수정 모드 취소
+        const cancelEdit = (id) => {
+            editingCommentId = null;
+            loadComments();
+        };
+
+        // 수정 내용 저장
+        const saveEdit = (id) => {
+            const commentDiv = $(`.comment[data-id='${id}']`);
+            const newContent = commentDiv.find('.edit-input').val();
+            $.ajax({
+                url: `/api/comments/update/${id}`,
+                type: 'put',
+                contentType: 'application/json',
+                data: JSON.stringify({ contents: newContent })
+            }).done(() => {
+                editingCommentId = null;
+                loadComments();
+            });
+        };
+
+        // 댓글 삭제
+        const deleteComment = (id) => {
+            if (!confirm("댓글을 삭제하시겠습니까?")) return;
+            $.ajax({
+                url: `/api/comments/${id}`,
+                type: 'delete'
+            }).done(() => {
+                loadComments();
+            });
+        };
+
+        // 답글 폼 표시
+        const replyComment = (id) => {
+            $('.reply-form').remove();
+            const html = `
+                <div class="reply-form">
+                    <textarea class="comment-input reply-content" placeholder="답글을 입력하세요..."></textarea>
+                    <button class="btn btn-sm btn-light" onclick="submitReply(${id})">답글 등록</button>
+                </div>`;
+            $(`.comment[data-id="${id}"]`).append(html);
+        };
+
+        // 답글 등록
+        const submitReply = (parentId) => {
+            const content = $(`.comment[data-id='${parentId}'] .reply-content`).val().trim();
+            const boardSeq = $('#seq').val();
+            if (!content) return alert('답글 내용을 입력해주세요.');
+            $.ajax({
+                url: '/api/comments/add',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ contents: content, boardSeq: boardSeq, parentId: parentId })
+            }).done(() => {
+                editingCommentId = null;
+                loadComments();
+            });
+        };
+
+        // 새 댓글 등록
         const submitComment = () => {
             const content = $('#commentContent').val().trim();
             const boardSeq = $('#seq').val();
@@ -126,76 +304,6 @@
                 $('#commentContent').val('');
                 loadComments();
             });
-        };
-
-        const loadComments = () => {
-            const seq = $('#seq').val();
-            const loginUser = $('#loginUser').val();
-            const isAdmin = $('#isAuth').val() === 'true';
-
-            $.get(`/api/comments/${seq}`, res => {
-                let html = '';
-                res.forEach(comment => {
-                    html += `<div class="comment" data-id="${comment.seq}">
-                        <strong>${comment.nickname}</strong>:
-                        <span class="comment-content">${comment.contents}</span>
-                        <div class="edit-area d-none">
-                            <textarea class="edit-input">${comment.contents}</textarea>
-                            <button onclick="saveEdit(${comment.seq})">저장</button>
-                            <button onclick="cancelEdit(${comment.seq})">취소</button>
-                        </div>
-                        <div class="comment-actions">`;
-
-                    if (comment.writerId === loginUser || isAdmin) {
-                        html += `
-                            <button onclick="showEdit(${comment.seq})">수정</button>
-                            <button onclick="deleteComment(${comment.seq})">삭제</button>`;
-                    }
-                    html += `<button onclick="replyComment(${comment.seq})">답글</button>
-                        </div>
-                    </div>`;
-                });
-                $('#commentList').html(html);
-            });
-        };
-
-        const showEdit = (id) => {
-            const commentDiv = $(`.comment[data-id='${id}']`);
-            commentDiv.find('.comment-content').hide();
-            commentDiv.find('.edit-area').removeClass('d-none');
-        };
-
-        const cancelEdit = (id) => {
-            const commentDiv = $(`.comment[data-id='${id}']`);
-            commentDiv.find('.edit-area').addClass('d-none');
-            commentDiv.find('.comment-content').show();
-        };
-
-        const saveEdit = (id) => {
-            const commentDiv = $(`.comment[data-id='${id}']`);
-            const newContent = commentDiv.find('.edit-input').val();
-            $.ajax({
-                url: `/api/comments/update/${id}`,
-                type: 'put',
-                contentType: 'application/json',
-                data: JSON.stringify({ contents: newContent })
-            }).done(() => {
-                loadComments();
-            });
-        };
-
-        const deleteComment = (id) => {
-            if (!confirm("댓글을 삭제하시겠습니까?")) return;
-            $.ajax({
-                url: `/api/comments/${id}`,
-                type: 'delete'
-            }).done(() => {
-                loadComments();
-            });
-        };
-
-        const replyComment = (id) => {
-            alert("답글 기능은 나중에 구현됩니다.");
         };
 
         $(document).ready(() => {

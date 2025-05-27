@@ -97,6 +97,34 @@ public class BoardController {
         return view;
     }
 
+    // 게시글 수정 폼 보여주기 (중복 매핑 해결)
+    @GetMapping("/update/view")
+    public ModelAndView getBoardUpdateForm(@RequestParam(name = "boardType", defaultValue = "free") String boardType,
+                                           @RequestParam(name = "currentPage", defaultValue = "0") int currentPage,
+                                           @RequestParam int seq,
+                                           @AuthenticationPrincipal SecureUser user,
+                                           HttpServletRequest request, HttpServletResponse response) {
+        if (user == null) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "로그인이 필요합니다.");
+        }
+
+        boardType = normalizeBoardType(boardType);
+
+        ModelAndView view = new ModelAndView();
+        try {
+            BoardDTO detail = boardJPAService.getBoardDetail(request, response, seq);
+            view.addObject("board", detail);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "게시글을 불러오는데 실패했습니다.");
+        }
+
+        view.addObject("boardType", boardType);
+        view.addObject("currentPage", currentPage);
+        view.setViewName("views/board/boardUpdate");
+        return view;
+    }
+
     @GetMapping("/detail/view")
     public ModelAndView getBoardDetail(@RequestParam(name = "boardType", defaultValue = "free") String boardType,
                                        @RequestParam(name = "currentPage", defaultValue = "0") int currentPage,
@@ -143,6 +171,8 @@ public class BoardController {
 
         return resultMap;
     }
+
+
 
     @DeleteMapping("/delete")
     @ResponseBody

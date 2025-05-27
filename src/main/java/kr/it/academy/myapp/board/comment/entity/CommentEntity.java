@@ -25,9 +25,15 @@ public class CommentEntity {
     @Column(name = "contents", nullable = false)
     private String contents;
 
+    @Column(name = "parent_id")
+    private Integer parentId;
+
     @Column(name = "create_date", insertable = false)
     private LocalDateTime createDate;
 
     @Column(name = "update_date", insertable = false, updatable = false)
     private LocalDateTime updateDate;
+
+    @Column(name = "deleted", nullable = false)
+    private boolean deleted = false;  // 논리 삭제용 필드, 기본값 false
 }
