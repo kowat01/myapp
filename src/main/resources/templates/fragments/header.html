@@ -36,10 +36,10 @@
 
             <li class="menu-title">자료실</li>
             <li th:if="${session.userInfo != null}">
-                <a href="#" class="nav-link">룰 번역본</a>
+                <a href="/board/list?boardType=rule" class="nav-link">룰 번역 공유</a>
             </li>
             <li th:if="${session.userInfo != null}">
-                <a href="#" class="nav-link">도색 가이드</a>
+                <a href="/board/list?boardType=guide" class="nav-link">영상 도색 가이드</a>
             </li>
             <li th:unless="${session.userInfo != null}">
                 <a href="javascript:void(0)" onclick="requireLogin()" class="nav-link">룰 번역본</a>

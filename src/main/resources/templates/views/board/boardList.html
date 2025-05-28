@@ -98,14 +98,13 @@
             font-size: 12px;
         }
 
-        /* 공지글 스타일 */
         .notice-row {
             background-color: #1e1e1e;
             font-weight: bold;
         }
 
         .notice-row td.title a::before {
-            content: "\1F4CC "; /* 📌 */
+            content: "\1F4CC ";
             color: #ffc107;
         }
 
@@ -150,6 +149,8 @@
             <span th:case="'free'">자유 게시판</span>
             <span th:case="'paint'">도색 게시판</span>
             <span th:case="'suggest'">건의 게시판</span>
+            <span th:case="'guide'">영상 도색 가이드</span>
+            <span th:case="'rule'">룰 번역 공유</span>
             <span th:case="*">게시판</span>
         </div>
 
@@ -181,7 +182,6 @@
             </tr>
             </thead>
             <tbody>
-            <!-- 공지글 우선 출력 -->
             <tr th:each="item : ${data.noticeList}" class="notice-row">
                 <td>*</td>
                 <td class="title">
@@ -192,7 +192,6 @@
                 <td th:text="${#temporals.format(item.createDate, 'yyyy-MM-dd HH:mm')}"></td>
             </tr>
 
-            <!-- 일반 게시글 -->
             <tr th:each="item : ${data.list}">
                 <td th:text="${item.seq}"></td>
                 <td class="title">
@@ -220,7 +219,7 @@
 
         function movePage(pageNum) {
             if (searchParam.searchText && searchParam.searchText.trim().length > 0) {
-                location.href = `/board/search?searchType=${searchParam.searchType}&searchText=${searchParam.searchText}&currentPage=${pageNum}`;
+                location.href = `/board/search?boardType=[[${boardType}]]&searchType=${searchParam.searchType}&searchText=${searchParam.searchText}&currentPage=${pageNum}`;
             } else {
                 location.href = `/board/list?boardType=[[${boardType}]]&currentPage=${pageNum}`;
             }
@@ -239,7 +238,7 @@
         function searchBoard() {
             searchParam.searchType = document.getElementById("searchType").value;
             searchParam.searchText = document.getElementById("searchText").value;
-            location.href = `/board/search?searchType=${searchParam.searchType}&searchText=${searchParam.searchText}`;
+            location.href = `/board/search?boardType=[[${boardType}]]&searchType=${searchParam.searchType}&searchText=${searchParam.searchText}`;
         }
     </script>
 </div>

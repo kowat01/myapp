@@ -34,7 +34,7 @@ public class BoardController {
     @Value("${upload.image.path:C:/upload/warhammer/uploads/}")
     private String uploadPath;
 
-    private static final List<String> VALID_BOARD_TYPES = List.of("free", "paint", "suggest");
+    private static final List<String> VALID_BOARD_TYPES = List.of("free", "paint", "suggest","guide", "rule");
 
     private String normalizeBoardType(String input) {
         if (input == null) return "free";
