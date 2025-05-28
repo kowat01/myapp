@@ -1,0 +1,64 @@
+server:
+  port: 9090
+  file:
+    path: c:\\files\\uploads\\
+
+  servlet:
+    session:
+      timeout: 60m  # ✅ 로그인 세션 60분 유지
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+
+  datasource:
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    url: jdbc:log4jdbc:mariadb://192.168.56.1:13306/projectboot_db
+    username: root
+    password: 1234
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      connection-timeout: 60000        # DB 연결 요청 최대 대기 시간 (ms)
+      maximum-pool-size: 50            # 최대 커넥션 수
+      minimum-idle: 20                 # 최소 유휴 커넥션 수
+      idle-timeout: 10000              # 유휴 커넥션 제거 시간 (ms)
+      data-source-properties:
+        cachePrepStmts: true
+        prepStmtCacheSize: 250
+        prepStmtCacheSqlLimit: 2048
+        useServerPrepStmts: true
+
+  thymeleaf:
+    cache: false
+    check-template-location: true
+    encoding: utf-8
+    servlet:
+      content-type: text/html
+    prefix: classpath:/templates/
+    suffix: .html
+
+  devtools:
+    livereload:
+      enabled: true
+    remote:
+      restart:
+        enabled: true
+    restart:
+      enabled: true
+
+# 마이바티스 설정
+mybatis:
+  config-location: classpath:config/mybatis-config.xml
+  mapper-locations: classpath:mapper/**/*.xml
+
+# 로그 레벨 설정
+logging:
+  level:
+    org:
+      springframework:
+        boot:
+          autoconfigure: OFF
+      thymeleaf: OFF
+      hibernate:
+        sql: INFO
+        type: OFF
