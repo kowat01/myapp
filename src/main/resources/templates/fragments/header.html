@@ -1,19 +1,19 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="header">
 
     <aside class="sidebar">
-        <div class="text-center mb-4">
+        <div class="text-center mb-3">
             <a href="/home">
                 <img src="/images/logo.png" alt="로고" style="width: 100px;">
             </a>
             <div class="login-status mt-2 small">
                 <span th:if="${session.userInfo != null}">
-                    <strong th:text="${session.userInfo.nickname + ' 님'}"></strong><br>
-                    <div class="d-flex flex-column align-items-start mt-2 gap-1">
-                        <a href="/user/mypage" class="text-white text-decoration-none">마이페이지</a>
-                        <a href="/user/edit" class="text-white text-decoration-none">회원정보 수정</a>
-                        <a href="javascript:void(0)" onclick="logout()" class="text-white text-decoration-none">로그아웃</a>
+                    <strong th:text="${session.userInfo.nickname + ' 님'}"></strong>
+                    <div class="user-actions mt-1 d-flex justify-content-center gap-2">
+                        <a href="/user/mypage" class="action-link">마이페이지</a>
+                        <span class="divider">|</span>
+                        <a href="javascript:void(0)" onclick="logout()" class="action-link">로그아웃</a>
                     </div>
                 </span>
                 <span th:if="${session.userInfo == null}">
@@ -41,7 +41,6 @@
             <li th:if="${session.userInfo != null}">
                 <a href="#" class="nav-link">도색 가이드</a>
             </li>
-
             <li th:unless="${session.userInfo != null}">
                 <a href="javascript:void(0)" onclick="requireLogin()" class="nav-link">룰 번역본</a>
             </li>
@@ -59,7 +58,6 @@
             <li th:if="${session.userInfo != null}">
                 <a href="/board/list?boardType=suggest" class="nav-link">건의 게시판</a>
             </li>
-
             <li th:unless="${session.userInfo != null}">
                 <a href="javascript:void(0)" onclick="requireLogin()" class="nav-link">자유 게시판</a>
             </li>
@@ -92,14 +90,14 @@
             top: 0;
             left: 0;
             width: 180px;
-            height: 100vh;
+            height: 100%;
             background-color: rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(6px);
             padding: 20px 10px;
             font-size: 15px;
             color: white;
             z-index: 1000;
-            overflow-y: auto;
+            overflow-y: hidden;
         }
 
         .menu-title {
@@ -127,6 +125,30 @@
         .nav-link:active {
             color: #d9b877;
             font-weight: bold;
+        }
+
+        .user-actions {
+            font-size: 12.5px;
+            color: #ccc;
+            margin-top: 4px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .user-actions .action-link {
+            color: #ccc;
+            text-decoration: none;
+        }
+
+        .user-actions .action-link:hover {
+            color: #d9b877;
+        }
+
+        .divider {
+            color: #555;
         }
 
         body > main,

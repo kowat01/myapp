@@ -98,6 +98,17 @@
             font-size: 12px;
         }
 
+        /* 공지글 스타일 */
+        .notice-row {
+            background-color: #1e1e1e;
+            font-weight: bold;
+        }
+
+        .notice-row td.title a::before {
+            content: "\1F4CC "; /* 📌 */
+            color: #ffc107;
+        }
+
         .pagination {
             display: flex;
             justify-content: center;
@@ -135,8 +146,6 @@
 
 <div layout:fragment="content">
     <main class="board-container">
-
-        <!-- ✅ 게시판 이름 출력 (수정됨) -->
         <div th:switch="${boardType}" class="board-name">
             <span th:case="'free'">자유 게시판</span>
             <span th:case="'paint'">도색 게시판</span>
@@ -172,19 +181,29 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="item : ${data.list}">
-                <td th:text="${item.seq}">1</td>
+            <!-- 공지글 우선 출력 -->
+            <tr th:each="item : ${data.noticeList}" class="notice-row">
+                <td>*</td>
                 <td class="title">
-                    <a href="javascript:void(0);" th:onclick="|showDetail(${item.seq})|"
-                       th:text="${item.title}">제목</a>
+                    <a href="javascript:void(0);" th:onclick="|showDetail(${item.seq})|" th:text="${item.title}"></a>
                 </td>
-                <td th:text="${item.nickname}" class="nickname">닉네임</td>
-                <td th:text="${item.readCount}">0</td>
-                <td th:text="${#temporals.format(item.updateDate, 'yyyy-MM-dd HH:mm')}" class="date">
-                    2025-05-26 15:00
-                </td>
+                <td th:text="${item.nickname}" class="nickname"></td>
+                <td th:text="${item.readCount}"></td>
+                <td th:text="${#temporals.format(item.createDate, 'yyyy-MM-dd HH:mm')}"></td>
             </tr>
-            <tr th:if="${#lists.isEmpty(data.list)}">
+
+            <!-- 일반 게시글 -->
+            <tr th:each="item : ${data.list}">
+                <td th:text="${item.seq}"></td>
+                <td class="title">
+                    <a href="javascript:void(0);" th:onclick="|showDetail(${item.seq})|" th:text="${item.title}"></a>
+                </td>
+                <td th:text="${item.nickname}" class="nickname"></td>
+                <td th:text="${item.readCount}"></td>
+                <td th:text="${#temporals.format(item.createDate, 'yyyy-MM-dd HH:mm')}"></td>
+            </tr>
+
+            <tr th:if="${#lists.isEmpty(data.list) && #lists.isEmpty(data.noticeList)}">
                 <td colspan="5" class="text-center">등록된 게시글이 없습니다.</td>
             </tr>
             </tbody>
@@ -222,10 +241,6 @@
             searchParam.searchText = document.getElementById("searchText").value;
             location.href = `/board/search?searchType=${searchParam.searchType}&searchText=${searchParam.searchText}`;
         }
-
-        $(document).ready(() => {
-            if (!searchParam.searchType) searchParam.searchType = "title";
-        });
     </script>
 </div>
 
