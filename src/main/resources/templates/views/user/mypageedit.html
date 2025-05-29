@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/main_layout}">
+
+<th:block layout:fragment="content">
+    <div class="mypage-edit-container" th:if="${userInfo != null}">
+        <h2>✏️ 회원정보 수정</h2>
+        <form th:action="@{/user/mypageedit}" method="post">
+            <div class="form-group">
+                <label for="nickname">닉네임</label>
+                <input type="text" id="nickname" name="nickname" class="form-control" th:value="${userInfo.nickname}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">이메일</label>
+                <input type="email" id="email" name="email" class="form-control" th:value="${userInfo.email}" required>
+            </div>
+
+            <div class="form-buttons">
+                <button type="submit" class="btn-custom">💾 저장</button>
+                <button type="button" class="btn-custom danger" onclick="history.back()">취소</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="mypage-edit-container" th:if="${userInfo == null}">
+        <h2>❌ 접근 불가</h2>
+        <p style="text-align:center;">로그인 후 이용해 주세요.</p>
+    </div>
+</th:block>
+
+<th:block layout:fragment="css">
+    <style>
+        .mypage-edit-container {
+            max-width: 600px;
+            margin: 60px auto;
+            background-color: #1c1c1c;
+            color: #eee;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.6);
+        }
+
+        .mypage-edit-container h2 {
+            text-align: center;
+            color: #ffc107;
+            margin-bottom: 30px;
+            font-size: 26px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #ccc;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #555;
+            background-color: #2b2b2b;
+            color: #fff;
+        }
+
+        .form-buttons {
+            margin-top: 30px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .btn-custom {
+            padding: 10px 25px;
+            border: none;
+            border-radius: 8px;
+            background-color: #ffc107;
+            color: #000;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-custom:hover {
+            background-color: #e0a800;
+        }
+
+        .btn-custom.danger {
+            background-color: #dc3545;
+            color: #fff;
+        }
+
+        .btn-custom.danger:hover {
+            background-color: #bd2130;
+        }
+    </style>
+</th:block>
+</html>

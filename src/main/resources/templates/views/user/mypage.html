@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/main_layout}">
+
+<th:block layout:fragment="content">
+    <div class="mypage-container" th:if="${userInfo != null}">
+        <h2>👤 내 정보</h2>
+        <div class="info-box">
+            <ul>
+                <li><strong>아이디</strong><span th:text="${userInfo.userId}">아이디</span></li>
+                <li><strong>닉네임</strong><span th:text="${userInfo.nickname}">닉네임</span></li>
+                <li><strong>이메일</strong><span th:text="${userInfo.email}">이메일</span></li>
+                <li><strong>가입일</strong><span th:text="${#temporals.format(userInfo.createDate, 'yyyy-MM-dd HH:mm')}">가입일</span></li>
+            </ul>
+        </div>
+
+        <div class="button-box">
+            <button class="btn-custom" onclick="location.href='/user/mypageedit'">회원정보 수정</button>
+            <button class="btn-custom danger" onclick="deleteAccount()">회원 탈퇴</button>
+        </div>
+    </div>
+
+    <div class="mypage-container" th:if="${userInfo == null}">
+        <h2>❌ 정보 없음</h2>
+        <p style="text-align:center;">로그인 후 이용해 주세요.</p>
+    </div>
+
+    <form id="deleteForm" method="post" th:action="@{/user/delete}" style="display:none;"></form>
+</th:block>
+
+<th:block layout:fragment="css">
+    <style>
+        .mypage-container {
+            max-width: 700px;
+            margin: 60px auto;
+            background-color: #1c1c1c;
+            color: #e0e0e0;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.6);
+        }
+
+        .mypage-container h2 {
+            text-align: center;
+            color: #ffc107;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+
+        .info-box ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .info-box li {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #444;
+            font-size: 16px;
+        }
+
+        .info-box strong {
+            width: 120px;
+            font-weight: bold;
+            color: #bbb;
+        }
+
+        .button-box {
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .btn-custom {
+            padding: 10px 25px;
+            border: none;
+            border-radius: 8px;
+            background-color: #ffc107;
+            color: #000;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-custom:hover {
+            background-color: #e0a800;
+        }
+
+        .btn-custom.danger {
+            background-color: #dc3545;
+            color: #fff;
+        }
+
+        .btn-custom.danger:hover {
+            background-color: #bd2130;
+        }
+    </style>
+</th:block>
+
+<th:block layout:fragment="script">
+    <script>
+        function deleteAccount() {
+            if (confirm("정말 탈퇴하시겠습니까? 이 작업은 되돌릴 수 없습니다.")) {
+                document.getElementById("deleteForm").submit();
+            }
+        }
+    </script>
+</th:block>
+</html>
