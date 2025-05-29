@@ -11,17 +11,22 @@ public interface UserMapper {
 
     int addUser(User.Request userRequest);
 
-    // 권한리스트
+    // 권한 리스트
     List<User.UserAuth> getUserAuthList() throws SQLException;
 
-    // 권한 멥핑 추가
+    // 권한 매핑 추가
     int addUserAuthMapping(User.UserAuthMapping userAuthMapping) throws SQLException;
 
     // 아이디 중복 확인
     int countUserId(String userId);
 
-    // ✅ 이메일 중복 확인
+    // 이메일 중복 확인
     int countEmail(String email);
 
     int countNickname(String nickname);
+
+    User.Response selectUserById(String userId);
+
+    void updateUserInfo(String userId, String nickname, String email);
+
 }

@@ -6,6 +6,7 @@ import kr.it.academy.myapp.board.service.BoardJPAService;
 import kr.it.academy.myapp.board.vo.BoardDTO;
 import kr.it.academy.myapp.board.vo.BoardData;
 import kr.it.academy.myapp.common.vo.SecureUser;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -19,9 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.UUID;
 
 @Controller
@@ -34,7 +33,7 @@ public class BoardController {
     @Value("${upload.image.path:C:/upload/warhammer/uploads/}")
     private String uploadPath;
 
-    private static final List<String> VALID_BOARD_TYPES = List.of("free", "paint", "suggest","guide", "rule");
+    private static final List<String> VALID_BOARD_TYPES = List.of("free", "paint", "suggest", "guide", "rule", "wiki");
 
     private String normalizeBoardType(String input) {
         if (input == null) return "free";
@@ -44,9 +43,12 @@ public class BoardController {
 
     @GetMapping("/list")
     public ModelAndView getBoardList(@RequestParam(name = "boardType", defaultValue = "free") String boardType,
-                                     @RequestParam(name = "currentPage", defaultValue = "0") int currentPage) {
+                                     @RequestParam(name = "currentPage", defaultValue = "0") int currentPage,
+                                     @AuthenticationPrincipal SecureUser user) {
         boardType = normalizeBoardType(boardType);
-
+        if (!"wiki".equals(boardType) && user == null) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "로그인이 필요합니다.");
+        }
         ModelAndView view = new ModelAndView();
         try {
             Map<String, Object> resultData = boardJPAService.getBoardList(currentPage, boardType);
@@ -63,9 +65,12 @@ public class BoardController {
     public ModelAndView getBoardSearch(@RequestParam(name = "boardType", defaultValue = "free") String boardType,
                                        @RequestParam(name = "searchType") String searchType,
                                        @RequestParam(name = "searchText", defaultValue = "") String searchText,
-                                       @RequestParam(name = "currentPage", defaultValue = "0") int currentPage) {
+                                       @RequestParam(name = "currentPage", defaultValue = "0") int currentPage,
+                                       @AuthenticationPrincipal SecureUser user) {
         boardType = normalizeBoardType(boardType);
-
+        if (!"wiki".equals(boardType) && user == null) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "로그인이 필요합니다.");
+        }
         ModelAndView view = new ModelAndView();
         try {
             Map<String, Object> resultData = boardJPAService.searchBoardList(currentPage, boardType, searchType, searchText);
@@ -74,10 +79,32 @@ public class BoardController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         view.addObject("searchType", searchType);
         view.addObject("searchText", searchText);
         view.setViewName("views/board/boardList");
+        return view;
+    }
+
+    @GetMapping("/detail/view")
+    public ModelAndView getBoardDetail(@RequestParam(name = "boardType", defaultValue = "free") String boardType,
+                                       @RequestParam(name = "currentPage", defaultValue = "0") int currentPage,
+                                       @RequestParam int seq,
+                                       @AuthenticationPrincipal SecureUser user,
+                                       HttpServletRequest request, HttpServletResponse response) {
+        boardType = normalizeBoardType(boardType);
+        if (!"wiki".equals(boardType) && user == null) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "로그인이 필요합니다.");
+        }
+        ModelAndView view = new ModelAndView();
+        try {
+            BoardDTO detail = boardJPAService.getBoardDetail(request, response, seq);
+            view.addObject("board", detail);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        view.addObject("boardType", boardType);
+        view.addObject("currentPage", currentPage);
+        view.setViewName("views/board/boardDetail");
         return view;
     }
 
@@ -88,9 +115,7 @@ public class BoardController {
         if (user == null) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "로그인이 필요합니다.");
         }
-
         boardType = normalizeBoardType(boardType);
-
         ModelAndView view = new ModelAndView();
         view.addObject("boardType", boardType);
         view.addObject("currentPage", currentPage);
@@ -107,9 +132,7 @@ public class BoardController {
         if (user == null) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "로그인이 필요합니다.");
         }
-
         boardType = normalizeBoardType(boardType);
-
         ModelAndView view = new ModelAndView();
         try {
             BoardDTO detail = boardJPAService.getBoardDetail(request, response, seq);
@@ -118,31 +141,9 @@ public class BoardController {
             e.printStackTrace();
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "게시글을 불러오는데 실패했습니다.");
         }
-
         view.addObject("boardType", boardType);
         view.addObject("currentPage", currentPage);
         view.setViewName("views/board/boardUpdate");
-        return view;
-    }
-
-    @GetMapping("/detail/view")
-    public ModelAndView getBoardDetail(@RequestParam(name = "boardType", defaultValue = "free") String boardType,
-                                       @RequestParam(name = "currentPage", defaultValue = "0") int currentPage,
-                                       @RequestParam int seq,
-                                       HttpServletRequest request, HttpServletResponse response) {
-        boardType = normalizeBoardType(boardType);
-
-        ModelAndView view = new ModelAndView();
-        try {
-            BoardDTO detail = boardJPAService.getBoardDetail(request, response, seq);
-            view.addObject("board", detail);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        view.addObject("boardType", boardType);
-        view.addObject("currentPage", currentPage);
-        view.setViewName("views/board/boardDetail");
         return view;
     }
 
@@ -151,18 +152,15 @@ public class BoardController {
     public Map<String, Object> addBoard(BoardData.Request boardData,
                                         @AuthenticationPrincipal SecureUser user) {
         Map<String, Object> resultMap = new HashMap<>();
-
         if (user == null) {
             resultMap.put("resultCode", 401);
             resultMap.put("resultMsg", "로그인이 필요합니다.");
             return resultMap;
         }
-
         try {
             String boardType = normalizeBoardType(boardData.getBoardType());
             boardData.setBoardType(boardType);
 
-            // 공지글 작성은 관리자만 가능
             if (Boolean.TRUE.equals(boardData.getIsNotice()) && !user.isAuth()) {
                 resultMap.put("resultCode", 403);
                 resultMap.put("resultMsg", "공지글 작성 권한이 없습니다.");
@@ -170,12 +168,15 @@ public class BoardController {
             }
 
             resultMap = boardJPAService.addBoard(boardData, user);
+
+            // ✅ boardType을 응답에 명시적으로 포함시켜 리디렉션 문제 해결
+            resultMap.put("boardType", boardType);
+
         } catch (Exception e) {
             resultMap.put("resultCode", 500);
             resultMap.put("resultMsg", "게시글 등록에 실패하였습니다");
             e.printStackTrace();
         }
-
         return resultMap;
     }
 
@@ -184,7 +185,6 @@ public class BoardController {
     public Map<String, Object> deleteBoard(@RequestParam int seq,
                                            @AuthenticationPrincipal SecureUser user) {
         Map<String, Object> resultMap = new HashMap<>();
-
         try {
             resultMap = boardJPAService.deleteBoard(seq, user);
         } catch (Exception e) {
@@ -192,7 +192,6 @@ public class BoardController {
             resultMap.put("resultMsg", e.getMessage());
             e.printStackTrace();
         }
-
         return resultMap;
     }
 
@@ -204,11 +203,9 @@ public class BoardController {
             if (!uploadDir.exists()) {
                 Files.createDirectories(uploadDir.toPath());
             }
-
             String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
             File dest = new File(uploadDir, fileName);
             file.transferTo(dest);
-
             return "/uploads/" + fileName;
         } catch (IOException e) {
             e.printStackTrace();

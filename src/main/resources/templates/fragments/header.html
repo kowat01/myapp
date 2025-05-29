@@ -3,14 +3,15 @@
 <div th:fragment="header">
 
     <aside class="sidebar">
-        <div class="text-center mb-3">
+        <!-- ✅ 로고 및 유저 정보 -->
+        <div class="sidebar-logo-wrapper">
             <a href="/home">
-                <img src="/images/logo.png" alt="로고" style="width: 100px;">
+                <img src="/images/logo.png" alt="로고" class="sidebar-logo">
             </a>
-            <div class="login-status mt-2 small">
+            <div class="login-status">
                 <span th:if="${session.userInfo != null}">
                     <strong th:text="${session.userInfo.nickname + ' 님'}"></strong>
-                    <div class="user-actions mt-1 d-flex justify-content-center gap-2">
+                    <div class="user-actions">
                         <a href="/user/mypage" class="action-link">마이페이지</a>
                         <span class="divider">|</span>
                         <a href="javascript:void(0)" onclick="logout()" class="action-link">로그아웃</a>
@@ -23,6 +24,7 @@
             </div>
         </div>
 
+        <!-- ✅ 메뉴 -->
         <ul class="nav flex-column small">
             <li class="menu-title">소개</li>
             <li><a href="/intro/about" class="nav-link">워해머란?</a></li>
@@ -31,7 +33,7 @@
 
             <li class="menu-title">세계관 설정</li>
             <li><a href="/lore/universe" class="nav-link">연대표</a></li>
-            <li><a href="/lore/wiki" class="nav-link">세계관내 설정</a></li>
+            <li><a href="/board/list?boardType=wiki" class="nav-link">세계관내 설정</a></li>
             <li><a href="/lore/faction" class="nav-link">진영</a></li>
 
             <li class="menu-title">자료실</li>
@@ -74,9 +76,10 @@
         </ul>
     </aside>
 
-    <!-- ✅ Cinzel 폰트 추가 -->
+    <!-- ✅ Cinzel 폰트 -->
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&display=swap" rel="stylesheet">
 
+    <!-- ✅ 스타일 -->
     <style>
         html, body {
             margin: 0;
@@ -93,38 +96,31 @@
             height: 100%;
             background-color: rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(6px);
-            padding: 20px 10px;
+            padding: 0 10px;
             font-size: 15px;
             color: white;
             z-index: 1000;
-            overflow-y: hidden;
+            overflow-y: auto;
         }
 
-        .menu-title {
-            padding: 10px 10px 6px 10px;
-            margin-top: 16px;
-            margin-bottom: 8px;
-            font-weight: bold;
-            font-size: 15px;
-            color: #ffffff;
+        .sidebar-logo-wrapper {
+            text-align: center;
+            padding-top: 20px;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
             border-bottom: 1px solid #666;
         }
 
-        .nav-link {
-            color: white;
-            font-size: 15px;
-            text-decoration: none;
+        .sidebar-logo {
+            width: 160px;
+            height: auto;
             display: block;
-            padding: 6px 12px;
-            transition: color 0.3s ease, font-weight 0.3s ease;
-            cursor: pointer;
+            margin: 0 auto 10px auto;
         }
 
-        .nav-link:hover,
-        .nav-link:focus,
-        .nav-link:active {
-            color: #d9b877;
-            font-weight: bold;
+        .login-status {
+            font-size: 13px;
+            color: #ccc;
         }
 
         .user-actions {
@@ -149,6 +145,33 @@
 
         .divider {
             color: #555;
+        }
+
+        .menu-title {
+            padding: 10px 10px 6px 10px;
+            margin-top: 16px;
+            margin-bottom: 8px;
+            font-weight: bold;
+            font-size: 14px;
+            color: #ffffff;
+            border-bottom: 1px solid #666;
+        }
+
+        .nav-link {
+            color: white;
+            font-size: 13px;
+            text-decoration: none;
+            display: block;
+            padding: 6px 12px;
+            transition: color 0.3s ease, font-weight 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-link:hover,
+        .nav-link:focus,
+        .nav-link:active {
+            color: #d9b877;
+            font-weight: bold;
         }
 
         body > main,

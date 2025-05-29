@@ -44,26 +44,33 @@ public class SecurityConfig {
 
                         // ✅ 로그인 없이 접근 가능한 경로들
                         .requestMatchers(
-                                "/", "/home", "/about", "/need", "/category", "/universe", "/timeline",
-                                "/factions", "/official", "/used",
+                                "/", "/home",
+                                "/about", "/need", "/category",
+                                "/universe", "/timeline", "/factions",
+                                "/shop/official", "/shop/used",
                                 "/login/**", "/signup", "/terms",
-                                "/user/terms", "/user/join", "/user/register",     // 회원가입 관련 페이지
+                                "/user/terms", "/user/join", "/user/register",
                                 "/uploads/**", "/css/**", "/js/**", "/images/**",
                                 "/webjars/**", "/dist/**", "/plugins/**"
                         ).permitAll()
 
-                        // ✅ 회원가입 및 중복확인 관련 API는 반드시 위쪽에 위치해야 한다!
+                        // ✅ 회원가입 및 중복확인 API
                         .requestMatchers("/api/user/check-id", "/api/user/check-nickname").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/user/").permitAll()
 
-                        // ✅ 로그인 필요한 경로들
-                        .requestMatchers("/board/**").authenticated()
-                        .requestMatchers("/resources/**").authenticated()
+                        // ✅ 위키 게시판은 비로그인 허용
+                        .requestMatchers("/board/list").permitAll()
 
-                        // ✅ 관리자 전용 API는 마지막에 위치
+                        // ✅ 로그인 필요한 마이페이지, 정보수정
+                        .requestMatchers("/user/mypage", "/user/mypageedit").authenticated()
+
+                        // ✅ 나머지 게시판은 로그인 필요
+                        .requestMatchers("/board/**").authenticated()
+
+                        // ✅ 관리자 전용
                         .requestMatchers("/user/**", "/api/user/**").hasRole("ADMIN")
 
-                        // ✅ 기타 요청은 허용
+                        // ✅ 그 외 요청 허용
                         .anyRequest().permitAll()
                 )
                 .formLogin(f -> f

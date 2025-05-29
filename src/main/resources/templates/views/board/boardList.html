@@ -151,7 +151,7 @@
             <span th:case="'suggest'">건의 게시판</span>
             <span th:case="'guide'">영상 도색 가이드</span>
             <span th:case="'rule'">룰 번역 공유</span>
-            <span th:case="*">게시판</span>
+            <span th:case="wiki">세계관 설정</span>
         </div>
 
         <div class="b-search">
@@ -212,33 +212,34 @@
     </main>
 
     <script th:inline="javascript">
+        const boardType = /*[[${boardType}]]*/ 'free'; // ✅ 따옴표 없이 안전하게 바인딩
         const searchParam = {
-            searchType: '[[${searchType}]]',
-            searchText: '[[${searchText}]]'
+            searchType: /*[[${searchType}]]*/ 'all',
+            searchText: /*[[${searchText}]]*/ ''
         };
 
         function movePage(pageNum) {
             if (searchParam.searchText && searchParam.searchText.trim().length > 0) {
-                location.href = `/board/search?boardType=[[${boardType}]]&searchType=${searchParam.searchType}&searchText=${searchParam.searchText}&currentPage=${pageNum}`;
+                location.href = `/board/search?boardType=${boardType}&searchType=${searchParam.searchType}&searchText=${searchParam.searchText}&currentPage=${pageNum}`;
             } else {
-                location.href = `/board/list?boardType=[[${boardType}]]&currentPage=${pageNum}`;
+                location.href = `/board/list?boardType=${boardType}&currentPage=${pageNum}`;
             }
         }
 
         function writeBoard() {
             const pageNum = document.getElementById("currentPage").value;
-            location.href = `/board/form/view?boardType=[[${boardType}]]&currentPage=${pageNum}`;
+            location.href = `/board/form/view?boardType=${boardType}&currentPage=${pageNum}`;
         }
 
         function showDetail(seq) {
             const pageNum = document.getElementById("currentPage").value;
-            location.href = `/board/detail/view?boardType=[[${boardType}]]&currentPage=${pageNum}&seq=${seq}`;
+            location.href = `/board/detail/view?boardType=${boardType}&currentPage=${pageNum}&seq=${seq}`;
         }
 
         function searchBoard() {
             searchParam.searchType = document.getElementById("searchType").value;
             searchParam.searchText = document.getElementById("searchText").value;
-            location.href = `/board/search?boardType=[[${boardType}]]&searchType=${searchParam.searchType}&searchText=${searchParam.searchText}`;
+            location.href = `/board/search?boardType=${boardType}&searchType=${searchParam.searchType}&searchText=${searchParam.searchText}`;
         }
     </script>
 </div>

@@ -96,23 +96,22 @@
         <section class="contents">
             <h3>게시글 작성</h3>
 
-            <form id="boardFrm" enctype="multipart/form-data">
+            <form id="boardFrm" method="post" enctype="multipart/form-data">
                 <input type="hidden" id="currentPage" name="currentPage" th:value="${currentPage}">
-                <input type="hidden" name="boardType" th:value="${boardType}" id="boardType">
+                <input type="hidden" id="boardType" name="boardType" th:value="${boardType}">
 
                 <label for="title" class="form-label">제목</label>
                 <input type="text" class="form-control" id="title" name="title" required>
 
-                <!-- 관리자만 볼 수 있는 공지 체크박스 -->
                 <th:block th:if="${session.userInfo?.auth}">
-                    <div class="form-check" style="margin: 20px 0;">
-                        <input class="form-check-input" type="checkbox" id="isNotice" name="isNotice" value="true">
+                    <div class="form-check my-3">
+                        <input class="form-check-input" type="checkbox" id="isNotice" name="isNotice">
                         <label class="form-check-label text-warning" for="isNotice">📌 공지로 등록</label>
                     </div>
                 </th:block>
 
                 <label for="contents" class="form-label">내용</label>
-                <textarea id="contents" name="contents"></textarea>
+                <textarea id="contents" name="contents" required></textarea>
             </form>
 
             <div class="text-center">
@@ -122,7 +121,6 @@
         </section>
     </main>
 
-    <!-- JS 라이브러리 -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/lang/summernote-ko-KR.min.js"></script>
@@ -151,7 +149,7 @@
         });
 
         function uploadImage(file) {
-            let formData = new FormData();
+            const formData = new FormData();
             formData.append("file", file);
 
             $.ajax({
@@ -182,10 +180,9 @@
             }
 
             const formData = new FormData($('#boardFrm')[0]);
+            formData.set("isNotice", $('#isNotice').is(':checked'));
 
-            // 공지 여부 명확히 Boolean으로 지정
-            const isNoticeChecked = $('#isNotice').is(':checked');
-            formData.set("isNotice", isNoticeChecked);
+            console.log("제출 전 boardType:", $('#boardType').val());
 
             $.ajax({
                 url: '/board/add',
@@ -194,9 +191,20 @@
                 processData: false,
                 contentType: false,
                 success: function (res) {
+                    console.log("응답 데이터:", res);
+
                     alert(res.resultMsg);
                     if (res.resultCode === 200) {
-                        window.location.href = `/board/list?boardType=${$('#boardType').val()}&currentPage=0`;
+                        const boardType = res.boardType || $('#boardType').val()?.trim();
+                        const page = $('#currentPage').val()?.trim() || 0;
+
+                        console.log("리다이렉트 boardType:", boardType);
+
+                        if (!boardType) {
+                            window.location.href = "/";
+                        } else {
+                            window.location.href = `/board/list?boardType=${encodeURIComponent(boardType)}&currentPage=${page}`;
+                        }
                     }
                 },
                 error: function (xhr) {
@@ -206,9 +214,15 @@
         }
 
         function cancelBoard() {
-            const page = $('#currentPage').val();
-            const boardType = $('#boardType').val();
-            window.location.href = `/board/list?boardType=${boardType}&currentPage=${page}`;
+            const boardType = $('#boardType').val()?.trim();
+            const page = $('#currentPage').val()?.trim() || 0;
+
+            if (!boardType) {
+                alert("게시판 정보를 확인할 수 없습니다. 홈으로 이동합니다.");
+                window.location.href = "/";
+            } else {
+                window.location.href = `/board/list?boardType=${encodeURIComponent(boardType)}&currentPage=${page}`;
+            }
         }
     </script>
 </div>
