@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/main_layout}">
+
+<!-- CSS 영역 -->
+<th:block layout:fragment="css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0d0d0d;
+            color: #eee;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        .faction-header {
+            text-align: center;
+            margin-top: 60px;
+            color: #ffc107;
+        }
+
+        .faction-header h1 {
+            font-size: 48px;
+            font-family: 'Cinzel', serif;
+            margin-bottom: 20px;
+        }
+
+        .faction-header p {
+            font-size: 18px;
+            color: #ccc;
+            max-width: 850px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+
+        .intro-image {
+            max-width: 700px;
+            height: auto;
+            display: block;
+            margin: 40px auto;
+            border-radius: 12px;
+            box-shadow: 0 0 20px #000000aa;
+        }
+
+        .intro-quote {
+            text-align: center;
+            font-style: italic;
+            color: #aaa;
+            margin: 30px auto 0;
+            font-size: 15px;
+            line-height: 1.9;
+        }
+
+        .quote-origin {
+            text-align: center;
+            margin-top: 40px;
+            color: #aaa;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 24px;
+            color: #ffc107;
+            margin: 60px 0 20px;
+            font-family: 'Cinzel', serif;
+            text-shadow: 0 0 4px #000;
+        }
+
+        .faction-features {
+            max-width: 1000px;
+            margin: 0 auto 60px;
+            padding: 20px 30px;
+            background-color: #1c1c1c;
+            border: 2px solid #ffc107;
+            border-radius: 12px;
+            list-style: disc;
+            color: #eee;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .faction-features li {
+            margin-bottom: 10px;
+        }
+
+        .divider {
+            border: none;
+            border-top: 1px solid #444;
+            margin: 60px auto 20px;
+            width: 80%;
+            max-width: 800px;
+        }
+
+        .lore-description {
+            max-width: 1000px;
+            margin: 0 auto 60px;
+            background-color: #1a1a1a;
+            border-left: 4px solid #ffc107;
+            padding: 30px;
+            border-radius: 10px;
+            line-height: 1.8;
+        }
+
+        .lore-description h2 {
+            font-size: 20px;
+            color: #ffc107;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-family: 'Cinzel', serif;
+        }
+
+        .lore-description p {
+            margin-bottom: 15px;
+        }
+
+        .regiment-image {
+            max-width: 700px;
+            width: 100%;
+            height: auto;
+            display: block;
+            box-shadow: 0 0 10px #00000055;
+        }
+
+        .back-button {
+            text-align: center;
+            margin: 60px 0;
+        }
+
+        .back-button a {
+            background-color: #ffc107;
+            color: #111;
+            padding: 12px 30px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 0 10px #00000055;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .back-button a:hover {
+            background-color: #d39e00;
+        }
+
+        @media (max-width: 768px) {
+            .intro-image,
+            .regiment-image {
+                max-width: 90%;
+            }
+        }
+    </style>
+</th:block>
+
+<!-- 본문 -->
+<div layout:fragment="content">
+
+    <div class="faction-header">
+        <h1>임페리얼 가드 (Astra Militarum)</h1>
+        <p>황제의 망치</p>
+    </div>
+
+    <img src="/images/introimperialguard.jpg" alt="임페리얼 가드 대표 이미지" class="intro-image">
+
+    <div class="intro-quote">
+        <p>
+            "Where I fall, ten more shall take my place! And one-hundred each of them!<br>
+            So strike me down! I am the harbinger!"<br><br>
+            <span style="color: #aaa;">
+                "내가 쓰러진 자리를 열 명이, 그 열 명의 자리를 백 명이 대신하리라!<br>
+                그러니 날 쓰러트려 봐라! 나는 시작일 뿐이니!"
+            </span>
+        </p>
+    </div>
+
+    <div class="quote-origin">─ 성자 올라니우스 피우스</div>
+
+    <h2 class="section-title">보드게임에서의 특징</h2>
+    <ul class="faction-features">
+        <li><strong>병력 물량전</strong>: 팩션 중 가장 많은 수의 보병 운용 가능</li>
+        <li><strong>전차와 화력 지원</strong>: 리만 러스 전차 등 수많은 기갑과 다양한 종류의 포병 운용</li>
+        <li><strong>오더 시스템</strong>: 커맨더 유닛의 오더를 통한 유닛 강화</li>
+        <li><strong>희생 전술</strong>: 저렴한 유닛 비용을 활용한 진격 및 희생 작전</li>
+    </ul>
+
+    <hr class="divider">
+
+    <h2 class="section-title">진영 설명</h2>
+    <div class="lore-description">
+        <p>
+            <strong>임페리얼 가드</strong>는 인류제국의 수십억 개 행성을 수호하는 방대한 지상군이자, 전 은하에 걸쳐 펼쳐진 인류의 저력 자체입니다.
+            초인적인 스페이스 마린과는 달리, 이들은 평범한 인간들로 구성되어 있으며 대부분이 생존을 위한 최소한의 훈련과 장비만을 갖춘 채
+            전장의 최전선으로 나아갑니다.
+        </p>
+
+        <p>
+            그러나 그들이 약하다는 뜻은 아닙니다. 임페리얼 가드의 진정한 힘은 압도적인 숫자, 철저한 명령 체계, 그리고 그 뒤를 따르는 기갑 전력에서 나옵니다.
+            수천, 수만의 병력이 일사불란하게 전진하고, 명령 한 마디에 하늘과 땅을 뒤흔드는 포화가 쏟아집니다.
+            아무리 강력한 이단자나 외계의 괴물이라도, 이 광대한 물결 앞에서는 무너질 수밖에 없습니다.
+        </p>
+
+        <p>
+            임페리얼 가드는 단일 조직이지만, 그 내부는 믿을 수 없을 만큼 다양합니다.
+            각 연대는 자신들의 모성 행성에서 고유한 문화를 지니고 자라났으며, 그에 따라 전술과 특색도 달라집니다.
+        </p>
+
+        <h2 class="section-title">주요 용어</h2>
+
+        <ul>
+            <li><strong>카디아 연대 (Cadian Regiment)</strong> – 도시전에 특화된 연대. 카디아 행성 출신의 병사들로 구성.</li>
+        </ul>
+        <img src="/images/cadian.jpg" alt="카디아 연대" class="regiment-image" />
+
+        <ul>
+            <li><strong>크리그 연대 (Krieg Regiment)</strong> – 참호전과 자폭공격 전술에 능한 병사들. 클론 기술을 통해 병사들을 양성.</li>
+        </ul>
+        <img src="/images/deathkorp.jpg" alt="크리그 연대" class="regiment-image" />
+
+        <ul>
+            <li><strong>카타챤 연대 (Catachan Regiment)</strong> – 정글 환경에서 생존과 전투에 특화된 연대. 근접전에 매우 강함.</li>
+        </ul>
+        <img src="/images/catachan.jpg" alt="카타챤 연대" class="regiment-image" />
+    </div>
+
+    <div class="back-button">
+        <a href="/lore/faction">← 진영 일람으로 돌아가기</a>
+    </div>
+</div>
+</html>

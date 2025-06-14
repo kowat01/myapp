@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/main_layout}">
+
+<!-- CSS 영역 -->
+<th:block layout:fragment="css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0d0d0d;
+            color: #eee;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        .faction-header {
+            text-align: center;
+            margin-top: 60px;
+            color: #00bcd4;
+        }
+
+        .faction-header h1 {
+            font-size: 48px;
+            font-family: 'Cinzel', serif;
+            margin-bottom: 20px;
+        }
+
+        .faction-header p {
+            font-size: 18px;
+            color: #ccc;
+            max-width: 850px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+
+        .intro-image {
+            max-width: 700px;
+            height: auto;
+            display: block;
+            margin: 40px auto;
+            border-radius: 12px;
+            box-shadow: 0 0 20px #000000aa;
+        }
+
+        .intro-quote {
+            text-align: center;
+            font-style: italic;
+            color: #aaa;
+            margin: 30px auto 0;
+            font-size: 15px;
+            line-height: 1.9;
+        }
+
+        .quote-origin {
+            text-align: center;
+            margin-top: 40px;
+            color: #aaa;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 24px;
+            color: #00bcd4;
+            margin: 60px 0 20px;
+            font-family: 'Cinzel', serif;
+            text-shadow: 0 0 4px #000;
+        }
+
+        .faction-features {
+            max-width: 1000px;
+            margin: 0 auto 60px;
+            padding: 20px 30px;
+            background-color: #1c1c1c;
+            border: 2px solid #00bcd4;
+            border-radius: 12px;
+            list-style: disc;
+            color: #eee;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .faction-features li {
+            margin-bottom: 10px;
+        }
+
+        .divider {
+            border: none;
+            border-top: 1px solid #444;
+            margin: 60px auto 20px;
+            width: 80%;
+            max-width: 800px;
+        }
+
+        .lore-description {
+            max-width: 1000px;
+            margin: 0 auto 60px;
+            background-color: #1a1a1a;
+            border-left: 4px solid #00bcd4;
+            padding: 30px;
+            border-radius: 10px;
+            line-height: 1.8;
+        }
+
+        .lore-description h2 {
+            font-size: 20px;
+            color: #00bcd4;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-family: 'Cinzel', serif;
+        }
+
+        .lore-description ul {
+            padding-left: 20px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+
+        .lore-description li {
+            margin-bottom: 5px;
+        }
+
+        .lore-description img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 30px auto;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #00000088;
+        }
+
+        .back-button {
+            text-align: center;
+            margin: 60px 0;
+        }
+
+        .back-button a {
+            background-color: #00bcd4;
+            color: #000;
+            padding: 12px 30px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 0 10px #00000055;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .back-button a:hover {
+            background-color: #0097a7;
+        }
+
+        @media (max-width: 768px) {
+            .intro-image {
+                max-width: 90%;
+            }
+        }
+    </style>
+</th:block>
+
+<!-- 본문 -->
+<div layout:fragment="content">
+
+    <div class="faction-header">
+        <h1>데스워치 (Deathwatch)</h1>
+        <p>대외계인 전담 특수부대</p>
+    </div>
+
+    <img src="/images/introdeathwatch.jpg" alt="데스워치 이미지" class="intro-image">
+
+    <div class="intro-quote">
+        <p>
+            “외계인을 왜 죽이냐”고 묻지 마라.<br>
+            <span style="color: #999;">Do not ask, 'Why kill the alien?'</span><br>
+            차라리 “왜 죽이지 않느냐”라고 물어라.<br>
+            <span style="color: #999;">Rather, ask, 'Why not?'</span>
+        </p>
+    </div>
+
+    <div class="quote-origin">─ 워치 캡틴 아르테미스 (Watch Captain Artemis)</div>
+
+    <h2 class="section-title">데스워치의 특징</h2>
+    <ul class="faction-features">
+        <li><strong>킬팀 체제</strong>: 다양한 병종을 섞어 하나의 분대를 구성할 수 있어 유연한 전략 가능</li>
+        <li><strong>전술적 유연성</strong>: 고유 병종 + 일반적인 모든 스마유닛 사용 가능</li>
+        <li><strong>강력한 특수무장</strong>: 고유 병종만의 강력한 특수무장을 사용 가능</li>
+        <li><strong>대 외계인 특화</strong>: 대 외계인 특화 룰</li>
+
+
+    </ul>
+
+    <hr class="divider">
+
+    <h2 class="section-title">진영 설명</h2>
+    <div class="lore-description">
+        <p>
+            데스워치는 <strong>이단심문소의 오르도 제노스</strong>와 협력관계로, 외계 생명체(Xenos)를 말살하기 위해 조직된 엘리트 스페이스 마린 조직입니다.
+            기존 챕터에서 선발된 정예 병사들이 일정 임무 동안 파견되어 활동하며, 데스워치로 소속되는 동안에는 철저히 독립된 지휘 체계와 교리를 따릅니다.
+        </p>
+
+        <p>
+            이들은 <strong>다양한 챕터 출신의 병력을 통합</strong>하여 훈련시키며, 오른쪽 어깨에는 본래 챕터의 문장을, 왼팔과 왼쪽 어깨에는
+            데스워치의 은색 표식을 착용합니다. 아머의 색상을 모조리 바꿔버리면 아머의 머신 스피릿이 분노하기 때문에
+            머신 스피릿을 예우하는 차원에서 원래 출신 챕터의 문장이 새겨진 어깨의 도색만은 남겨둡니다.
+        </p>
+
+        <p>
+            데스워치는 <strong>킬팀(Kill Team)</strong>이라는 유동적인 소규모 정예 분대를 운용하며, 각 병종의 특성을 살린 전술 조합으로
+            임무에 따라 가장 효과적인 구성으로 실전에 투입됩니다.
+        </p>
+
+        <p>
+            특히 <strong>프라이마크 로부테 길리먼</strong>이 재등장한 이후 발동된 <strong>울티마리스 칙령</strong>을 통해,
+            수많은 <strong>프라이머리스 마린</strong>들이 데스워치에도 대규모로 편입되었습니다. 이를 통해 데스워치는 과거보다 훨씬 더 다양한 병력과 장비를 운용하며,
+            은하 전역에서 제노스에 대한 선제타격 임무를 수행하고 있습니다.
+        </p>
+
+        <p>
+            데스워치는 <strong>코덱스 아스타르테스에 얽매이지 않으며</strong>, 외계 무기 활용이나 특수 탄약 사용 등 실용성과 임무 성공을 우선시하는 전략을 채택합니다.
+            보드게임에서도 다양한 유닛 혼합과 분대 내 커스터마이징이 가능해 전략적 깊이가 매우 높습니다.
+        </p>
+
+        <h2>주요 용어</h2>
+        <p><strong>오르도 제노스</strong> – 이단심문소의 하위 조직 중 하나로, 외계종 말살을 전담</p>
+        <p><strong>킬팀</strong> – 임무 단위로 편성되는 데스워치 특유의 전술 분대</p>
+        <img src="/images/deathwatchkillteam.jpg" alt="킬팀 이미지">
+        <p><strong>울티마리스 칙령</strong> – 프라이마크 길리먼이 부활 후 발동한 칙령으로 새롭게 창설된 모든 프라이머리스 스페이스 마린 챕터에게 데스워치에 영속적인 십일조를 제공하라는 내용</p>
+        <p><strong>프라이머리스 마린</strong> – 향상된 유전학으로 탄생한 차세대 스페이스 마린</p>
+        <p><strong>제노(Xenos)</strong> – 타이라니드, 네크론, 오크, 타우 등 인류 외의 외계 생명체를 총칭하는 단어</p>
+    </div>
+
+    <div class="back-button">
+        <a href="/lore/faction">← 진영 일람으로 돌아가기</a>
+    </div>
+</div>
+</html>

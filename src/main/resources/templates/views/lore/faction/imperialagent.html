@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/main_layout}">
+
+<!-- CSS 영역 -->
+<th:block layout:fragment="css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0d0d0d;
+            color: #eee;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        .faction-header {
+            text-align: center;
+            margin-top: 60px;
+            color: #ffc107;
+        }
+
+        .faction-header h1 {
+            font-size: 48px;
+            font-family: 'Cinzel', serif;
+            margin-bottom: 20px;
+        }
+
+        .faction-header p {
+            font-size: 18px;
+            color: #ccc;
+            max-width: 850px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+
+        .intro-image {
+            max-width: 700px;
+            height: auto;
+            display: block;
+            margin: 40px auto;
+            border-radius: 12px;
+            box-shadow: 0 0 20px #000000aa;
+        }
+
+        .intro-quote {
+            text-align: center;
+            font-style: italic;
+            color: #aaa;
+            margin: 30px auto 0;
+            font-size: 15px;
+            line-height: 1.9;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 24px;
+            color: #ffc107;
+            margin: 60px 0 20px;
+            font-family: 'Cinzel', serif;
+            text-shadow: 0 0 4px #000;
+        }
+
+        .faction-features {
+            max-width: 1000px;
+            margin: 0 auto 60px;
+            padding: 20px 30px;
+            background-color: #1c1c1c;
+            border: 2px solid #ffc107;
+            border-radius: 12px;
+            list-style: disc;
+            color: #eee;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .faction-features li {
+            margin-bottom: 10px;
+        }
+
+        .divider {
+            border: none;
+            border-top: 1px solid #444;
+            margin: 60px auto 20px;
+            width: 80%;
+            max-width: 800px;
+        }
+
+        .lore-description {
+            max-width: 1000px;
+            margin: 0 auto 60px;
+            background-color: #1a1a1a;
+            border-left: 4px solid #ffc107;
+            padding: 30px;
+            border-radius: 10px;
+            line-height: 1.8;
+        }
+
+        .lore-description h2 {
+            font-size: 20px;
+            color: #ffc107;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-family: 'Cinzel', serif;
+        }
+
+        .lore-description p {
+            margin-bottom: 15px;
+        }
+
+        .regiment-image {
+            max-width: 700px;
+            width: 100%;
+            height: auto;
+            
+            box-shadow: 0 0 10px #00000055;
+            margin: 30px auto;
+
+        }
+
+        .back-button {
+            text-align: center;
+            margin: 60px 0;
+        }
+
+        .back-button a {
+            background-color: #ffc107;
+            color: #111;
+            padding: 12px 30px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 0 10px #00000055;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .back-button a:hover {
+            background-color: #d39e00;
+        }
+
+        @media (max-width: 768px) {
+            .intro-image,
+            .regiment-image {
+                max-width: 90%;
+            }
+        }
+    </style>
+</th:block>
+
+<!-- 본문 -->
+<div layout:fragment="content">
+
+    <div class="faction-header">
+        <h1>임페리얼 에이전트</h1>
+        <p>황제 폐하의 요원들</p>
+    </div>
+
+    <img src="/images/introimperialagent.jpg" alt="임페리얼 에이전트 대표 이미지" class="intro-image">
+
+    <div class="intro-quote">
+        <p>
+            "IN THE NAME OF THE EMPEROR"<br><br>
+            <span style="color: #aaa;">
+                "황제 폐하의 이름으로"
+            </span>
+        </p>
+    </div>
+
+    <h2 class="section-title">보드게임에서의 특징</h2>
+    <ul class="faction-features">
+        <li><strong>혼합 운용</strong>: 대부분의 제국 계열 아미에 자유롭게 포함 가능</li>
+        <li><strong>정예 요원 중심</strong>: 인퀴지터, 암살자, 성직자 등 강력한 영웅 유닛 운용</li>
+        <li><strong>전술적 유연성</strong>: 적은 비용으로 강력한 기능성 보조 제공</li>
+    </ul>
+
+    <hr class="divider">
+
+    <h2 class="section-title">진영 설명</h2>
+    <div class="lore-description">
+        <p>
+            <strong>임페리얼 에이전트</strong>는 인류제국 내 다양한 조직에서 파견된 독립 요원들로 구성된 특수 세력입니다.
+            이들은 정규군 소속이 아니며, 황제의 뜻을 직접 대리하거나 고위 성좌의 명을 수행하는 이들로 구성되어 있습니다.
+            전장에서 이들을 마주칠 일은 흔치 않지만, 이들의 존재 하나가 전장의 판도를 바꾸기도 합니다.
+        </p>
+
+        <p>
+            암살자, 인퀴지터, 법무관, 성직자 등 다양한 분야에서 활동하는 이들은 제국의 어두운 진실을 감추고
+            황제의 질서를 수호하기 위한 임무를 부여받습니다. 은밀하든 공적이든, 그 누구도 이들의 권한을 가볍게 여겨선 안 됩니다.
+        </p>
+
+        <h2 class="section-title">주요 용어</h2>
+
+        <div>
+            <p><strong>인퀴지션</strong> – 이단 심문소. 오르도 말레우스, 헤러티쿠스, 제노스 등의 하위 관청 포함.</p>
+            <img src="/images/inquisition.jpg" alt="인퀴지션" class="regiment-image" />
+        </div>
+
+        <div>
+            <p><strong>아사시노룸</strong> – 황제의 명령에 따라 극비리에 암살 임무를 수행하는 조직. 빈디카레, 칼리두스, 에버서, 쿨렉수스 등 존재.</p>
+            <img src="/images/assassinorum.jpg" alt="아사시노룸" class="regiment-image" />
+        </div>
+
+        <div>
+            <p><strong>임페리얼 네이비 브리처</strong> – 함선 내부 전투, 구조물 침투, 폭파 작전에 특화된 해군 병력.</p>
+            <img src="/images/navybreacher.jpg" alt="임페리얼 네이비 브리처" class="regiment-image" />
+        </div>
+
+        <div>
+            <p><strong>아르비테스</strong> – 제국 법률을 집행하고 행성 단위 치안을 담당하는 고위 법무관 집단.</p>
+            <img src="/images/arbites.jpg" alt="아르비테스" class="regiment-image" />
+        </div>
+
+        <div>
+            <p><strong>로그 트레이더</strong> – 제국 밖 탐험과 무역을 공식 허가받은 귀족 항해자. 독자적 병력과 함선을 보유.</p>
+            <img src="/images/rougetrader.jpg" alt="로그 트레이더" class="regiment-image" />
+        </div>
+
+        <div>
+            <p><strong>황제교 사제</strong> – 전장에서 병력의 사기를 북돋고 신앙을 전파하는 황제교 소속 성직자들.</p>
+            <img src="/images/ministorum.jpg" alt="황제교 사제" class="regiment-image" />
+        </div>
+    </div>
+
+    <div class="back-button">
+        <a href="/lore/faction">← 진영 일람으로 돌아가기</a>
+    </div>
+</div>
+</html>

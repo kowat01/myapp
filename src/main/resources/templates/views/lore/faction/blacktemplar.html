@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/main_layout}">
+
+<!-- CSS 영역 -->
+<th:block layout:fragment="css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0d0d0d;
+            color: #eee;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        .faction-header {
+            text-align: center;
+            margin-top: 60px;
+            color: #ffc107;
+        }
+
+        .faction-header h1 {
+            font-size: 48px;
+            font-family: 'Cinzel', serif;
+            margin-bottom: 20px;
+        }
+
+        .faction-header p {
+            font-size: 18px;
+            color: #ccc;
+            max-width: 850px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+
+        .intro-image {
+            max-width: 700px;
+            height: auto;
+            display: block;
+            margin: 40px auto;
+            border-radius: 12px;
+            box-shadow: 0 0 20px #000000aa;
+        }
+
+        .intro-quote {
+            text-align: center;
+            font-style: italic;
+            color: #aaa;
+            margin: 30px auto 0;
+            font-size: 15px;
+            line-height: 1.9;
+        }
+
+        .quote-origin {
+            text-align: center;
+            margin-top: 40px;
+            color: #aaa;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 24px;
+            color: #ffc107;
+            margin: 60px 0 20px;
+            font-family: 'Cinzel', serif;
+            text-shadow: 0 0 4px #000;
+        }
+
+        .faction-features {
+            max-width: 1000px;
+            margin: 0 auto 60px;
+            padding: 20px 30px;
+            background-color: #1c1c1c;
+            border: 2px solid #ffc107;
+            border-radius: 12px;
+            list-style: disc;
+            color: #eee;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .faction-features li {
+            margin-bottom: 10px;
+        }
+
+        .divider {
+            border: none;
+            border-top: 1px solid #444;
+            margin: 60px auto 20px;
+            width: 80%;
+            max-width: 800px;
+        }
+
+        .lore-description {
+            max-width: 1000px;
+            margin: 0 auto 60px;
+            background-color: #1a1a1a;
+            border-left: 4px solid #ffc107;
+            padding: 30px;
+            border-radius: 10px;
+            line-height: 1.8;
+        }
+
+        .lore-description h2 {
+            font-size: 20px;
+            color: #ffc107;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-family: 'Cinzel', serif;
+        }
+
+        .lore-description ul {
+            padding-left: 20px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+
+        .lore-description li {
+            margin-bottom: 5px;
+        }
+
+        .lore-description img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 30px auto;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #00000088;
+        }
+
+        .back-button {
+            text-align: center;
+            margin: 60px 0;
+        }
+
+        .back-button a {
+            background-color: #ffc107;
+            color: #000;
+            padding: 12px 30px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 0 10px #00000055;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .back-button a:hover {
+            background-color: #e0a800;
+        }
+
+        @media (max-width: 768px) {
+            .intro-image {
+                max-width: 90%;
+            }
+        }
+    </style>
+</th:block>
+
+<!-- 본문 -->
+<div layout:fragment="content">
+
+    <div class="faction-header">
+        <h1>블랙 템플러 (Black Templars)</h1>
+        <p>끊임없는 성전을 수행하는 황제의 광신적 전사들</p>
+    </div>
+
+    <img src="/images/introblacktemplar.jpg" alt="블랙 템플러 이미지" class="intro-image">
+
+    <div class="intro-quote">
+        <p>"No Pity! No Remorse! No Fear!"<br><span style="color: #999;">자비는 없다! 후회도 없다! 두려움은 더더욱 없다!</span></p>
+    </div>
+
+    <div class="quote-origin">─ 블랙 템플러 전투구호</div>
+
+    <h2 class="section-title">보드게임에서의 특징</h2>
+    <ul class="faction-features">
+        <li><strong>조합에 따라 다양한 상황 대처 가능</strong>: 물량, 기갑, 엘리트 주축 등 상황에 따라 여러 조합 가능</li>
+        <li><strong>근접전 특화</strong>: 기본적으로 강한 근접 능력과 지원 버프가 많음</li>
+        <li><strong>사이커 배제</strong>: 라이브러리안 병종이 없음</li>
+
+    </ul>
+
+    <hr class="divider">
+
+    <h2 class="section-title">진영 설명</h2>
+    <div class="lore-description">
+        <p>
+            블랙 템플러는 임페리얼 피스트의 1중대 템플러즈를 기원으로 한 챕터로,
+            초대 하이 마샬 <strong>지기스문트</strong>는 황제의 사이커 예언을 이유로 출정 명령을 거부했다가 <strong>로갈 돈</strong>에게 파문당해
+            백의종군 상태로 검은 갑옷를 입고 독립 전투를 시작하게 됩니다.
+        </p>
+
+        <p>
+            군단 분할 이후 로갈 돈은 1중대 병력을 지기스문트에게 맡겼고, 여전히 지기스문트는 파문중이었기에
+            휘하 병력들도 검은 갑옷을 입고 <strong>'블랙 템플러'</strong>로 거듭나게 됩니다. 이후
+            1차 블랙 크루세이드에서 지기스문트는 호루스 사후 반역자 군단의 수장 아바돈과의 치열한 결투 끝에 전사합니다.
+        </p>
+
+        <p>
+            블랙 템플러는 코덱스 아스타르테스를 따르지 않으며, 모든 전사에게 <strong>도제식 모병 의무</strong>를 부여합니다.
+            이 방식으로 인해 챕터 규모는 수만 명 이상으로 추정되지만 정확한 병력은 블랙 템플러 본인조차 모릅니다.
+        </p>
+
+        <p>
+            이들은 <strong>고정된 요새 없이 함대 단위의 분산 전투</strong>를 수행하며, 황제를 신으로 숭배합니다.
+            그 신앙심은 시스터 오브 배틀과 견줄 정도입니다. 13차 블랙 크루세이드에는 카디아에서 격렬히 반역자들과 맞서 싸웠으나
+            행성째로 파괴하는 공격으로 인해 후퇴하였고 이후 길리먼의 부활, 길리먼이 황제를 알현하기 위해 테라까지 도달하는 과정에서 큰 공을 세웠습니다.
+        </p>
+
+        <h2>주요 용어</h2>
+        <p><strong>로갈 돈</strong> – 임페리얼 피스트의 프라이마크</p>
+        <img src="/images/rogaldorn.jpg" alt="로갈 돈">
+        <p><strong>지기스문트</strong> – 초대 하이 마샬. 파문당했지만 충성을 저버리지 않은 백의종군 전사.</p>
+        <img src="/images/sigismund.jpg" alt="지기스문트">
+        <p><strong>도제식 모병</strong> – 모든 마린이 제자를 직접 양성하는 블랙 템플러 고유 체계.</p>
+        <p><strong>영원한 성전</strong> – 고정된 본거지 없이 은하 전역에서 수행하는 끝없는 성전</p>
+    </div>
+
+
+    <div class="back-button">
+        <a href="/lore/faction">← 진영 일람으로 돌아가기</a>
+    </div>
+</div>
+</html>

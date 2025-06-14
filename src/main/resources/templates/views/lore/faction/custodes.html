@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/main_layout}">
+
+<!-- CSS 영역 -->
+<th:block layout:fragment="css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0d0d0d;
+            color: #eee;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        .faction-header {
+            text-align: center;
+            margin-top: 60px;
+            color: #ffd700;
+        }
+
+        .faction-header h1 {
+            font-size: 48px;
+            font-family: 'Cinzel', serif;
+            margin-bottom: 20px;
+        }
+
+        .faction-header p {
+            font-size: 18px;
+            color: #ccc;
+            max-width: 850px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+
+        .intro-image {
+            max-width: 700px;
+            height: auto;
+            display: block;
+            margin: 40px auto;
+            border-radius: 12px;
+            box-shadow: 0 0 20px #000000aa;
+        }
+
+        .intro-quote {
+            text-align: center;
+            font-style: italic;
+            color: #aaa;
+            margin: 30px auto 0;
+            font-size: 15px;
+            line-height: 1.9;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 24px;
+            color: #ffd700;
+            margin: 60px 0 20px;
+            font-family: 'Cinzel', serif;
+            text-shadow: 0 0 4px #000;
+        }
+
+        .faction-features {
+            max-width: 1000px;
+            margin: 0 auto 60px;
+            padding: 20px 30px;
+            background-color: #1c1c1c;
+            border: 2px solid #ffd700;
+            border-radius: 12px;
+            list-style: disc;
+            color: #eee;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .faction-features li {
+            margin-bottom: 10px;
+        }
+
+        .divider {
+            border: none;
+            border-top: 1px solid #444;
+            margin: 60px auto 20px;
+            width: 80%;
+            max-width: 800px;
+        }
+
+        .lore-description {
+            max-width: 1000px;
+            margin: 0 auto 60px;
+            background-color: #1a1a1a;
+            border-left: 4px solid #ffd700;
+            padding: 30px;
+            border-radius: 10px;
+            line-height: 1.8;
+        }
+
+        .lore-description h2 {
+            font-size: 20px;
+            color: #ffd700;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-family: 'Cinzel', serif;
+        }
+
+        .lore-description img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 30px auto;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #00000088;
+        }
+
+        .back-button {
+            text-align: center;
+            margin: 60px 0;
+        }
+
+        .back-button a {
+            background-color: #ffd700;
+            color: #000;
+            padding: 12px 30px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 0 10px #00000055;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .back-button a:hover {
+            background-color: #ffea00;
+        }
+
+        @media (max-width: 768px) {
+            .intro-image {
+                max-width: 90%;
+            }
+        }
+    </style>
+</th:block>
+
+<!-- 본문 영역 -->
+<div layout:fragment="content">
+
+    <div class="faction-header">
+        <h1>아뎁투스 커스토디스 (Adeptus Custodes)</h1>
+        <p>황제 폐하의 근위대</p>
+    </div>
+
+    <img src="/images/introcustodes.jpg" alt="커스토디안 가드 이미지" class="intro-image">
+
+    <div class="intro-quote">
+        <p>
+            “These men are my bodyguards, their lives forfeit to the guarantee of my physical safety.”<br>
+            <span style="color: #999;">“이들은 나의 근위대다. 그들의 생명은 나의 신체적 안전을 보장하기 위해 바쳐진 것이다.”</span><br><br>
+
+            “Of their loyalty to me there shall be no question nor doubt.”<br>
+            <span style="color: #999;">“나를 향한 충성심에 의문이나 의심이 있어서는 안 된다.”</span><br><br>
+
+            “I, and I alone, shall have the authority to stand in judgement over them.”<br>
+            <span style="color: #999;">“오직 나만이 그들을 심판할 권한을 가진다.”</span><br><br>
+
+            “No other commander shall they have in battle nor in service.”<br>
+            <span style="color: #999;">“그들은 전장에서도, 평시에도 나 외에 다른 지휘관을 섬기지 않는다.”</span><br><br>
+
+            “None shall bar them from me and none shall hamper or stall their mission. So it is decreed!”<br>
+            <span style="color: #999;">“누구도 그들과 나 사이를 가로막을 수 없고, 그들의 임무를 방해하거나 지연시킬 수 없다. 이것이 곧 나의 명령이다!”</span><br><br>
+
+            <span style="font-style: normal; color: #aaa;">— 인류의 황제</span>
+        </p>
+    </div>
+
+
+    <h2 class="section-title">보드게임에서의 특징</h2>
+    <ul class="faction-features">
+        <li><strong>소수 정예 유닛</strong>: 모든 유닛이 강력하고 높은 포인트를 가진 정예 유닛들</li>
+        <li><strong>높은 방어력</strong>: 전반적으로 2+ 세이브와 인불세이브</li>
+        <li><strong>전천후 성능</strong>: 원거리와 근접에서 모두 뛰어난 능력</li>
+        <li><strong>해외 직구</strong>: 제대로된 아미의 성능을 내기 위해서는 레진 모델을 해외에서 구매해야한다.</li>
+
+    </ul>
+
+    <hr class="divider">
+
+    <h2 class="section-title">진영 설명</h2>
+    <div class="lore-description">
+        <p>
+            <strong>아뎁투스 커스토디스</strong>는 황제가 유전자 단위부터 설계하여 만든 초인들로 모든면에서 스페이스 마린보다 우월한 황제의 근위대입니다.
+            장인들이 한땀한땀 빛어낸 황금으로 빛나는 <strong>오라마이트 갑주</strong>와 <strong>가디언 스피어</strong>로 무장하여
+            테라의 황궁을 수호하고 있습니다. 총원이 일만명이라 만인대라고도 불립니다.
+        </p>
+
+        <p>
+            커스토디안은 스페이스 마린보다도 더욱 정제되고 강력한 존재로, 각 전사들은 수 세기에 걸쳐 훈련받고 단련된 무결점의 전사들입니다.
+            단 한 명의 커스토디안이 스페이스 마린 분대 전체와 맞먹는 전력을 지니고 있습니다.
+        </p>
+
+        <p>
+            이들은 테라와 황제의 안위와 직결적인 위협이 닥쳤을 때 황궁을 떠나 제국을 위해 출정하며, 황제를 제외하면 그 누구도 그들에게 명령을 내릴 수 없었습니다.
+            현재 황제와 대면하여 제국 섭정직을 맡은 길리먼의 요청에 의해서만 이들을 움직일 수 있습니다.
+
+        </p>
+
+        <p>
+            일부는 <strong>알라루스 터미네이터</strong>나 <strong>제트바이커 부대</strong> 등 커스토디안만의 특수 장비를 운용하기도 하며,
+            커스토디안과 마찬가지로 황제의 발톱에 속해있는 <strong>시스터즈 오브 사일런스</strong>와 함께 행동하기도 합니다.
+        </p>
+
+        <p>
+            또한 소수의 커스토디안은 긴 세월의 봉사중 자신의 실력에 사소한 결점이라도 느껴지게 된다면 은퇴하여 <strong>‘황제의 눈(Eyes of the Emperor)’</strong>이라는 비밀 감시자로 활동합니다.
+            이들은 제국 전역에 흩어져 잠복하며 이단과 반역, 그리고 은밀한 위협을 사전에 탐지하고 제거하는 어둠 속 감시자가 됩니다.
+        </p>
+
+        <h2>주요 용어</h2>
+        <p><strong>오라마이트 갑주</strong> – 커스토디안 전용의 금빛 강화 동체 갑주</p>
+        <p><strong>가디언 스피어</strong> – 근접과 원거리 모두에 사용 가능한 상징 무기</p>
+        <p><strong>시스터 오브 사일런스</strong> – 오직 여성 퍼라이어로만 이루어져 있는 무력단체. 사이커에 대해 절대적인 상성을 보여준다.</p>
+        <img src="/images/sistersofsilent.jpg" alt="시스터즈 오브 사일런스">
+    </div>
+
+    <div class="back-button">
+        <a href="/lore/faction">← 진영 일람으로 돌아가기</a>
+    </div>
+</div>
+</html>

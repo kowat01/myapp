@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/main_layout}">
+
+<!-- CSS 영역 -->
+<th:block layout:fragment="css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0d0d0d;
+            color: #eee;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        .faction-header {
+            text-align: center;
+            margin-top: 60px;
+            color: #fbc02d;
+        }
+
+        .faction-header h1 {
+            font-size: 48px;
+            font-family: 'Cinzel', serif;
+            margin-bottom: 20px;
+        }
+
+        .faction-header p {
+            font-size: 18px;
+            color: #ccc;
+            max-width: 850px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+
+        .intro-image {
+            max-width: 700px;
+            height: auto;
+            display: block;
+            margin: 40px auto;
+            border-radius: 12px;
+            box-shadow: 0 0 20px #000000aa;
+        }
+
+        .intro-quote {
+            text-align: center;
+            font-style: italic;
+            color: #aaa;
+            margin: 30px auto 0;
+            font-size: 15px;
+            line-height: 1.9;
+        }
+
+
+
+        .section-title {
+            text-align: center;
+            font-size: 24px;
+            color: #fbc02d;
+            margin: 60px 0 20px;
+            font-family: 'Cinzel', serif;
+            text-shadow: 0 0 4px #000;
+        }
+
+        .faction-features {
+            max-width: 1000px;
+            margin: 0 auto 60px;
+            padding: 20px 30px;
+            background-color: #1c1c1c;
+            border: 2px solid #fbc02d;
+            border-radius: 12px;
+            list-style: disc;
+            color: #eee;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .faction-features li {
+            margin-bottom: 10px;
+        }
+
+        .divider {
+            border: none;
+            border-top: 1px solid #444;
+            margin: 60px auto 20px;
+            width: 80%;
+            max-width: 800px;
+        }
+
+        .lore-description {
+            max-width: 1000px;
+            margin: 0 auto 60px;
+            background-color: #1a1a1a;
+            border-left: 4px solid #fbc02d;
+            padding: 30px;
+            border-radius: 10px;
+            line-height: 1.8;
+        }
+
+        .lore-description h2 {
+            font-size: 20px;
+            color: #fbc02d;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-family: 'Cinzel', serif;
+        }
+
+        .lore-description img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 30px auto;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #00000088;
+        }
+
+        .back-button {
+            text-align: center;
+            margin: 60px 0;
+        }
+
+        .back-button a {
+            background-color: #fbc02d;
+            color: #000;
+            padding: 12px 30px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 0 10px #00000055;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .back-button a:hover {
+            background-color: #fdd835;
+        }
+
+        @media (max-width: 768px) {
+            .intro-image {
+                max-width: 90%;
+            }
+        }
+    </style>
+</th:block>
+
+<!-- 본문 영역 -->
+<div layout:fragment="content">
+
+    <div class="faction-header">
+        <h1>임페리얼 나이트 (Imperial Knights)</h1>
+        <p>영광과 가문의 명예를 위해 싸우는 거대 전쟁 기계의 귀족들</p>
+    </div>
+
+    <img src="/images/introknight.jpg" alt="임페리얼 나이트 이미지" class="intro-image">
+
+    <div class="intro-quote">
+        <p>
+            “The Sword and the Shield,<br>
+            The vengeful past,<br>
+            The Glory of Ancient days”
+        </p>
+        <p>
+        <span style="color: #999;">
+            “검과 방패,<br>
+            복수심에 불타는 과거,<br>
+            아주 오래된 날들의 영광”
+        </span>
+        </p>
+    </div>
+
+
+    <h2 class="section-title">보드게임에서의 특징</h2>
+    <ul class="faction-features">
+        <li><strong>고성능 대형 유닛 위주</strong>: 모든 유닛이 거대 워커</li>
+        <li><strong>강력한 대형 화력</strong>: 위력 화기 사용</li>
+        <li><strong>높은 내구도</strong>: 높은 내구력과 인불세이브로 단단함</li>
+        <li><strong>소수 정예</strong>: 기체 수는 적지만 각 유닛의 존재감과 영향력은 막강</li>
+        <li><strong>가성비</strong>: 종합적인 구매 자금이 적음</li>
+    </ul>
+
+    <hr class="divider">
+
+    <h2 class="section-title">진영 설명</h2>
+    <div class="lore-description">
+        <p>
+            <strong>임페리얼 나이트</strong>는 인간이 탑승하는 거대한 이족 전쟁 병기인 ‘나이트’를 조종하는 귀족 전사 집단입니다.
+            이들은 <strong>기사령(Knight World)</strong>이라는 독립적인 봉건 행성을 지배하며, 명예와 전통을 중시하는 귀족 계급을 형성하고 있습니다.
+        </p>
+
+        <p>
+            나이트 조종사는 가문을 위해 일생을 바치며 전쟁에 임합니다. 때로는 가문의 멸망 등의 이유로 방랑 기사 <strong>프리 블레이드</strong>로 활동하기도 합니다.
+            이들은 제국의 요청에 따라 <strong>임페리얼 가드</strong>, <strong>스페이스 마린</strong>, 혹은 <strong>기계교</strong>와 함께 싸우기도 합니다.
+        </p>
+
+        <p>
+            임페리얼 나이트는 <strong>작은 타이탄</strong>이라고 불릴 정도로 강력한 화력과 내구력을 자랑하며,
+            고대부터 이어져온 신성한 워머신을 이어받아 싸움에 임합니다.
+        </p>
+
+        <p>
+            일부 나이트들은 메카니쿠스와 밀접한 관계를 맺어 <strong>기계교 기사령</strong>으로 분류되기도 하며,
+            이단에 타락한 경우 <strong>카오스 나이트</strong>가 되어 황제에 맞서 싸우는 끔찍한 적이 되기도 합니다.
+        </p>
+
+        <h2>주요 용어</h2>
+        <p><strong>기사령(Knight World)</strong> – 임페리얼 나이트 가문이 지배하는 봉건 행성</p>
+        <p><strong>가문(Household)</strong> – 기사들의 가문이자 군사조직.</p>
+        <p><strong>나이트(Imperial Knight)</strong> – 종류에 따라 역할이 다른 중무장 보행 전쟁 병기들</p>
+        <img src="/images/imperialknight.jpg" alt="임페리얼 나이트 유닛 이미지">
+    </div>
+
+    <div class="back-button">
+        <a href="/lore/faction">← 진영 일람으로 돌아가기</a>
+    </div>
+</div>
+</html>

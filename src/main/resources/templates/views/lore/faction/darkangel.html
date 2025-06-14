@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/main_layout}">
+
+<!-- CSS 영역 -->
+<th:block layout:fragment="css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0d0d0d;
+            color: #eee;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        .faction-header {
+            text-align: center;
+            margin-top: 60px;
+            color: #28a745;
+        }
+
+        .faction-header h1 {
+            font-size: 48px;
+            font-family: 'Cinzel', serif;
+            margin-bottom: 20px;
+        }
+
+        .faction-header p {
+            font-size: 18px;
+            color: #ccc;
+            max-width: 850px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+
+        .intro-image {
+            max-width: 700px;
+            height: auto;
+            display: block;
+            margin: 40px auto;
+            border-radius: 12px;
+            box-shadow: 0 0 20px #000000aa;
+        }
+
+        .intro-quote {
+            text-align: center;
+            font-style: italic;
+            color: #aaa;
+            margin: 30px auto 0;
+            font-size: 15px;
+            line-height: 1.9;
+        }
+
+        .quote-origin {
+            text-align: center;
+            margin-top: 40px;
+            color: #aaa;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 24px;
+            color: #28a745;
+            margin: 60px 0 20px;
+            font-family: 'Cinzel', serif;
+            text-shadow: 0 0 4px #000;
+        }
+
+        .faction-features {
+            max-width: 1000px;
+            margin: 0 auto 60px;
+            padding: 20px 30px;
+            background-color: #1c1c1c;
+            border: 2px solid #28a745;
+            border-radius: 12px;
+            list-style: disc;
+            color: #eee;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .faction-features li {
+            margin-bottom: 10px;
+        }
+
+        .divider {
+            border: none;
+            border-top: 1px solid #444;
+            margin: 60px auto 20px;
+            width: 80%;
+            max-width: 800px;
+        }
+
+        .lore-description {
+            max-width: 1000px;
+            margin: 0 auto 60px;
+            background-color: #1a1a1a;
+            border-left: 4px solid #28a745;
+            padding: 30px;
+            border-radius: 10px;
+            line-height: 1.8;
+        }
+
+        .lore-description h2 {
+            font-size: 20px;
+            color: #28a745;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-family: 'Cinzel', serif;
+        }
+
+        .lore-description ul {
+            padding-left: 20px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+
+        .lore-description li {
+            margin-bottom: 5px;
+        }
+
+        .lore-description img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 30px auto;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #00000088;
+        }
+
+        .back-button {
+            text-align: center;
+            margin: 60px 0;
+        }
+
+        .back-button a {
+            background-color: #28a745;
+            color: #000;
+            padding: 12px 30px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 0 10px #00000055;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .back-button a:hover {
+            background-color: #1e7e34;
+        }
+
+        @media (max-width: 768px) {
+            .intro-image {
+                max-width: 90%;
+            }
+        }
+    </style>
+</th:block>
+
+<!-- 본문 -->
+<div layout:fragment="content">
+
+    <div class="faction-header">
+        <h1>다크 엔젤 (Dark Angels)</h1>
+        <p>사자의 자손, 칼리번의 기사들</p>
+    </div>
+
+    <img src="/images/introdarkangel.jpg" alt="다크 엔젤 소개 이미지" class="intro-image">
+
+    <div class="intro-quote">
+        <p>"Repent! For tomorrow you die!"<br><span style="color: #999;">회개하라! 내일이면 너는 죽으리니.</span></p>
+    </div>
+
+    <div class="quote-origin">─ 다크 엔젤 전투 함성</div>
+
+    <h2 class="section-title">보드게임에서의 특징</h2>
+    <ul class="faction-features">
+        <li><strong>강력한 엘리트 병과들</strong>: 일반 스페이스 마린과는 차별화된 전용 병종들</li>
+        <li><strong>전문화된 분대 구성</strong>: 데스윙은 중무장 화력 중심, 레이븐윙은 고속 기동 중심</li>
+        <li><strong>높은 유닛 포인트</strong>: 엘리트 병과가 강력한 만큼 높은 포인트를 가진다</li>
+        <li><strong>고유 데이터시트</strong>: 일반 스페이스 마린과 다른 무기, 전술, 유닛 구성이 존재</li>
+    </ul>
+
+    <hr class="divider">
+    <h2 class="section-title">진영 설명</h2>
+
+    <div class="lore-description">
+        <p>
+            다크 엔젤은 제1군단으로, 첫번째 스페이스 마린 군단입니다.
+            이들은 프라이마크 <strong>라이온 엘 존슨</strong>의 지휘 아래 대성전 동안 수많은 전공을 세웠으며,
+            셀 수 없이 많은 승리를 제국으로 가져왔습니다.
+        </p>
+
+        <p>
+            그러나 <strong>호루스 헤러시</strong> 말기, 자신들의 고향 행성 칼리번에서 내부 반란이 일어나고 이 때 프라이마크는 반란군의 수장이자
+            양아버지였던 루서와의 결투 끝에 큰 상처를 입고 실종됩니다. 반란에서 루서와 뜻을 함께하던
+            일부 형제들이 <strong>폴른(Fallen)</strong>이라는 이름으로 타락하게 됩니다. 이 때 타락한 칼리번을 파괴하고
+            이를 기리고자 검은 갑옷을 칼리번의 숲을 기억하자는 의미로 녹색으로 물들이게 되었습니다.
+            이 사건은 다크 엔젤의 가장 큰 수치로 남게 되었고, 챕터 수뇌부 이너서클에서는 <strong>데스윙</strong>과 <strong>레이븐윙</strong>을 조직하여
+             이들은 지금까지도 은밀히 폴른을 추적하고 제거하는 사명을 수행하고 있습니다.
+        </p>
+        <p>
+            <strong>대균열</strong> 이후, <strong>임페리움 나힐루스</strong>에서 활동하던 다크엔젤은 마침내 돌아온 자신들의 프라이마크와
+            거북한 형제들 <strong>리즌</strong>들과 함께하며 인류 제국을 수호하고 있습니다.
+        </p>
+
+        <h2>주요 용어</h2>
+        <p><strong>라이온 엘 존슨</strong> – 다크 엔젤의 프라이마크. 일만년간의 회복 끝에 마침내 복귀했습니다.</p>
+        <img src="/images/lion.jpg" alt="라이온">
+        <p><strong>폴른(Fallen)</strong> – 다크 엔젤 출신 배신자 스페이스 마린. 일부는 카오스에 귀의함.</p>
+        <img src="/images/fallen.jpg" alt="폴른 엔젤">
+        <p><strong>대균열</strong> – 우리 은하를 반으로 갈라버린 거대한 워프균열</p>
+        <p><strong>임페리움 나힐루스</strong> – 대균열로 인해 제국이 반으로 갈라진 상태에서 워프 항해중 황제가 비추는 불빛이 보이지 않는 어둠의 제국</p>
+        <p><strong>데스윙</strong> – 전원이 중무장 터미네이터로 구성된 정예 부대. 1중대.</p>
+        <p><strong>레이븐윙</strong> – 바이크 및 랜드스피더 중심의 기동 특화 부대. 2중대.</p>
+        <p><strong>리즌</strong> – 회개한 폴른들. 라이온의 복귀 이후 프라이마크에게 용서받은 이들은 비밀리에 이너서클로 활동중</p>
+
+
+    </div>
+
+    <div class="back-button">
+        <a href="/lore/faction">← 진영 일람으로 돌아가기</a>
+    </div>
+</div>
+</html>

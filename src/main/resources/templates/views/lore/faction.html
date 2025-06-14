@@ -16,6 +16,33 @@
             color: white;
         }
 
+        .layout-wrapper {
+            display: flex;
+        }
+
+        .sidebar {
+            width: 220px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            background-color: #000;
+            z-index: 1000;
+        }
+
+        .main-content {
+            margin-left: 220px;
+            width: calc(100% - 220px);
+            padding: 40px 30px;
+        }
+
+        .title-wrapper,
+        .section-wrapper {
+            max-width: 1440px;
+            margin: 0 auto 0 220px;
+            padding: 0 30px;
+        }
+
         h1.title {
             text-align: center;
             margin: 60px 0 30px;
@@ -48,7 +75,7 @@
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 40px;
             max-width: 1440px;
-            margin: 0 auto;
+            margin: 0 auto 0 220px;
             padding: 0 30px;
             justify-items: center;
         }
@@ -92,62 +119,80 @@
             text-align: center;
             text-shadow: 0 0 4px black;
         }
+
+        footer{
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 60px 20px 40px;
+            text-align: center;
+            color: #ccc;
+        }
     </style>
+
 </head>
 <body>
 
-<!-- 헤더 -->
+<!-- 사이드바 -->
 <div th:replace="~{fragments/header :: header}"></div>
 
-<h1 class="title">플레이어블 진영 일람</h1>
+<!-- 제목 -->
+<div class="title-wrapper">
+    <h1 class="title">플레이어블 진영 일람</h1>
+</div>
 
 <!-- 제국 -->
-<h2 class="section" id="imperium">[ 제국 ]</h2>
+<div class="section-wrapper">
+    <h2 class="section" id="imperium">[ 제국 ]</h2>
+</div>
 <div class="faction-grid">
-    <div class="faction-tile"><a th:href="@{/factions/spacemarine}"><img class="faction-image" src="/images/factionspacemarine.jpg" alt="스페이스 마린"><div class="faction-label">스페이스 마린</div></a></div>
-    <div class="faction-tile"><a th:href="@{/factions/darkangel}"><img class="faction-image" src="/images/factiondarkangel.jpg" alt="다크 엔젤"><div class="faction-label">다크 엔젤</div></a></div>
-    <div class="faction-tile"><a th:href="@{/factions/bloodangel}"><img class="faction-image" src="/images/factionbloodangel.jpg" alt="블러드 엔젤"><div class="faction-label">블러드 엔젤</div></a></div>
-    <div class="faction-tile"><a th:href="@{/factions/spacewolf}"><img class="faction-image" src="/images/factionspacewolf.jpg" alt="스페이스 울프"><div class="faction-label">스페이스 울프</div></a></div>
-    <div class="faction-tile"><a th:href="@{/factions/blacktemplar}"><img class="faction-image" src="/images/factionblacktemplar.jpg" alt="블랙 템플러"><div class="faction-label">블랙 템플러</div></a></div>
-    <div class="faction-tile"><a th:href="@{/factions/greyknight}"><img class="faction-image" src="/images/factiongrey.jpg" alt="그레이 나이트"><div class="faction-label">그레이 나이트</div></a></div>
-    <div class="faction-tile"><a th:href="@{/factions/imperialgaurd}"><img class="faction-image" src="/images/factionguard.jpg" alt="임페리얼 가드"><div class="faction-label">임페리얼 가드</div></a></div>
-    <div class="faction-tile"><a th:href="@{/factions/imperialagent}"><img class="faction-image" src="/images/factionimperialagent.jpg" alt="임페리얼 에이전트"><div class="faction-label">임페리얼 에이전트</div></a></div>
-    <div class="faction-tile"><a th:href="@{/factions/mechanicus}"><img class="faction-image" src="/images/factionmech.jpg" alt="메카니쿠스"><div class="faction-label">메카니쿠스</div></a></div>
-    <div class="faction-tile"><a th:href="@{/factions/sistersofbattle}"><img class="faction-image" src="/images/factionsistersofbattle.jpg" alt="시스터즈 오브 배틀"><div class="faction-label">시스터즈 오브 배틀</div></a></div>
-    <div class="faction-tile"><a th:href="@{/factions/imperialknight}"><img class="faction-image" src="/images/factionknight.jpg" alt="임페리얼 나이트"><div class="faction-label">임페리얼 나이트</div></a></div>
-    <div class="faction-tile"><a th:href="@{/factions/custodes}"><img class="faction-image" src="/images/factioncustodes.jpg" alt="커스토디안 가드"><div class="faction-label">커스토디안 가드</div></a></div>
-    <div class="faction-tile"><a th:href="@{/factions/titanlegion}"><img class="faction-image" src="/images/factiontitan.jpg" alt="타이탄 리전"><div class="faction-label">타이탄 리전</div></a></div>
+    <div class="faction-tile"><a th:href="@{/lore/faction/spacemarine}"><img class="faction-image" src="/images/factionspacemarine.jpg" alt="스페이스 마린"><div class="faction-label">스페이스 마린</div></a></div>
+    <div class="faction-tile"><a th:href="@{/lore/faction/darkangel}"><img class="faction-image" src="/images/factiondarkangel.jpg" alt="다크 엔젤"><div class="faction-label">다크 엔젤</div></a></div>
+    <div class="faction-tile"><a th:href="@{/lore/faction/bloodangel}"><img class="faction-image" src="/images/factionbloodangel.jpg" alt="블러드 엔젤"><div class="faction-label">블러드 엔젤</div></a></div>
+    <div class="faction-tile"><a th:href="@{/lore/faction/spacewolf}"><img class="faction-image" src="/images/factionspacewolf.jpg" alt="스페이스 울프"><div class="faction-label">스페이스 울프</div></a></div>
+    <div class="faction-tile"><a th:href="@{/lore/faction/blacktemplar}"><img class="faction-image" src="/images/factionblacktemplar.jpg" alt="블랙 템플러"><div class="faction-label">블랙 템플러</div></a></div>
+    <div class="faction-tile"><a th:href="@{/lore/faction/deathwatch}"><img class="faction-image" src="/images/factiondeathwatch.jpg" alt="데스워치"><div class="faction-label">데스워치</div></a></div>
+    <div class="faction-tile"><a th:href="@{/lore/faction/greyknight}"><img class="faction-image" src="/images/factiongrey.jpg" alt="그레이 나이트"><div class="faction-label">그레이 나이트</div></a></div>
+    <div class="faction-tile"><a th:href="@{/lore/faction/imperialguard}"><img class="faction-image" src="/images/factionguard.jpg" alt="임페리얼 가드"><div class="faction-label">임페리얼 가드</div></a></div>
+    <div class="faction-tile"><a th:href="@{/lore/faction/imperialagent}"><img class="faction-image" src="/images/factionimperialagent.jpg" alt="임페리얼 에이전트"><div class="faction-label">임페리얼 에이전트</div></a></div>
+    <div class="faction-tile"><a th:href="@{/lore/faction/mechanicus}"><img class="faction-image" src="/images/factionmech.jpg" alt="메카니쿠스"><div class="faction-label">메카니쿠스</div></a></div>
+    <div class="faction-tile"><a th:href="@{/lore/faction/sistersofbattle}"><img class="faction-image" src="/images/factionsistersofbattle.jpg" alt="시스터즈 오브 배틀"><div class="faction-label">시스터즈 오브 배틀</div></a></div>
+    <div class="faction-tile"><a th:href="@{/lore/faction/imperialknight}"><img class="faction-image" src="/images/factionknight.jpg" alt="임페리얼 나이트"><div class="faction-label">임페리얼 나이트</div></a></div>
+    <div class="faction-tile"><a th:href="@{/lore/faction/custodes}"><img class="faction-image" src="/images/factioncustodes.jpg" alt="커스토디안 가드"><div class="faction-label">커스토디안 가드</div></a></div>
+    <div class="faction-tile"><a th:href="@{/lore/faction/titanlegion}"><img class="faction-image" src="/images/factiontitan.jpg" alt="타이탄 리전"><div class="faction-label">타이탄 리전</div></a></div>
 </div>
 
 <!-- 카오스 -->
-<h2 class="section" id="chaos">[ 카오스 ]</h2>
-<div class="faction-grid">
-    <div class="faction-tile"><a th:href="@{/factions/demons}"><img class="faction-image" src="/images/factiondemon.jpg" alt="카오스"><div class="faction-label">카오스 데몬</div></a></div>
-    <div class="faction-tile"><a th:href="@{/factions/chaosmarine}"><img class="faction-image" src="/images/factionchaos.jpg" alt="카오스 스페이스 마린"><div class="faction-label">카오스 스페이스 마린</div></a></div>
-    <div class="faction-tile"><a th:href="@{/factions/worldeater}"><img class="faction-image" src="/images/factioneater.jpg" alt="월드 이터"><div class="faction-label">월드 이터</div></a></div>
-    <div class="faction-tile"><a th:href="@{/factions/deathguard}"><img class="faction-image" src="/images/factiondeath.jpg" alt="데스 가드"><div class="faction-label">데스 가드</div></a></div>
-    <div class="faction-tile"><a th:href="@{/factions/thousandson}"><img class="faction-image" src="/images/factionthousand.jpg" alt="사우전드 선"><div class="faction-label">사우전드 선</div></a></div>
-    <div class="faction-tile"><a th:href="@{/factions/emperorschildren}"><img class="faction-image" src="/images/factionchildren.jpg" alt="엠퍼러스 칠드런"><div class="faction-label">엠퍼러스 칠드런</div></a></div>
-    <div class="faction-tile"><a th:href="@{/factions/chaosknight}"><img class="faction-image" src="/images/factioncknight.jpg" alt="카오스 나이트"><div class="faction-label">카오스 나이트</div></a></div>
+<div class="section-wrapper">
+    <h2 class="section" id="chaos">[ 카오스 ]</h2>
 </div>
+<div class="faction-grid">
+    <div class="faction-tile"><a th:href="@{/lore/faction/demons}"><img class="faction-image" src="/images/factiondemon.jpg" alt="카오스"><div class="faction-label">카오스 데몬</div></a></div>
+    <div class="faction-tile"><a th:href="@{/lore/faction/chaosmarine}"><img class="faction-image" src="/images/factionchaos.jpg" alt="카오스 스페이스 마린"><div class="faction-label">카오스 스페이스 마린</div></a></div>
+    <div class="faction-tile"><a th:href="@{/lore/faction/worldeater}"><img class="faction-image" src="/images/factioneater.jpg" alt="월드 이터"><div class="faction-label">월드 이터</div></a></div>
+    <div class="faction-tile"><a th:href="@{/lore/faction/deathguard}"><img class="faction-image" src="/images/factiondeath.jpg" alt="데스 가드"><div class="faction-label">데스 가드</div></a></div>
+    <div class="faction-tile"><a th:href="@{/lore/faction/thousandson}"><img class="faction-image" src="/images/factionthousand.jpg" alt="사우전드 선"><div class="faction-label">사우전드 선</div></a></div>
+    <div class="faction-tile"><a th:href="@{/lore/faction/emperorschildren}"><img class="faction-image" src="/images/factionchildren.jpg" alt="엠퍼러스 칠드런"><div class="faction-label">엠퍼러스 칠드런</div></a></div>
+    <div class="faction-tile"><a th:href="@{/lore/faction/chaosknight}"><img class="faction-image" src="/images/factioncknight.jpg" alt="카오스 나이트"><div class="faction-label">카오스 나이트</div></a></div>
+</div>
+
 
 <!-- 외계 종족 -->
-<h2 class="section" id="xeno">[ 외계 종족 ]</h2>
+<div class="section-wrapper">
+    <h2 class="section" id="xeno">[ 외계 종족 ]</h2>
+</div>
 <div class="faction-grid">
-    <div class="faction-tile"><a th:href="@{/factions/eldar}"><img class="faction-image" src="/images/factioneldar.jpg" alt="엘다"><div class="faction-label">아엘다리</div></a></div>
-    <div class="faction-tile"><a th:href="@{/factions/darkeldar}"><img class="faction-image" src="/images/factiondarkeldar.jpg" alt="다크엘다"><div class="faction-label">드루카리</div></a></div>
-    <div class="faction-tile"><a th:href="@{/factions/necron}"><img class="faction-image" src="/images/factionnecron.jpg" alt="네크론"><div class="faction-label">네크론</div></a></div>
-    <div class="faction-tile"><a th:href="@{/factions/orks}"><img class="faction-image" src="/images/factionorks.jpg" alt="오크"><div class="faction-label">오크</div></a></div>
-    <div class="faction-tile"><a th:href="@{/factions/tau}"><img class="faction-image" src="/images/factiontau.jpg" alt="타우 제국"><div class="faction-label">타우 제국</div></a></div>
-    <div class="faction-tile"><a th:href="@{/factions/tyranid}"><img class="faction-image" src="/images/factiontyranid.jpg" alt="타이라니드"><div class="faction-label">타이라니드</div></a></div>
-    <div class="faction-tile"><a th:href="@{/factions/geanstealercult}"><img class="faction-image" src="/images/factiongeanstealer.jpg" alt="진스틸러 컬트"><div class="faction-label">진스틸러 컬트</div></a></div>
-    <div class="faction-tile"><a th:href="@{/factions/votann}"><img class="faction-image" src="/images/factionvotann.jpg" alt="보탄 연맹"><div class="faction-label">보탄 연맹</div></a></div>
+    <div class="faction-tile"><a th:href="@{/lore/faction/eldar}"><img class="faction-image" src="/images/factioneldar.jpg" alt="엘다"><div class="faction-label">아엘다리</div></a></div>
+    <div class="faction-tile"><a th:href="@{/lore/faction/darkeldar}"><img class="faction-image" src="/images/factiondarkeldar.jpg" alt="다크엘다"><div class="faction-label">드루카리</div></a></div>
+    <div class="faction-tile"><a th:href="@{/lore/faction/necron}"><img class="faction-image" src="/images/factionnecron.jpg" alt="네크론"><div class="faction-label">네크론</div></a></div>
+    <div class="faction-tile"><a th:href="@{/lore/faction/orks}"><img class="faction-image" src="/images/factionorks.jpg" alt="오크"><div class="faction-label">오크</div></a></div>
+    <div class="faction-tile"><a th:href="@{/lore/faction/tau}"><img class="faction-image" src="/images/factiontau.jpg" alt="타우 제국"><div class="faction-label">타우 제국</div></a></div>
+    <div class="faction-tile"><a th:href="@{/lore/faction/tyranid}"><img class="faction-image" src="/images/factiontyranid.jpg" alt="타이라니드"><div class="faction-label">타이라니드</div></a></div>
+    <div class="faction-tile"><a th:href="@{/lore/faction/geanstealercult}"><img class="faction-image" src="/images/factiongeanstealer.jpg" alt="진스틸러 컬트"><div class="faction-label">진스틸러 컬트</div></a></div>
+    <div class="faction-tile"><a th:href="@{/lore/faction/votann}"><img class="faction-image" src="/images/factionvotann.jpg" alt="보탄 연맹"><div class="faction-label">보탄 연맹</div></a></div>
 </div>
 
-<!-- 여백 -->
+<!-- 여백 및 푸터 -->
 <div style="height: 100px;"></div>
-
-<!-- 푸터 -->
 <div th:replace="~{fragments/footer :: footer}"></div>
 
 </body>
