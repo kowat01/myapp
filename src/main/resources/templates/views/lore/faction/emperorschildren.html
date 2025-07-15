@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/main_layout}">
+
+<!-- CSS 영역 -->
+<th:block layout:fragment="css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0d0d0d;
+            color: #eee;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        .faction-header {
+            text-align: center;
+            margin-top: 60px;
+            color: #ff66cc;
+        }
+
+        .faction-header h1 {
+            font-size: 48px;
+            font-family: 'Cinzel', serif;
+            margin-bottom: 20px;
+        }
+
+        .faction-header p {
+            font-size: 18px;
+            color: #ccc;
+            max-width: 850px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+
+        .intro-image {
+            max-width: 800px;
+            width: 90%;
+            height: auto;
+            display: block;
+            margin: 40px auto;
+            border-radius: 12px;
+            box-shadow: 0 0 30px #000000cc;
+        }
+
+        .intro-quote {
+            text-align: center;
+            font-style: italic;
+            color: #aaa;
+            margin: 30px auto 0;
+            font-size: 15px;
+            line-height: 1.9;
+        }
+
+        .quote-origin {
+            text-align: center;
+            margin-top: 40px;
+            color: #aaa;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 24px;
+            color: #ff66cc;
+            margin: 60px 0 20px;
+            font-family: 'Cinzel', serif;
+            text-shadow: 0 0 4px #000;
+        }
+
+        .faction-features {
+            max-width: 1000px;
+            margin: 0 auto 60px;
+            padding: 20px 30px;
+            background-color: #1c1c1c;
+            border: 2px solid #ff66cc;
+            border-radius: 12px;
+            list-style: disc;
+            color: #eee;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .faction-features li {
+            margin-bottom: 10px;
+        }
+
+        .divider {
+            border: none;
+            border-top: 1px solid #444;
+            margin: 60px auto 20px;
+            width: 80%;
+            max-width: 800px;
+        }
+
+        .lore-description {
+            max-width: 1000px;
+            margin: 0 auto 60px;
+            background-color: #1a1a1a;
+            border-left: 4px solid #ff66cc;
+            padding: 30px;
+            border-radius: 10px;
+            line-height: 1.8;
+        }
+
+        .lore-description h2 {
+            font-size: 20px;
+            color: #ff99dd;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-family: 'Cinzel', serif;
+        }
+
+        .lore-description p, .lore-description ul {
+            margin-bottom: 20px;
+        }
+
+        .lore-description img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 30px auto;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #00000088;
+        }
+
+        .back-button {
+            text-align: center;
+            margin: 60px 0;
+        }
+
+        .back-button a {
+            background-color: #ff66cc;
+            color: #000;
+            padding: 12px 30px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 0 10px #00000055;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .back-button a:hover {
+            background-color: #e055bb;
+        }
+
+        @media (max-width: 768px) {
+            .intro-image {
+                max-width: 90%;
+            }
+        }
+    </style>
+</th:block>
+
+<!-- 본문 -->
+<div layout:fragment="content">
+
+    <div class="faction-header">
+        <h1>엠퍼러스 칠드런 (Emperor's Children)</h1>
+        <p>완벽을 갈망하다 타락한 귀족 전사들</p>
+    </div>
+
+    <img src="/images/introemperorschildren.jpg" alt="엠퍼러스 칠드런 소개 이미지" class="intro-image">
+
+    <div class="intro-quote">
+        <p style="font-weight: bold; font-size: 18px; color: #ff99dd;">
+            “황제를 위하여!”
+        </p>
+    </div>
+
+    <div class="quote-origin">─ 엠퍼러스 칠드런 전투함성</div>
+
+    <h2 class="section-title">엠퍼러스 칠드런의 특징</h2>
+    <ul class="faction-features">
+        <li><strong>초고속 근접 특화</strong>: 모든 유닛이 높은 이동력과 공격 선제권(First Strike)을 기반으로 적을 압도함.</li>
+        <li><strong>소닉 웨폰 운용</strong>: 소닉 블래스터, 둠사이렌 등 고유 음파 무기</li>
+        <li><strong>쾌락과 고통의 전술</strong>: 슬라네쉬의 축복을 받은 유닛은 독자적인 능력과 전술적 유연성을 갖춤.</li>
+        <li><strong>전문화된 유닛 구성</strong>: 노이즈 마린, 펠로리스 블레이드 등 전용 유닛 다수 보유.</li>
+
+    </ul>
+
+    <hr class="divider">
+    <h2 class="section-title">진영 설명</h2>
+
+    <div class="lore-description">
+        <p>
+            엠퍼러스 칠드런은 원래 황제에게 가장 가까운 이상을 품었던 제3군단으로, 고귀한 품위와 완벽한 전투 기교를 추구하는 귀족적 전사들이었다.
+            그들은 전장을 예술의 무대로, 전투를 고상한 기예로 여겼으며, 황제의 이름 아래 무결함을 실현하려 했다.
+        </p>
+
+        <p>
+            그러나 그 집착은 곧 집요함으로, 집요함은 타락으로 이어졌다.
+            프라이마크 <strong>펄그림</strong>이 외계종 <strong>레르</strong>의 유물, 데몬이 깃든 <strong>레르 소드</strong>를 손에 넣은 것이 모든 비극의 서막이었다.
+            칼날에 깃든 슬라네쉬 악마의 속삭임은 그의 정신을 잠식했고, 끝내 펄그림은 광휘 속에서 영혼을 잃었다.
+            그의 타락은 곧 군단 전체를 붕괴시켰고, 황제에 대한 충성은 환상처럼 사라졌다.
+        </p>
+
+        <p>
+            이제 엠퍼러스 칠드런은 고통과 쾌락, 광기와 예술의 경계를 허문 존재들이다.
+            이들은 소닉 웨폰의 절규로 전장을 교향곡으로 바꾸며, 죽음 그 자체를 가장 완벽한 예술로 승화시킨다.
+            완벽은 여전히 그들의 이상이지만, 그 끝은 슬라네쉬의 악몽 속에 녹아들었다.
+        </p>
+
+        <h2>주요 용어</h2>
+        <p><strong>슬라네쉬</strong> – 쾌락, 예술, 감각의 카오스 신. 엠퍼러스 칠드런의 수호자이자 파멸의 근원.</p>
+        <p><strong>노이즈 마린</strong> – 슬라네쉬에게 타락한 마린들. 소닉 웨폰을 다루며, 고통과 쾌락을 동시에 선사한다.</p>
+        <p><strong>펄그림</strong> – 제3군단의 프라이마크. 예술과 완벽을 추구하던 자에서 광기의 아이콘으로 타락한 존재.</p>
+        <img src="/images/fulgrim.jpg" alt="펄그림 이미지">
+    </div>
+
+    <div class="back-button">
+        <a href="/lore/faction">← 진영 일람으로 돌아가기</a>
+    </div>
+
+</div>
+</html>

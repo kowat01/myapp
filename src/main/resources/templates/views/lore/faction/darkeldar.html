@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/main_layout}">
+
+<!-- CSS 영역 -->
+<th:block layout:fragment="css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0d0d0d;
+            color: #eee;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        .faction-header {
+            text-align: center;
+            margin-top: 60px;
+            color: #990099;
+        }
+
+        .faction-header h1 {
+            font-size: 48px;
+            font-family: 'Cinzel', serif;
+            margin-bottom: 20px;
+        }
+
+        .faction-header p {
+            font-size: 18px;
+            color: #ccc;
+            max-width: 850px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+
+        .intro-image {
+            max-width: 800px;
+            width: 90%;
+            height: auto;
+            display: block;
+            margin: 40px auto;
+            border-radius: 12px;
+            box-shadow: 0 0 30px #000000cc;
+        }
+
+        .intro-quote {
+            text-align: center;
+            font-style: italic;
+            color: #aaa;
+            margin: 30px auto 0;
+            font-size: 15px;
+            line-height: 1.9;
+        }
+
+        .quote-origin {
+            text-align: center;
+            margin-top: 40px;
+            color: #aaa;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 24px;
+            color: #990099;
+            margin: 60px 0 20px;
+            font-family: 'Cinzel', serif;
+            text-shadow: 0 0 4px #000;
+        }
+
+        .faction-features {
+            max-width: 1000px;
+            margin: 0 auto 60px;
+            padding: 20px 30px;
+            background-color: #1c1c1c;
+            border: 2px solid #990099;
+            border-radius: 12px;
+            list-style: disc;
+            color: #eee;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .faction-features li {
+            margin-bottom: 10px;
+        }
+
+        .divider {
+            border: none;
+            border-top: 1px solid #444;
+            margin: 60px auto 20px;
+            width: 80%;
+            max-width: 800px;
+        }
+
+        .lore-description {
+            max-width: 1000px;
+            margin: 0 auto 60px;
+            background-color: #1a1a1a;
+            border-left: 4px solid #990099;
+            padding: 30px;
+            border-radius: 10px;
+            line-height: 1.8;
+        }
+
+        .lore-description h2 {
+            font-size: 20px;
+            color: #cc66cc;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-family: 'Cinzel', serif;
+        }
+
+        .lore-description p, .lore-description ul {
+            margin-bottom: 20px;
+        }
+
+        .lore-description img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 30px auto;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #00000088;
+        }
+
+        .back-button {
+            text-align: center;
+            margin: 60px 0;
+        }
+
+        .back-button a {
+            background-color: #990099;
+            color: #000;
+            padding: 12px 30px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 0 10px #00000055;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .back-button a:hover {
+            background-color: #770077;
+        }
+
+        @media (max-width: 768px) {
+            .intro-image {
+                max-width: 90%;
+            }
+        }
+    </style>
+</th:block>
+
+<!-- 본문 -->
+<div layout:fragment="content">
+
+    <div class="faction-header">
+        <h1>드루카리 (Drukhari)</h1>
+        <p>고통을 먹고 사는 쾌락의 약탈자들</p>
+    </div>
+
+    <img src="/images/introdarkeldar.png" alt="드루카리 소개 이미지" class="intro-image">
+
+    <div class="intro-quote">
+        <p style="font-weight: bold; font-size: 18px; color: #cc66cc;">
+            “Pray they don't take you alive…”<br>
+            그들이 당신을 산 채로 데려가지 않기를…
+        </p>
+    </div>
+    <div class="quote-origin">─ 드루카리 코덱스 서문</div>
+
+
+    <h2 class="section-title">드루카리의 특징</h2>
+    <ul class="faction-features">
+        <li><strong>초고속 기동성</strong>: 대부분 유닛이 고속 이동 수단을 탑재, 기습/탈출 중심 플레이에 특화.</li>
+        <li><strong>카발 / 위치 컬트 / 고문단 분할 구조</strong>: 세 분파를 혼합하여 특화된 조합 전술 운용.</li>
+        <li><strong>극단적 유닛 성능</strong>: 방어는 약하지만 속도, 공격, 전술 압박에 특화된 설계.</li>
+    </ul>
+
+    <hr class="divider">
+    <h2 class="section-title">진영 설명</h2>
+
+    <div class="lore-description">
+        <p>
+            드루카리는 아엘다리 문명의 가장 타락한 잔재로, 슬라네쉬의 탄생을 피해
+            <strong>코모라(Commorragh)</strong>라 불리는 웹웨이 속의 암흑 도시로 숨어든 존재들입니다.
+            이들은 타인의 고통과 절망을 흡수함으로써 생명력을 연장하고, 슬라네쉬의 탐식으로부터
+            자신의 영혼을 지켜냅니다.
+        </p>
+
+        <p>
+            드루카리는 세 분파로 구성됩니다. <strong>카발</strong>은 귀족 전사단으로 강력한 화력을 중심으로 전장을 지배하며,
+            <strong>위치 컬트</strong>는 쾌락과 전투를 일체화한 검투사 집단으로 근접전에 특화되어 있습니다.
+            마지막으로 <strong>고문단</strong>은 생체 실험과 고문 기술로 이루어진 존재들로, 괴수와 실험체를 창조하며
+            전투 후에도 적을 고통스럽게 이용합니다.
+        </p>
+
+        <p>
+            드루카리는 결코 빠르게 죽이지 않습니다. 그들은 포로를 오래도록 고통스럽게 살려두며,
+            고통 그 자체를 연료로 삶을 이어갑니다. 영혼을 갉아먹는 슬라네쉬의 갈망을 이겨내기 위해,
+            이들은 끝없는 학살과 약탈을 반복하며 은하계에서 가장 잔혹한 존재로 군림합니다.
+        </p>
+
+        <h2>주요 용어</h2>
+        <p><strong>코모라</strong> – 드루카리의 본거지. 웹웨이 깊숙한 곳에 존재하는 거대한 암흑 도시국가.</p>
+        <img src="/images/commorragh.jpg" alt="코모라 이미지">
+        <p><strong>카발</strong> – 귀족 계층의 정예 전투 집단. 블래스터, 트루본, 래이더 등 강력한 사격 유닛 운용.</p>
+        <p><strong>위치 컬트</strong> – 전투를 예술로 여기는 검투사 계급. 대부분 여성으로 구성.</p>
+        <p><strong>고문단</strong> – 고문과 생체개조, 영혼 회수 등에 능한 기술자 집단. 페인 엔진, 그로테스크 등 공포의 실험체들을 운용.</p>
+
+
+    </div>
+
+
+    <div class="back-button">
+        <a href="/lore/faction">← 진영 일람으로 돌아가기</a>
+    </div>
+
+</div>
+</html>

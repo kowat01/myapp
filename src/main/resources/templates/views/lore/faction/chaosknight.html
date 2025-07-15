@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/main_layout}">
+
+<!-- CSS 영역 -->
+<th:block layout:fragment="css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0d0d0d;
+            color: #eee;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        .faction-header {
+            text-align: center;
+            margin-top: 60px;
+            color: #cc4444;
+        }
+
+        .faction-header h1 {
+            font-size: 48px;
+            font-family: 'Cinzel', serif;
+            margin-bottom: 20px;
+        }
+
+        .faction-header p {
+            font-size: 18px;
+            color: #ccc;
+            max-width: 850px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+
+        .intro-image {
+            max-width: 800px;
+            width: 90%;
+            height: auto;
+            display: block;
+            margin: 40px auto;
+            border-radius: 12px;
+            box-shadow: 0 0 30px #000000cc;
+        }
+
+        .intro-quote {
+            text-align: center;
+            font-style: italic;
+            color: #aaa;
+            margin: 30px auto 0;
+            font-size: 15px;
+            line-height: 1.9;
+        }
+
+        .quote-origin {
+            text-align: center;
+            margin-top: 40px;
+            color: #aaa;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 24px;
+            color: #cc4444;
+            margin: 60px 0 20px;
+            font-family: 'Cinzel', serif;
+            text-shadow: 0 0 4px #000;
+        }
+
+        .faction-features {
+            max-width: 1000px;
+            margin: 0 auto 60px;
+            padding: 20px 30px;
+            background-color: #1c1c1c;
+            border: 2px solid #cc4444;
+            border-radius: 12px;
+            list-style: disc;
+            color: #eee;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .faction-features li {
+            margin-bottom: 10px;
+        }
+
+        .divider {
+            border: none;
+            border-top: 1px solid #444;
+            margin: 60px auto 20px;
+            width: 80%;
+            max-width: 800px;
+        }
+
+        .lore-description {
+            max-width: 1000px;
+            margin: 0 auto 60px;
+            background-color: #1a1a1a;
+            border-left: 4px solid #cc4444;
+            padding: 30px;
+            border-radius: 10px;
+            line-height: 1.8;
+        }
+
+        .lore-description h2 {
+            font-size: 20px;
+            color: #ff7777;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-family: 'Cinzel', serif;
+        }
+
+        .lore-description p, .lore-description ul {
+            margin-bottom: 20px;
+        }
+
+        .lore-description img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 30px auto;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #00000088;
+        }
+
+        .back-button {
+            text-align: center;
+            margin: 60px 0;
+        }
+
+        .back-button a {
+            background-color: #cc4444;
+            color: #000;
+            padding: 12px 30px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 0 10px #00000055;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .back-button a:hover {
+            background-color: #aa2222;
+        }
+
+        @media (max-width: 768px) {
+            .intro-image {
+                max-width: 90%;
+            }
+        }
+    </style>
+</th:block>
+
+<!-- 본문 -->
+<div layout:fragment="content">
+
+    <div class="faction-header">
+        <h1>카오스 나이트 (Chaos Knights)</h1>
+        <p>타락한 기사단</p>
+    </div>
+
+    <img src="/images/introckn.jpg" alt="카오스 나이트 소개 이미지" class="intro-image">
+
+    <div class="intro-quote">
+        <p style="font-weight: bold; font-size: 18px; color: #ff7777;">
+            “나의 육신의 쓸모는 무엇이었는가? 나의 육신은 라스건 백정의 사격도 견딜 수 없었고,<br>
+            손을 뻗어 나의 전진을 막으려는 자들의 내장을 뽑을 수도 없었다.<br>
+            하지만 나는 이 강철의 형체에 하나되고, 영혼은 깃들었나니.<br>
+            나의 옥좌는 나의 정신이오, 나의 나이트는 나의 육체로다.<br>
+            오직 이제서야 내게 주어진 그 운명의 전사가 된 것이다.”
+        </p>
+    </div>
+
+    <div class="quote-origin">─ 댐 마르타, 헤르페트락스 가문</div>
+
+    <h2 class="section-title">카오스 나이트의 특징</h2>
+    <ul class="faction-features">
+        <li><strong>대부분 대형 기계 유닛</strong>: 모든 병종이 워로드급 워기계로 구성되며, 압도적 화력과 내구력을 자랑한다.</li>
+        <li><strong>공포와 광기 메커니즘</strong>: 상대에게 지속적인 배틀 쇼크 테스트를 강요하며, 심리전을 유도한다.</li>
+        <li><strong>다양한 패턴의 기체</strong>: 각기 다른 전투 스타일과 워프 오염 능력을 지닌 핵심 기체.</li>
+        <li><strong>워독 계열 운용</strong>: 소규모 나이트를 통한 다방면 기동과 협동 타격 가능.</li>
+        <li><strong>단독 진형 또는 카오스 동맹</strong>: 독립 군세 혹은 카오스 스페이스 마린/데몬과의 연합도 가능.</li>
+    </ul>
+
+    <hr class="divider">
+    <h2 class="section-title">진영 설명</h2>
+
+    <div class="lore-description">
+        <p>
+            카오스 나이트는 황제에 대한 충성을 버리고 혼돈에 귀의한 타락한 나이트 가문들로,
+            원래는 제국 기사단의 고귀한 전사들이었지만, 오랜 전쟁과 절망 속에서 워프의 목소리에 무릎 꿇게 되었습니다.
+        </p>
+
+        <p>
+            그들의 전투복은 더 이상 명예와 전통을 위한 것이 아니라, 오염된 기계정신과 광기의 목소리를 따르는 껍데기에 불과합니다.
+            나이트 데세크레이터, 어보미넌트, 타이런트 같은 대형 병기는 슬라네쉬, 코른, 너글, 젠취의 속성을 뒤섞은 듯한 형상을 띠며,
+            전장을 불길한 공포와 죽음의 기운으로 물들입니다.
+        </p>
+
+        <p>
+            이들은 소형 워독 부대를 이끌며 행성을 유린하고, 황제의 기사단과는 다른 방식의 악몽을 실현합니다.
+            공포는 그들의 무기이며, 광기는 그들의 기사도입니다.
+        </p>
+
+        <h2>주요 용어</h2>
+        <p><strong>나이트 디서크레이터</strong> – 전장을 파괴하며 마력을 휘두르는 중심 기체. 강력한 근거리 + 워프 무장을 겸비.</p>
+        <p><strong>나이트 어보미넌트</strong> – 워프의 광기로 가득 찬 괴수형 나이트. 혼돈의 싸이킥 에너지를 방출한다.</p>
+        <p><strong>나이트 디페인서</strong> – 원거리 포격 특화형. 공허 속의 음성에 귀 기울이며 대규모 타격을 수행.</p>
+        <p><strong>워독(War Dogs)</strong> – 기동력 높은 소형 나이트. 다수의 경로를 동시에 압박하며 유연하게 작전 가능.</p>
+
+        <img src="/images/chaosknight.jpg" alt="카오스 나이트 유닛 이미지">
+    </div>
+
+    <div class="back-button">
+        <a href="/lore/faction">← 진영 일람으로 돌아가기</a>
+    </div>
+
+</div>
+</html>

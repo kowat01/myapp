@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/main_layout}">
+
+<!-- CSS 영역 -->
+<th:block layout:fragment="css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0d0d0d;
+            color: #eee;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        .faction-header {
+            text-align: center;
+            margin-top: 60px;
+            color: #a8e063;
+        }
+
+        .faction-header h1 {
+            font-size: 48px;
+            font-family: 'Cinzel', serif;
+            margin-bottom: 20px;
+        }
+
+        .faction-header p {
+            font-size: 18px;
+            color: #ccc;
+            max-width: 850px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+
+        .intro-image {
+            max-width: 800px;
+            width: 90%;
+            height: auto;
+            display: block;
+            margin: 40px auto;
+            border-radius: 12px;
+            box-shadow: 0 0 30px #000000cc;
+        }
+
+        .intro-quote {
+            text-align: center;
+            font-style: italic;
+            color: #aaa;
+            margin: 30px auto 0;
+            font-size: 15px;
+            line-height: 1.9;
+        }
+
+        .quote-origin {
+            text-align: center;
+            margin-top: 40px;
+            color: #aaa;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 24px;
+            color: #a8e063;
+            margin: 60px 0 20px;
+            font-family: 'Cinzel', serif;
+            text-shadow: 0 0 4px #000;
+        }
+
+        .faction-features {
+            max-width: 1000px;
+            margin: 0 auto 60px;
+            padding: 20px 30px;
+            background-color: #1c1c1c;
+            border: 2px solid #a8e063;
+            border-radius: 12px;
+            list-style: disc;
+            color: #eee;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .faction-features li {
+            margin-bottom: 10px;
+        }
+
+        .divider {
+            border: none;
+            border-top: 1px solid #444;
+            margin: 60px auto 20px;
+            width: 80%;
+            max-width: 800px;
+        }
+
+        .lore-description {
+            max-width: 1000px;
+            margin: 0 auto 60px;
+            background-color: #1a1a1a;
+            border-left: 4px solid #a8e063;
+            padding: 30px;
+            border-radius: 10px;
+            line-height: 1.8;
+        }
+
+        .lore-description h2 {
+            font-size: 20px;
+            color: #d0ff9a;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-family: 'Cinzel', serif;
+        }
+
+        .lore-description p, .lore-description ul {
+            margin-bottom: 20px;
+        }
+
+        .lore-description img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 30px auto;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #00000088;
+        }
+
+        .back-button {
+            text-align: center;
+            margin: 60px 0;
+        }
+
+        .back-button a {
+            background-color: #a8e063;
+            color: #000;
+            padding: 12px 30px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 0 10px #00000055;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .back-button a:hover {
+            background-color: #8ecc52;
+        }
+
+        @media (max-width: 768px) {
+            .intro-image {
+                max-width: 90%;
+            }
+        }
+    </style>
+</th:block>
+
+<!-- 본문 -->
+<div layout:fragment="content">
+
+    <div class="faction-header">
+        <h1>타이라니드 (Tyranids)</h1>
+        <p>모든 것을 삼키는 외은하의 포식자</p>
+    </div>
+
+    <img src="/images/introtyranid.jpg" alt="타이라니드 소개 이미지" class="intro-image">
+
+    <div class="intro-quote">
+        <p style="font-weight: bold; font-size: 18px; color: #d0ff9a;">
+            “제국의 근간을 흔드는 암덩어리가 있습니다.<br>
+            시간이 지날수록 이 암덩어리는 더 깊숙이 침투하여 죽음만을 남겨 놓고 있습니다.<br>
+            이 공포, 아니 이 혐오스럽기 짝이 없는 존재들은 하나의 공통된 생각과 목적을 가지고,<br>
+            우리는 상상할 수 없을 정도로 광활한 공간을 마치 자신들 앞마당마냥 휘젓고 다니고 있습니다.<br>
+            하늘을 메꾸고도 남을 군단 앞에서 우리가 할 수 있는 건 방어가 고작입니다.<br>
+            우리는 공포를 극복하기 위해서 이들에게 '타이라니드'라는 이름을 붙였지만,<br>
+            그들에게 우리는 그저 먹잇감일 뿐입니다.”
+        </p>
+    </div>
+
+    <div class="quote-origin">─ 인퀴지터 체박</div>
+
+
+    <h2 class="section-title">타이라니드의 특징</h2>
+    <ul class="faction-features">
+        <li><strong>하이브 마인드 기반 전투</strong>: 개별 유닛은 약하지만 시냅스 유닛 하에선 조직적이고 강력함</li>
+        <li><strong>많은 물량</strong>: 건트를 기반으로 한 물량 중심 전술 운용</li>
+        <li><strong>군체 분리체 다양성</strong>: 크라켄, 리바이어던, 베헤모스 등 다양한 특징의 분파 존재</li>
+    </ul>
+
+    <hr class="divider">
+    <h2 class="section-title">진영 설명</h2>
+
+    <div class="lore-description">
+        <p>
+            타이라니드는 우리 은하계 외부에서 온 외계 생명체로, 모든 생물을 흡수하여 그 유전자를 기반으로 끊임없이 진화합니다.
+            이들은 하나의 지성체인 <strong>하이브 마인드(Hive Mind)</strong>에 의해 지배되며, 모든 유닛은 그 하위 정신체일 뿐입니다.
+        </p>
+
+        <p>
+            거대한 생물선인 하이브 플릿은 수천 년의 간격을 두고 은하에 도달했으며, 각각 리비이어던, 크라켄, 베헤모스 등의
+            이름으로 알려져 있습니다. 한 번 도달한 행성은 생물 자원이 완전히 흡수되며, 폐허만 남습니다.
+        </p>
+
+        <p>
+            그들의 존재는 물리적 위협을 넘어 사이킥적 위협이기도 합니다. <strong>워프의 그림자</strong> 현상은
+            제국의 사이커들이 고통 속에 죽어가게 하며, 통신과 워프 항해를 마비시킵니다.
+        </p>
+
+        <h2>주요 용어</h2>
+        <p><strong>하이브 마인드</strong> –  타이라니드의 지성체이자 유일무이한 지도자이자 신적인 존재. 수많은 타이라니드 개체 의식이 겹겹이 쌓여서 탄생한 지성체로 알려져 있으며 하이브 마인드의 존재가 타이라니드의 절대적 존재에 해당한다.</p>
+        <img src="/images/hivemind.jpg" alt="타이라니드 하이브마인드 이미지">
+        <p><strong>시냅스</strong> – 유닛을 제어하는 정신적 네트워크. 시냅스 밖에서는 무기력해지거나 광란 상태</p>
+        <p><strong>워프의 그림자</strong> – 타이라니드 접근 시 발생하는 사이킥 차단 현상</p>
+
+
+    </div>
+
+    <div class="back-button">
+        <a href="/lore/faction">← 진영 일람으로 돌아가기</a>
+    </div>
+
+</div>
+</html>

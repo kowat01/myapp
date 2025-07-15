@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/main_layout}">
+
+<!-- CSS 영역 -->
+<th:block layout:fragment="css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0d0d0d;
+            color: #eee;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        .faction-header {
+            text-align: center;
+            margin-top: 60px;
+            color: #66ccff;
+        }
+
+        .faction-header h1 {
+            font-size: 48px;
+            font-family: 'Cinzel', serif;
+            margin-bottom: 20px;
+        }
+
+        .faction-header p {
+            font-size: 18px;
+            color: #ccc;
+            max-width: 850px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+
+        .intro-image {
+            max-width: 800px;
+            width: 90%;
+            height: auto;
+            display: block;
+            margin: 40px auto;
+            border-radius: 12px;
+            box-shadow: 0 0 30px #000000cc;
+        }
+
+        .intro-quote {
+            text-align: center;
+            font-style: italic;
+            color: #aaa;
+            margin: 30px auto 0;
+            font-size: 15px;
+            line-height: 1.9;
+        }
+
+        .quote-origin {
+            text-align: center;
+            margin-top: 40px;
+            color: #aaa;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 24px;
+            color: #66ccff;
+            margin: 60px 0 20px;
+            font-family: 'Cinzel', serif;
+            text-shadow: 0 0 4px #000;
+        }
+
+        .faction-features {
+            max-width: 1000px;
+            margin: 0 auto 60px;
+            padding: 20px 30px;
+            background-color: #1c1c1c;
+            border: 2px solid #66ccff;
+            border-radius: 12px;
+            list-style: disc;
+            color: #eee;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .faction-features li {
+            margin-bottom: 10px;
+        }
+
+        .divider {
+            border: none;
+            border-top: 1px solid #444;
+            margin: 60px auto 20px;
+            width: 80%;
+            max-width: 800px;
+        }
+
+        .lore-description {
+            max-width: 1000px;
+            margin: 0 auto 60px;
+            background-color: #1a1a1a;
+            border-left: 4px solid #66ccff;
+            padding: 30px;
+            border-radius: 10px;
+            line-height: 1.8;
+        }
+
+        .lore-description h2 {
+            font-size: 20px;
+            color: #99ddff;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-family: 'Cinzel', serif;
+        }
+
+        .lore-description p, .lore-description ul {
+            margin-bottom: 20px;
+        }
+
+        .lore-description img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 30px auto;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #00000088;
+        }
+
+        .back-button {
+            text-align: center;
+            margin: 60px 0;
+        }
+
+        .back-button a {
+            background-color: #66ccff;
+            color: #000;
+            padding: 12px 30px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 0 10px #00000055;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .back-button a:hover {
+            background-color: #44aadd;
+        }
+
+        @media (max-width: 768px) {
+            .intro-image {
+                max-width: 90%;
+            }
+        }
+    </style>
+</th:block>
+
+<!-- 본문 -->
+<div layout:fragment="content">
+
+    <div class="faction-header">
+        <h1>아엘다리 (Aeldari)</h1>
+        <p>몰락한 제국의 후예들</p>
+    </div>
+
+    <img src="/images/introeldar.jpg" alt="아엘다리 소개 이미지" class="intro-image">
+
+    <div class="intro-quote">
+        <p style="font-weight: bold; font-size: 18px; color: #99ddff;">“고대 아엘다리에게 있어서 삶이란, 탄생과 소망의 실현, 그리고 평온한 죽음이 순환을 이루고 있는 것이었고,</p>
+        <p style="font-weight: bold; font-size: 18px; color: #99ddff;">영혼은 그 지식을 안온하게 품은 채 다시 생을 시작할 수 있었다.</p>
+        <p style="font-weight: bold; font-size: 18px; color: #99ddff;">그들의 원수, 암흑의 신 슬라네쉬가 탄생하며 이 순환은 영원히 파탄 나 버리고 말았다.</p>
+        <p style="font-weight: bold; font-size: 18px; color: #99ddff;">한때 위대했던 별들의 여행자들은, 모든 층위의 감각을 기꺼이 만끽하던 스스로의 갈망에 겁을 잔뜩 집어먹고는,</p>
+        <p style="font-weight: bold; font-size: 18px; color: #99ddff;">이제 그림자들 속에 잔뜩 움츠러든 신세가 되었다.</p>
+        <p style="font-weight: bold; font-size: 18px; color: #99ddff;">이는 그들에게 마땅히 내려졌어야 할 운명이었다.</p>
+        <p style="font-weight: bold; font-size: 18px; color: #99ddff;">사실, 그들이 스스로에게 뒤집어씌운 꼴이 된 이 파멸의 운명에는 그 어떠한 탈출구도 존재치 아니한다.</p>
+        <p style="font-weight: bold; font-size: 18px; color: #99ddff;">죽음조차도 면죄부가 되지 못했다.</p>
+        <p style="font-weight: bold; font-size: 18px; color: #99ddff;">운명은 실로 잔혹한 여주인이시니, 그녀를 경솔히 희롱하지 말지어다.”</p>
+    </div>
+
+    <div class="quote-origin">─ 사우전드 선즈의 아젝 아흐리만</div>
+
+    <h2 class="section-title">아엘다리의 특징</h2>
+    <ul class="faction-features">
+        <li><strong>초고속 기동</strong>: 빠른 이동력과 다방향 공격으로 전장을 유연하게 지배.</li>
+        <li><strong>분파 간 선택 운용</strong>: 아수리야니, 엑조다이트, 할리퀸, 인나리 등 다양한 하위 진영 조합 가능.</li>
+        <li><strong>전문화된 병종</strong>: 모든 유닛이 특정 역할에 특화되어 조합과 운용이 중요함.</li>
+        <li><strong>취약한 내구성</strong>: 강력하지만 방어력이 낮아 정밀한 컨트롤이 요구됨.</li>
+    </ul>
+
+    <hr class="divider">
+    <h2 class="section-title">진영 설명</h2>
+
+    <div class="lore-description">
+        <p>
+            아엘다리는 한때 은하계를 지배했던 가장 찬란한 고대 문명이었습니다. 그러나 탐욕과 쾌락에 빠진 그들의 문화는
+            결국 <strong>슬라네쉬</strong>의 탄생이라는 대재앙을 불러왔고, 그들의 심장은 워프에 삼켜져 파멸에 이르렀습니다.
+        </p>
+
+        <p>
+            소수의 생존자들은 <strong>크래프트 월드</strong>라 불리는 우주 도시 함선에 정착해 흩어졌고,
+            그들은 각기 다른 방식으로 멸망을 견디고 있습니다. 정령의 길을 따르는 <strong>아수랴니</strong>,
+            연극을 무기로 삼는 <strong>할리퀸</strong>, 자연과 동화된 채 외곽에서 자급자족하는 <strong>엑조다이트</strong>,
+            그리고 죽음을 통한 구원을 추구하는 <strong>인나리</strong>가 그 대표적 분파입니다.
+        </p>
+
+        <p>
+            이 균형을 송두리째 무너뜨린 것은 <strong>13차 블랙 크루세이드</strong>에서 벌어진 대사건이었습니다.
+            카디아 붕괴의 혼란 속에서 아엘다리의 죽은 영혼들이 결집해 <strong>죽음의 신 인니드(Ynnead)</strong>를 각성시켰고,
+            이는 아엘다리 전체에게 실질적이고 되돌릴 수 없는 변곡점을 가져왔습니다.
+        </p>
+
+        <p>
+            인니드의 각성은 <strong>슬라네쉬를 무너뜨릴 유일한 희망</strong>으로 여겨졌고,
+            그를 중심으로 탄생한 새로운 종파 <strong>인나리(Ynnari)</strong>는 기존 분파 간 경계를 허물며 아엘다리의 재통합을 추진하고 있습니다.
+            이 사건은 단순한 영적 변화를 넘어, 은하계 전체의 질서에 새로운 변수로 작용하고 있습니다.
+        </p>
+
+        <p>
+            아엘다리는 몰락했으나 아직 끝나지 않았습니다. 운명을 읽는 민족으로서, 그리고 죽음 위에 서 있는 생존자로서,
+            그들은 다시 한번 별빛의 길을 향해 나아가고 있습니다.
+        </p>
+
+        <h2>주요 용어</h2>
+        <p><strong>아수랴니</strong> – 정령의 길을 따르는 전통 계열. 전쟁의 가면에 따라 병종이 세분화됨.</p>
+        <p><strong>할리퀸</strong> – 슬라네쉬의 몰락을 연극처럼 재현하며 싸우는 광기의 사절단.</p>
+        <p><strong>엑조다이트</strong> – 자연과 조화를 이루며 살아가는 외곽 생존자들.</p>
+        <p><strong>인나리</strong> – 죽음의 신 인니드를 중심으로 결성된 혁신적 분파.</p>
+        <p><strong>인니드</strong> – 아엘다리의 죽은 자들의 영혼이 모여 각성한 죽음의 신. 슬라네쉬를 무너뜨릴 가능성을 지닌 존재.</p>
+        <img src="/images/Ynnead.jpg" alt="인니드 이미지">
+
+
+    </div>
+
+    <div class="back-button">
+        <a href="/lore/faction">← 진영 일람으로 돌아가기</a>
+    </div>
+
+</div>
+</html>

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/main_layout}">
+
+<!-- CSS 영역 -->
+<th:block layout:fragment="css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0d0d0d;
+            color: #eee;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        .faction-header {
+            text-align: center;
+            margin-top: 60px;
+            color: #66ff33;
+        }
+
+        .faction-header h1 {
+            font-size: 48px;
+            font-family: 'Cinzel', serif;
+            margin-bottom: 20px;
+        }
+
+        .faction-header p {
+            font-size: 18px;
+            color: #ccc;
+            max-width: 850px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+
+        .intro-image {
+            max-width: 800px;
+            width: 90%;
+            height: auto;
+            display: block;
+            margin: 40px auto;
+            border-radius: 12px;
+            box-shadow: 0 0 30px #000000cc;
+        }
+
+        .intro-quote {
+            text-align: center;
+            font-style: italic;
+            color: #aaa;
+            margin: 30px auto 0;
+            font-size: 15px;
+            line-height: 1.9;
+        }
+
+        .quote-origin {
+            text-align: center;
+            margin-top: 40px;
+            color: #aaa;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 24px;
+            color: #66ff33;
+            margin: 60px 0 20px;
+            font-family: 'Cinzel', serif;
+            text-shadow: 0 0 4px #000;
+        }
+
+        .faction-features {
+            max-width: 1000px;
+            margin: 0 auto 60px;
+            padding: 20px 30px;
+            background-color: #1c1c1c;
+            border: 2px solid #66ff33;
+            border-radius: 12px;
+            list-style: disc;
+            color: #eee;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .faction-features li {
+            margin-bottom: 10px;
+        }
+
+        .divider {
+            border: none;
+            border-top: 1px solid #444;
+            margin: 60px auto 20px;
+            width: 80%;
+            max-width: 800px;
+        }
+
+        .lore-description {
+            max-width: 1000px;
+            margin: 0 auto 60px;
+            background-color: #1a1a1a;
+            border-left: 4px solid #66ff33;
+            padding: 30px;
+            border-radius: 10px;
+            line-height: 1.8;
+        }
+
+        .lore-description h2 {
+            font-size: 20px;
+            color: #aaff77;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-family: 'Cinzel', serif;
+        }
+
+        .lore-description p, .lore-description ul {
+            margin-bottom: 20px;
+        }
+
+        .lore-description img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 30px auto;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #00000088;
+        }
+
+        .back-button {
+            text-align: center;
+            margin: 60px 0;
+        }
+
+        .back-button a {
+            background-color: #66ff33;
+            color: #000;
+            padding: 12px 30px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 0 10px #00000055;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .back-button a:hover {
+            background-color: #55cc22;
+        }
+    </style>
+</th:block>
+
+<!-- 본문 -->
+<div layout:fragment="content">
+
+    <div class="faction-header">
+        <h1>오크 (Orks)</h1>
+        <p>폭력과 광기의 소용돌이, 싸움이 곧 삶인 은하계의 전쟁 종족</p>
+    </div>
+
+    <img src="/images/introorks.jpg" alt="오크 소개 이미지" class="intro-image">
+
+    <div class="intro-quote">
+        <p style="font-weight: bold; font-size: 18px; color: #aaff77;">
+            “우뤼눈 존 우쥬룰 놔짜카게 봘바쥬고,<br>
+            뎀비눈 껏뚜룬 줸부 다 쫙사룰 네 줄 거시다.<br>
+            우뤼눈 옼스다.<br>
+            우뤼눈 쏴우고 이귈려고 퇘어낫따!”
+        </p>
+    </div>
+
+    <div class="quote-origin">─ WAAAGH!!!의 전도사, 그랜드 워로드 가즈쿨 막 우룩 스라카</div>
+
+    <h2 class="section-title">오크의 특징</h2>
+    <ul class="faction-features">
+        <li><strong>물량과 폭력성</strong>: 저렴한 유닛 다수와 높은 공격 횟수로 전장을 압도</li>
+        <li><strong>WAAAGH! 에너지</strong>: 특정 턴에 전군의 전투력과 이동력이 폭발적으로 증가</li>
+        <li><strong>믿음 기반 과학</strong>: 빨간색은 빠르고, 파란색은 행운. 믿음이 곧 기술</li>
+        <li><strong>다양한 전투 집단</strong>: 보이즈, 스쿼그, 트럭, 드레드 등 다채로운 편성</li>
+        <li><strong>루티드 문화</strong>: 부숴서 훔치고 조립해서 자기 걸로 만드는 생존형 공돌이 문화</li>
+    </ul>
+
+    <hr class="divider">
+    <h2 class="section-title">진영 설명</h2>
+
+    <div class="lore-description">
+        <p>
+            오크는 올드원이 만들어낸 고대 전쟁 종족 <strong>크로크</strong>가 퇴화한 종족으로,
+            은하계에 전쟁을 퍼뜨리기 위해 태어난 존재입니다. 그들의 본질은 간단하고 순수합니다.
+            강하고, 시끄럽고, 싸움을 좋아합니다. 오크에게 전쟁은 생존 수단이 아니라 삶입니다.
+        </p>
+
+        <p>
+            이들은 단지 물리적으로 강한 것만이 아닙니다. <strong>집단적 사이커 에너지</strong>를 통해
+            믿음만으로 기계와 무기를 작동시키고, 무의식적으로 현실을 왜곡시킵니다.
+            빨간색이 빠르고, 파란색이 행운을 부른다는 믿음은
+            과학적 증명이 필요 없는 진실입니다 — 오크에게는 말이죠.
+        </p>
+
+        <p>
+            오크는 조직과 지휘보다 <strong>본능적인 집단성</strong>으로 뭉쳐 싸우며,
+            싸움이 커질수록 더 많이 몰려들고, 더 크게 웃고, 더 많이 부숩니다.
+        </p>
+
+        <p>
+            전장에서 오크는 적의 장비를 부수고 훔쳐 자신들 식으로 재조립합니다.
+            이른바 <strong>루티드(Looted)</strong>라 불리는 이 문화는 설계도도, 기술도 필요 없이,
+            그럴싸하게 생겼고 크고 시끄러우면 작동하는 겁니다. 실은 안 돼도 상관 없습니다.
+            싸우는 동안 멋지면 그걸로 충분합니다.
+        </p>
+
+        <p>
+            이러한 혼돈 속에서도 드물게 더 큰 전쟁을 이끄는 자가 나타나기도 합니다.
+            <strong>가즈쿨 막 우룩 스라카</strong>는 그 대표적인 사례로, WAAAGH!를 단순한 싸움이 아닌
+            신성한 대전쟁으로 끌어올렸습니다. 하지만 그는 단지 오크라는 종족의 끝없는 전쟁 본능을
+            상징하는 인물일 뿐, 이 광기의 물결은 그가 사라진다 해도 결코 멈추지 않을 것입니다.
+        </p>
+
+        <h2>주요 용어</h2>
+        <p><strong>가즈쿨</strong> – WAAAGH!의 선지자, 고크와 모크의 사도, 가장 강력한 오크 워로드</p>
+        <img src="/images/Ghazghkull.jpg" alt="오크 유닛 이미지">
+        <p><strong>워보스</strong> – 가장 힘센 오크. 군세를 이끄는 전장의 리더</p>
+        <p><strong>보이즈</strong> – 오크의 기본 보병, 전쟁을 통해 더 크고 강한 오크로 진화한다.</p>
+        <p><strong>WAAAGH!</strong> – 오크들의 말로는 '전쟁', 그외 다양한 의미 포함</p>
+        <p><strong>루티드</strong> – 부수거나 노획한 장비를 재조립해 쓰는 오크식 개조</p>
+
+
+    </div>
+
+
+    <div class="back-button">
+        <a href="/lore/faction">← 진영 일람으로 돌아가기</a>
+    </div>
+
+</div>
+</html>

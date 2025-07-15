@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/main_layout}">
+
+<!-- CSS 영역 -->
+<th:block layout:fragment="css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0d0d0d;
+            color: #eee;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        .faction-header {
+            text-align: center;
+            margin-top: 60px;
+            color: #8e44ad;
+        }
+
+        .faction-header h1 {
+            font-size: 48px;
+            font-family: 'Cinzel', serif;
+            margin-bottom: 20px;
+        }
+
+        .faction-header p {
+            font-size: 18px;
+            color: #ccc;
+            max-width: 850px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+
+        .intro-image {
+            max-width: 800px;
+            width: 90%;
+            height: auto;
+            display: block;
+            margin: 40px auto;
+            border-radius: 12px;
+            box-shadow: 0 0 30px #000000cc;
+        }
+
+        .intro-quote {
+            text-align: center;
+            font-style: italic;
+            color: #aaa;
+            margin: 30px auto 0;
+            font-size: 15px;
+            line-height: 1.9;
+        }
+
+        .quote-origin {
+            text-align: center;
+            margin-top: 40px;
+            color: #aaa;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 24px;
+            color: #8e44ad;
+            margin: 60px 0 20px;
+            font-family: 'Cinzel', serif;
+            text-shadow: 0 0 4px #000;
+        }
+
+        .faction-features {
+            max-width: 1000px;
+            margin: 0 auto 60px;
+            padding: 20px 30px;
+            background-color: #1c1c1c;
+            border: 2px solid #8e44ad;
+            border-radius: 12px;
+            list-style: disc;
+            color: #eee;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .faction-features li {
+            margin-bottom: 10px;
+        }
+
+        .divider {
+            border: none;
+            border-top: 1px solid #444;
+            margin: 60px auto 20px;
+            width: 80%;
+            max-width: 800px;
+        }
+
+        .lore-description {
+            max-width: 1000px;
+            margin: 0 auto 60px;
+            background-color: #1a1a1a;
+            border-left: 4px solid #8e44ad;
+            padding: 30px;
+            border-radius: 10px;
+            line-height: 1.8;
+        }
+
+        .lore-description h2 {
+            font-size: 20px;
+            color: #ba7ef9;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-family: 'Cinzel', serif;
+        }
+
+        .lore-description p, .lore-description ul {
+            margin-bottom: 20px;
+        }
+
+        .lore-description img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 30px auto;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #00000088;
+        }
+
+        .back-button {
+            text-align: center;
+            margin: 60px 0;
+        }
+
+        .back-button a {
+            background-color: #8e44ad;
+            color: #000;
+            padding: 12px 30px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 0 10px #00000055;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .back-button a:hover {
+            background-color: #732d91;
+        }
+    </style>
+</th:block>
+
+<!-- 본문 -->
+<div layout:fragment="content">
+
+    <div class="faction-header">
+        <h1>진스틸러 컬트 (Genestealer Cults)</h1>
+        <p>외계 혼종들의 교단</p>
+    </div>
+
+    <img src="/images/introgenestealer.jpg" alt="진스틸러 컬트 소개 이미지" class="intro-image">
+
+    <div class="intro-quote">
+        <p style="font-weight: bold; font-size: 18px; color: #ba7ef9;">
+            “이 외계인 컬트와 싸울 때, 당신 앞에 있는 적들만이 전부가 아니다.<br>
+            이미 알려지지 않은 수천의 외계인들이 동시에 지원병력과 보급선을 완벽하게 파괴할 것이다.”
+        </p>
+    </div>
+
+    <div class="quote-origin">─ 타이거 리자드의 중령 우스크라</div>
+
+    <h2 class="section-title">진스틸러 컬트의 특징</h2>
+    <ul class="faction-features">
+        <li><strong>진스틸러</strong>: 타이라니드의 진스틸러 계열 유닛들의 사용 가능</li>
+        <li><strong>브루드 브라더</strong>: 임페리얼 가드의 일부 유닛들을 사용 가능</li>
+        <li><strong>전술적 연계</strong>: 컬트 아이콘, 오라 버프, 감염 계열 유닛 간의 시너지 효과</li>
+    </ul>
+
+    <hr class="divider">
+    <h2 class="section-title">진영 설명</h2>
+
+    <div class="lore-description">
+        <p>
+            진스틸러 컬트는 타이라니드의 전초 지능체인 진스틸러에 감염된 생명체들이 형성한 은밀한 조직입니다.
+            이들은 은하계 각지에서 사람들의 마음과 유전자를 오염시키며, 하나의 광신적인 교단을 이루고 있습니다.
+        </p>
+
+        <p>
+            컬트는 종종 '별의 자식들'이라 불리는 신적 존재를 기다리며, 교주인 패트리아크를 중심으로
+            봉기를 준비합니다. 그 목적은 하나, 하이브 플릿이 행성에 도착해 모든 것을 삼키기 직전 내부에서부터 그 땅을 붕괴시키는 것입니다.
+        </p>
+
+        <h2>주요 용어</h2>
+        <p><strong>프라이무스</strong> – 일선 컬트원들을 지휘하는 장수로, 이보다 높은 건 마구스와 페트리아크 정도입니다.</p>
+        <p><strong>패트리아크</strong> – 진스틸러의 기원이며 컬트의 정신적 지주이자 군주입니다.</p>
+        <p><strong>마구스</strong> – 마구스는 초능력을 가진자이자 초자연적인 카리스마를 가졌습니다. 패트리아크 바로 밑의 실권자로서, 그의 말은 곧 법이며, 뛰어난 사이킥 능력으로 주변의 혼종들을 감시하고 통제합니다.</p>
+
+        <img src="/images/genestealerleaders.jpg" alt="진스틸러 삼두정 이미지">
+    </div>
+
+    <div class="back-button">
+        <a href="/lore/faction">← 진영 일람으로 돌아가기</a>
+    </div>
+
+</div>
+</html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/main_layout}">
+
+<!-- CSS 영역 -->
+<th:block layout:fragment="css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0d0d0d;
+            color: #eee;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        .faction-header {
+            text-align: center;
+            margin-top: 60px;
+            color: #66ff66;
+        }
+
+        .faction-header h1 {
+            font-size: 48px;
+            font-family: 'Cinzel', serif;
+            margin-bottom: 20px;
+        }
+
+        .faction-header p {
+            font-size: 18px;
+            color: #ccc;
+            max-width: 850px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+
+        .intro-image {
+            max-width: 800px;
+            width: 90%;
+            height: auto;
+            display: block;
+            margin: 40px auto;
+            border-radius: 12px;
+            box-shadow: 0 0 30px #000000cc;
+        }
+
+        .intro-quote {
+            text-align: center;
+            font-style: italic;
+            color: #aaa;
+            margin: 30px auto 0;
+            font-size: 15px;
+            line-height: 1.9;
+        }
+
+        .quote-origin {
+            text-align: center;
+            margin-top: 40px;
+            color: #aaa;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 24px;
+            color: #66ff66;
+            margin: 60px 0 20px;
+            font-family: 'Cinzel', serif;
+            text-shadow: 0 0 4px #000;
+        }
+
+        .faction-features {
+            max-width: 1000px;
+            margin: 0 auto 60px;
+            padding: 20px 30px;
+            background-color: #1c1c1c;
+            border: 2px solid #66ff66;
+            border-radius: 12px;
+            list-style: disc;
+            color: #eee;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .faction-features li {
+            margin-bottom: 10px;
+        }
+
+        .divider {
+            border: none;
+            border-top: 1px solid #444;
+            margin: 60px auto 20px;
+            width: 80%;
+            max-width: 800px;
+        }
+
+        .lore-description {
+            max-width: 1000px;
+            margin: 0 auto 60px;
+            background-color: #1a1a1a;
+            border-left: 4px solid #66ff66;
+            padding: 30px;
+            border-radius: 10px;
+            line-height: 1.8;
+        }
+
+        .lore-description h2 {
+            font-size: 20px;
+            color: #99ff99;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-family: 'Cinzel', serif;
+        }
+
+        .lore-description p, .lore-description ul {
+            margin-bottom: 20px;
+        }
+
+        .lore-description img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 30px auto;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #00000088;
+        }
+
+        .back-button {
+            text-align: center;
+            margin: 60px 0;
+        }
+
+        .back-button a {
+            background-color: #66ff66;
+            color: #000;
+            padding: 12px 30px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 0 10px #00000055;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .back-button a:hover {
+            background-color: #55dd55;
+        }
+
+        @media (max-width: 768px) {
+            .intro-image {
+                max-width: 90%;
+            }
+        }
+    </style>
+</th:block>
+
+<!-- 본문 -->
+<div layout:fragment="content">
+
+    <div class="faction-header">
+        <h1>네크론 (Necrons)</h1>
+        <p>잠든 별의 제왕들</p>
+    </div>
+
+    <img src="/images/intronecron.jpg" alt="네크론 소개 이미지" class="intro-image">
+
+    <div class="intro-quote">
+        <p style="font-weight: bold; font-size: 18px; color: #99ff99;">
+            “질서, 통합, 복종. 우리는 이 은하계에 다시 한번 이것들을 안겨주리라.”
+        </p>
+    </div>
+
+    <div class="quote-origin">─ 폭풍군주 이모테크</div>
+
+    <h2 class="section-title">네크론의 특징</h2>
+    <ul class="faction-features">
+        <li><strong>리애니메이션 프로토콜</strong>: 전투 중 쓰러진 유닛이 일정 확률로 다시 일어나는 특수 규칙</li>
+        <li><strong>가우스 기술 기반 병기</strong>: 강력한 광자 무기와 내구도 높은 유닛들이 중심</li>
+        <li><strong>균형 잡힌 중보병 운영</strong>: 워리어, 불멸자, 리치가드 등 다양한 유닛 조합이 강력</li>
+    </ul>
+
+
+    <hr class="divider">
+    <h2 class="section-title">진영 설명</h2>
+
+    <div class="lore-description">
+        <p>
+            네크론은 한때 유기체 종족인 <strong>네크론티르</strong>였으나, 짧고 고통스러운 삶에서 벗어나기 위해
+            <strong>크탄</strong>이라 불리는 별의 신들과 거래하여 영혼을 기계 육체로 치환했습니다. 그 대가로
+            불멸을 얻었지만, 네크론은 감정 없는 존재가 되어버렸습니다.
+        </p>
+
+        <p>
+            침묵의 왕 <strong>자렉</strong>은 이 선택을 후회하고 네크론 종족 전체를 은하계 곳곳에 장기 동면시킨 뒤
+            자취를 감췄습니다. 그리고 수십만 년이 흐른 지금, 그들은 다시 깨어나
+            무너진 질서를 회복하고, 은하계를 네크론의 지배 아래 두려 하고 있습니다.
+        </p>
+
+        <h2>주요 용어</h2>
+        <p><strong>자렉</strong> – 침묵의 왕. 네크론의 궁극적 지배자이며 현재 인류의 정신을 밀어버리고 네크론들의 정신을 다운로드하려함.</p>
+        <img src="/images/szarekh.jpg" alt="자렉 이미지">
+        <p><strong>오버로드 / 로드</strong> – 각 왕조의 지도자들로 고유한 전략과 병력을 지님.</p>
+        <p><strong>리애니메이션 프로토콜</strong> – 부상당한 유닛이 다시 살아나는 기술적 회복 능력.</p>
+        <p><strong>크탄</strong> – 네크론을 기계화시킨 별의 신. 현재는 배신의 대가로 파편화되어 이용당하고 있음.</p>
+
+
+        <img src="/images/c'tan.jpg" alt="크탄 이미지">
+    </div>
+
+    <div class="back-button">
+        <a href="/lore/faction">← 진영 일람으로 돌아가기</a>
+    </div>
+
+</div>
+</html>

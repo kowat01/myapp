@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/main_layout}">
+
+<!-- CSS 영역 -->
+<th:block layout:fragment="css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0d0d0d;
+            color: #eee;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        .faction-header {
+            text-align: center;
+            margin-top: 60px;
+            color: #ffa500;
+        }
+
+        .faction-header h1 {
+            font-size: 48px;
+            font-family: 'Cinzel', serif;
+            margin-bottom: 20px;
+        }
+
+        .faction-header p {
+            font-size: 18px;
+            color: #ccc;
+            max-width: 850px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+
+        .intro-image {
+            max-width: 800px;
+            width: 90%;
+            height: auto;
+            display: block;
+            margin: 40px auto;
+            border-radius: 12px;
+            box-shadow: 0 0 30px #000000cc;
+        }
+
+        .intro-quote {
+            text-align: center;
+            font-style: italic;
+            color: #aaa;
+            margin: 30px auto 0;
+            font-size: 15px;
+            line-height: 1.9;
+        }
+
+        .quote-origin {
+            text-align: center;
+            margin-top: 40px;
+            color: #aaa;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 24px;
+            color: #ffa500;
+            margin: 60px 0 20px;
+            font-family: 'Cinzel', serif;
+            text-shadow: 0 0 4px #000;
+        }
+
+        .faction-features {
+            max-width: 1000px;
+            margin: 0 auto 60px;
+            padding: 20px 30px;
+            background-color: #1c1c1c;
+            border: 2px solid #ffa500;
+            border-radius: 12px;
+            list-style: disc;
+            color: #eee;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .faction-features li {
+            margin-bottom: 10px;
+        }
+
+        .divider {
+            border: none;
+            border-top: 1px solid #444;
+            margin: 60px auto 20px;
+            width: 80%;
+            max-width: 800px;
+        }
+
+        .lore-description {
+            max-width: 1000px;
+            margin: 0 auto 60px;
+            background-color: #1a1a1a;
+            border-left: 4px solid #ffa500;
+            padding: 30px;
+            border-radius: 10px;
+            line-height: 1.8;
+        }
+
+        .lore-description h2 {
+            font-size: 20px;
+            color: #ffcc80;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-family: 'Cinzel', serif;
+        }
+
+        .lore-description p, .lore-description ul {
+            margin-bottom: 20px;
+        }
+
+        .lore-description img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 30px auto;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #00000088;
+        }
+
+        .back-button {
+            text-align: center;
+            margin: 60px 0;
+        }
+
+        .back-button a {
+            background-color: #ffa500;
+            color: #000;
+            padding: 12px 30px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 0 10px #00000055;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .back-button a:hover {
+            background-color: #e69500;
+        }
+    </style>
+</th:block>
+
+<!-- 본문 -->
+<div layout:fragment="content">
+
+    <div class="faction-header">
+        <h1>보탄 연맹 (Leagues of Votann)</h1>
+        <p>조상을 통한 힘</p>
+    </div>
+
+    <img src="/images/introvotann.jpg" alt="보탄 연맹 소개 이미지" class="intro-image">
+
+    <div class="intro-quote">
+        <p style="font-weight: bold; font-size: 18px; color: #ffcc80;">
+            “선조들께서 지켜보신다.”
+        </p>
+    </div>
+
+    <div class="quote-origin">─ 보탄 연맹의 격언이자 전투 함성</div>
+
+    <h2 class="section-title">보탄 연맹의 특징</h2>
+    <ul class="faction-features">
+        <li><strong>심판 토큰 시스템</strong>: 반복된 표식으로 피해 증폭, 주요 타겟 제압에 강력함</li>
+        <li><strong>기술 기반 전력</strong>: 중화기・기계 유닛・강화 장비 운용</li>
+        <li><strong>강인한 유닛 구성</strong>: 높은 방어력과 전투 지속력</li>
+    </ul>
+
+    <hr class="divider">
+    <h2 class="section-title">진영 설명</h2>
+
+    <div class="lore-description">
+        <p>
+            보탄 연맹은 인류의 갈래에서 뻗어나온 아인종 계열의 후손으로, 스스로를 <strong>일족(Kin)</strong>이라 부릅니다.
+            태고의 대항해 시대에 인류와 함께 별들로 퍼져나갔던 이들은, 이후 은하계 <strong>중심부</strong>에 정착하여
+            고도로 집약된 독자 문명을 발전시켜 왔습니다.
+        </p>
+
+        <p>
+            이들은 고대 인류의 기술 유산인 <strong>STC</strong>(표준 기술 구조)의 상당량을 보존하고 있으며, 그 핵심에는
+            <strong>보탄(Votann)</strong>이라 불리는 거대한 인공지능 데이터 집합체가 존재합니다.
+            보탄은 단순한 기술적 장비를 넘어, 일족의 전통・결정・기억을 모두 저장하고 판단하는 정신적 중심이자 살아 있는 유산입니다.
+        </p>
+
+        <p>
+            보탄 연맹은 외부 세계와의 접촉을 꺼리며, 특히 자신들의 '사촌'에 해당하는 <strong>인류 제국</strong>과는
+            철저히 거리를 두고 살아갑니다. 이들은 제국의 광신적 신념 체계와 비효율적인 통제를 경계하며,
+            기술・이성・생존 공동체를 무엇보다 중시하는 사회를 유지합니다.
+        </p>
+
+        <p>
+            연맹의 전력은 높은 방어력과 정밀한 기술력에 기반을 두고 있으며,
+            <strong>심판 토큰</strong>을 활용한 누적 표식 전술, 강력한 중화기, 전투용 메카 유닛 운용을 통해 전장에서 꾸준한 존재감을 보여줍니다.
+        </p>
+
+        <h2>주요 용어</h2>
+        <p><strong>보탄</strong> – 연맹의 중추인 고대 슈퍼컴퓨터. 기억 저장소이자 판단자 역할을 수행</p>
+        <img src="/images/votanncore.jpg" alt="보탄 코어 이미지">
+        <p><strong>일족(Kin)</strong> – 보탄 연맹의 주 구성원. 인류에서 갈라져 나온 유전적 아인종</p>
+        <p><strong>아이언킨</strong> – 자율적 지능과 인격을 지닌 기계 동료. 일족과 동등하게 대우받음</p>
+
+
+
+    </div>
+
+    <div class="back-button">
+        <a href="/lore/faction">← 진영 일람으로 돌아가기</a>
+    </div>
+
+</div>
+</html>

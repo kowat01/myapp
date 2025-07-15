@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/main_layout}">
+
+<!-- CSS 영역 -->
+<th:block layout:fragment="css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0d0d0d;
+            color: #eee;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        .faction-header {
+            text-align: center;
+            margin-top: 60px;
+            color: #88cc44;
+        }
+
+        .faction-header h1 {
+            font-size: 48px;
+            font-family: 'Cinzel', serif;
+            margin-bottom: 20px;
+        }
+
+        .faction-header p {
+            font-size: 18px;
+            color: #ccc;
+            max-width: 850px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+
+        .intro-image {
+            max-width: 800px;
+            width: 90%;
+            height: auto;
+            display: block;
+            margin: 40px auto;
+            border-radius: 12px;
+            box-shadow: 0 0 30px #000000cc;
+        }
+
+        .intro-quote {
+            text-align: center;
+            font-style: italic;
+            color: #aaa;
+            margin: 30px auto 0;
+            font-size: 15px;
+            line-height: 1.9;
+        }
+
+        .quote-origin {
+            text-align: center;
+            margin-top: 40px;
+            color: #aaa;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 24px;
+            color: #88cc44;
+            margin: 60px 0 20px;
+            font-family: 'Cinzel', serif;
+            text-shadow: 0 0 4px #000;
+        }
+
+        .faction-features {
+            max-width: 1000px;
+            margin: 0 auto 60px;
+            padding: 20px 30px;
+            background-color: #1c1c1c;
+            border: 2px solid #88cc44;
+            border-radius: 12px;
+            list-style: disc;
+            color: #eee;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .faction-features li {
+            margin-bottom: 10px;
+        }
+
+        .divider {
+            border: none;
+            border-top: 1px solid #444;
+            margin: 60px auto 20px;
+            width: 80%;
+            max-width: 800px;
+        }
+
+        .lore-description {
+            max-width: 1000px;
+            margin: 0 auto 60px;
+            background-color: #1a1a1a;
+            border-left: 4px solid #88cc44;
+            padding: 30px;
+            border-radius: 10px;
+            line-height: 1.8;
+        }
+
+        .lore-description h2 {
+            font-size: 20px;
+            color: #aad966;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-family: 'Cinzel', serif;
+        }
+
+        .lore-description p, .lore-description ul {
+            margin-bottom: 20px;
+        }
+
+        .lore-description img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 30px auto;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #00000088;
+        }
+
+        .back-button {
+            text-align: center;
+            margin: 60px 0;
+        }
+
+        .back-button a {
+            background-color: #88cc44;
+            color: #000;
+            padding: 12px 30px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 0 10px #00000055;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .back-button a:hover {
+            background-color: #77b530;
+        }
+
+        @media (max-width: 768px) {
+            .intro-image {
+                max-width: 90%;
+            }
+        }
+    </style>
+</th:block>
+
+<!-- 본문 -->
+<div layout:fragment="content">
+
+    <div class="faction-header">
+        <h1>데스가드 (Death Guard)</h1>
+        <p>부패한 역병군단</p>
+    </div>
+
+    <img src="/images/introdeathguard.jpg" alt="데스가드 소개 이미지" class="intro-image">
+
+    <div class="intro-quote">
+        <p style="font-weight: bold; font-size: 18px; color: #aaff88;">
+            “In the embrace of great Nurgle, I am no longer afraid.<br>
+            For with His pestilential favour I have become that which I once feared: Death.”
+        </p>
+        <p><span style="color: #aaa;">
+            위대한 너글의 품 안에서, 나는 더 이상 두렵지 않다.<br>
+            그의 전염성 은총과 함께, 나는 한때 두려워하던 존재, ‘죽음’이 되었다.
+        </span></p>
+    </div>
+
+    <div class="quote-origin">─ 데스가드의 쿨바인 헤스타리우스</div>
+
+    <h2 class="section-title">데스가드의 특징</h2>
+    <ul class="faction-features">
+        <li><strong>강력한 내구성</strong>: 대부분의 유닛들의 내구성이 뛰어남</li>
+        <li><strong>밸런스형 팩션</strong>: 사격과 근접의 균형이 훌륭하다</li>
+        <li><strong>이동력이 느림</strong>: 대부분의 유닛의 이동력이 타 팩션에 비해 느리다</li>
+        <li><strong>다양한 생존기</strong>: 내성 효과 풍부한 아미</li>
+    </ul>
+
+    <hr class="divider">
+    <h2 class="section-title">진영 설명</h2>
+
+    <div class="lore-description">
+        <p>
+            데스가드는 대성전 시기 프라이마크 <strong>모타리온</strong>이 이끄는 제14군단으로 시작되었습니다.
+            그들은 어떤 유해한 환경 속에서도 생존할 수 있도록 단련되었고, 격리, 독성, 화학전에 특화된 무자비한 군세였습니다.
+        </p>
+
+        <p>
+            호루스 헤러시 중, 모타리온과 그의 군단은 역병의 신 <strong>너글</strong>에게 타락하여,
+            고통과 죽음을 초월한 새로운 형태로 다시 태어났습니다. 이들은 죽지 않는 고통을 받아들이고,
+            부패 그 자체가 되어 전장을 천천히, 그러나 피할 수 없이 오염시킵니다.
+        </p>
+
+        <p>
+            데스가드는 육체의 고통에 굴복하지 않으며, 역병을 담은 무기와 좀비와 같은 병력으로 적을 질식시키듯 압박해옵니다.
+            전장을 썩게 만드는 행진, 무한한 인내력과 고름로 가득찬 저주받은 존재들입니다.
+        </p>
+
+        <h2>주요 용어</h2>
+        <p><strong>모타리온</strong> – 데스가드의 프라이마크. 총애하던 부하의 배신으로 워프속에서 너글의 축복에 고통받던 끝에 카오스에 귀의해 데몬 프라이마크가 되었다.</p>
+        <img src="/images/mortarion.jpg" alt="모타리온">
+        <p><strong>너글</strong> – 고통과 병, 그러나 생명의 부패한 순환을 상징하는 카오스의 신.</p>
+
+
+
+    </div>
+
+    <div class="back-button">
+        <a href="/lore/faction">← 진영 일람으로 돌아가기</a>
+    </div>
+</div>
+</html>
